@@ -19,11 +19,11 @@ export const NAV = {
 
 export const HERO = {
   badge: "Everything done in 2 taps. From your inbox.",
-  headlineLines: ["Get your own", "Workpal email."],
+  headlineLines: ["An AI assistant that", "actually knows your work."],
   subtext:
-    "Your personal AI agent that does tedious tasks for you \u2014 directly from your inbox. Designed around your skills. Reports only to you. No uploading to ChatGPT. No copy-paste.",
+    "Workpal learns your skills, your role, your deliverables. Forward it any task from your inbox \u2014 it does the work and replies only to you. No one else can access it. Ever.",
   linkedInPlaceholder: "Paste your LinkedIn URL",
-  emailPlaceholder: "Your work email",
+  emailPlaceholder: "Your email address",
   ctaLabel: "Get My Workpal",
   microcopy:
     "Free forever for individuals. No credit card. No new apps to learn.",
