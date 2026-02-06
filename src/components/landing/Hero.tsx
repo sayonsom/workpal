@@ -150,25 +150,37 @@ export default function Hero() {
           </p>
 
           {/* Input group — two fields + CTA */}
-          <div className="mt-6 max-w-[480px] space-y-3">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="url"
-                placeholder={HERO.linkedInPlaceholder}
-                aria-label={HERO.linkedInPlaceholder}
-                className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-              />
-              <input
-                type="email"
-                placeholder={HERO.emailPlaceholder}
-                aria-label={HERO.emailPlaceholder}
-                className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-              />
+          <div className="mt-6 max-w-[480px]">
+            <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white p-4 shadow-[var(--shadow-sm)] sm:border-none sm:bg-transparent sm:p-0 sm:shadow-none space-y-3">
+              <div className="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:gap-3">
+                <div className="flex-1">
+                  <label htmlFor="hero-linkedin" className="block text-[12px] font-bold text-text-primary mb-1 sm:sr-only">
+                    LinkedIn
+                  </label>
+                  <input
+                    id="hero-linkedin"
+                    type="url"
+                    placeholder={HERO.linkedInPlaceholder}
+                    className="w-full h-11 sm:h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[16px] sm:text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label htmlFor="hero-email" className="block text-[12px] font-bold text-text-primary mb-1 sm:sr-only">
+                    Email
+                  </label>
+                  <input
+                    id="hero-email"
+                    type="email"
+                    placeholder={HERO.emailPlaceholder}
+                    className="w-full h-11 sm:h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[16px] sm:text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
+              </div>
+              <Button variant="primary" className="w-full sm:w-auto">
+                {HERO.ctaLabel}
+                <SendIcon className="ml-2" size={14} />
+              </Button>
             </div>
-            <Button variant="primary" className="w-full sm:w-auto">
-              {HERO.ctaLabel}
-              <SendIcon className="ml-2" size={14} />
-            </Button>
           </div>
 
           <p className="mt-3 text-[12px] text-[var(--color-text-muted)] leading-[1.4] max-w-[480px]">

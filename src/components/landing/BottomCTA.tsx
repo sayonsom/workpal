@@ -24,25 +24,37 @@ export default function BottomCTA() {
           </p>
 
           {/* Input group — mirrors Hero */}
-          <div className="mt-8 space-y-3">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="url"
-                placeholder={BOTTOM_CTA.linkedInPlaceholder}
-                aria-label={BOTTOM_CTA.linkedInPlaceholder}
-                className="flex-1 h-9 px-3 rounded-[6px] border border-white/20 bg-white/10 text-[15px] text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-              />
-              <input
-                type="email"
-                placeholder={BOTTOM_CTA.emailPlaceholder}
-                aria-label={BOTTOM_CTA.emailPlaceholder}
-                className="flex-1 h-9 px-3 rounded-[6px] border border-white/20 bg-white/10 text-[15px] text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-              />
+          <div className="mt-8">
+            <div className="rounded-[8px] border border-white/10 bg-white/5 p-4 sm:border-none sm:bg-transparent sm:p-0 space-y-3">
+              <div className="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:gap-3">
+                <div className="flex-1">
+                  <label htmlFor="bottom-linkedin" className="block text-[12px] font-bold text-white/70 mb-1 sm:sr-only">
+                    LinkedIn
+                  </label>
+                  <input
+                    id="bottom-linkedin"
+                    type="url"
+                    placeholder={BOTTOM_CTA.linkedInPlaceholder}
+                    className="w-full h-11 sm:h-9 px-3 rounded-[6px] border border-white/20 bg-white/10 text-[16px] sm:text-[15px] text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label htmlFor="bottom-email" className="block text-[12px] font-bold text-white/70 mb-1 sm:sr-only">
+                    Email
+                  </label>
+                  <input
+                    id="bottom-email"
+                    type="email"
+                    placeholder={BOTTOM_CTA.emailPlaceholder}
+                    className="w-full h-11 sm:h-9 px-3 rounded-[6px] border border-white/20 bg-white/10 text-[16px] sm:text-[15px] text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
+              </div>
+              <Button variant="primary" className="w-full sm:w-auto">
+                {BOTTOM_CTA.ctaLabel}
+                <SendIcon className="ml-2" size={14} />
+              </Button>
             </div>
-            <Button variant="primary" className="w-full sm:w-auto">
-              {BOTTOM_CTA.ctaLabel}
-              <SendIcon className="ml-2" size={14} />
-            </Button>
           </div>
 
           <p className="mt-4 text-[12px] text-white/50">
