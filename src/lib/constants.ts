@@ -14,18 +14,18 @@ export const NAV = {
     { label: "Why Not ChatGPT?", href: "#comparison" },
     { label: "For Business", href: "#for-business" },
   ],
-  cta: "Get Your Agent",
+  cta: "Get Your Workpal",
 } as const;
 
 export const HERO = {
-  badge: "No signup. No new apps.",
-  headlineLines: ["Your AI operator.", "Already in your inbox."],
+  badge: "Your own AI, right in your inbox.",
+  headlineLines: ["Get your own", "Workpal email."],
   subtext:
-    "Forward tasks or emails. Get drafts, summaries, and next steps \u2014 right back in your inbox. You stay in control of what gets sent.",
-  inputPlaceholder: "Paste your LinkedIn URL",
-  ctaLabel: "Create My Agent",
+    "Workpal is your personal AI assistant that does tedious tasks for you \u2014 directly from your inbox. It reports only to you, and no one else.",
+  inputPlaceholder: "Enter your email address",
+  ctaLabel: "Get My Workpal",
   microcopy:
-    "Free forever for individuals. No credit card. Your agent only sees what you forward.",
+    "Free forever for individuals. No credit card. No new apps to learn.",
   emailUI: {
     from: "You",
     to: "agent@workpal.email",
