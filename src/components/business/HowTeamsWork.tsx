@@ -24,8 +24,8 @@ export default function HowTeamsWork() {
           </p>
         </div>
 
-        {/* 4-card grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Step cards — responsive grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {BUSINESS_HOW_TEAMS_WORK.steps.map((step, i) => (
             <div
               key={i}

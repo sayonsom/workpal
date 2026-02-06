@@ -180,12 +180,18 @@ export const FOR_TEAMS = {
       description:
         "Every ChatGPT tab is ungoverned data flow. Workpal gives you a full audit trail \u2014 who forwarded what, what was produced, what got sent.",
     },
+    {
+      title: "Knowledge stays when people leave",
+      description:
+        "When a team member moves on, their Workpal \u2014 trained on their role, frameworks, and deliverables \u2014 transfers to the new hire. Less ramp-up time, less institutional knowledge lost.",
+    },
   ],
   enterpriseFeatures: [
     "Zero ambient inbox access \u2014 agents only see what\u2019s forwarded",
     "Private cloud deployment (AWS, Azure, GCP)",
     "Full audit trail for every interaction",
     "SSO and role-based admin controls",
+    "Workpal transfer on employee offboarding \u2014 retain institutional knowledge",
   ],
   cta: { label: "Explore Workpal for Business \u2192", href: "/business" },
   complianceBadges: ["SOC 2 Type II", "GDPR Compliant"],
@@ -313,6 +319,11 @@ export const FAQ = {
       answer:
         "Yes. All exchanges are TLS encrypted. We never read, store, or train on your content. Enterprise customers get dedicated infrastructure on AWS/Azure/GCP, fully isolated. We\u2019re SOC 2 Type II certified and GDPR compliant. If your industry has specific compliance requirements, reach out \u2014 we likely already support it or have a pathway.",
     },
+    {
+      question: "What happens to a Workpal when someone leaves the company?",
+      answer:
+        "Admins can transfer a departing employee\u2019s Workpal to their replacement. The Workpal retains the role-specific knowledge, frameworks, and delivery style it was trained on \u2014 so the new hire doesn\u2019t start from scratch. It\u2019s like handing over a briefing document that actually understands the job. Task-specific data is purged, but the role identity carries over.",
+    },
   ],
 } as const;
 
@@ -380,6 +391,11 @@ export const BUSINESS_PROBLEM = {
       description:
         "Sensitive contracts, financials, and client data end up in training sets you don\u2019t control.",
     },
+    {
+      title: "Knowledge walks out the door",
+      description:
+        "When people leave, their expertise leaves with them. No ChatGPT conversation captures institutional knowledge in a way that transfers to their replacement.",
+    },
   ],
 } as const;
 
@@ -414,6 +430,13 @@ export const BUSINESS_HOW_TEAMS_WORK = {
       description:
         "Every interaction is logged. Admins see usage patterns, flag risks, and export audit trails.",
       placeholderLabel: "Image: Audit trail dashboard",
+    },
+    {
+      number: "5",
+      title: "Someone leaves? Transfer the Workpal.",
+      description:
+        "When a team member departs, admins reassign their Workpal to the new hire. The role-specific knowledge, frameworks, and delivery style carry over \u2014 dramatically reducing ramp-up time.",
+      placeholderLabel: "Image: Workpal transfer / reassignment flow",
     },
   ],
 } as const;

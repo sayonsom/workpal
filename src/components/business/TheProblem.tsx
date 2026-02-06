@@ -45,8 +45,8 @@ export default function TheProblem() {
           </p>
         </div>
 
-        {/* 2×2 grid of pain points */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[800px] mx-auto">
+        {/* Pain points grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto">
           {BUSINESS_PROBLEM.points.map((point, i) => (
             <div key={i} className="flex gap-3">
               <div className="mt-0.5">
