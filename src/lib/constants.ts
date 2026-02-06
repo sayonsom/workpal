@@ -27,6 +27,8 @@ export const HERO = {
   ctaLabel: "Get My Workpal",
   microcopy:
     "Free forever for individuals. No credit card. No new apps to learn.",
+  encryptionNote:
+    "All email exchanges are TLS encrypted. We don't read your emails or the AI outputs.",
   workflow: {
     step1: {
       label: "12:59 AM \u00b7 Your laptop is closed",
@@ -50,6 +52,15 @@ export const HERO = {
       action: "Review & send to your client \u2192",
     },
   },
+} as const;
+
+export const VIDEO_DEMO = {
+  badge: "See it in action",
+  heading: "Watch how Workpal works.",
+  subtext:
+    "A 2-minute walkthrough — from forwarding your first email to getting work back, done.",
+  ctaLabel: "Watch the demo",
+  placeholder: "Loom video embed — 2-min product walkthrough",
 } as const;
 
 export const HOW_IT_WORKS = {
@@ -117,7 +128,7 @@ export const FOR_BUSINESS = {
     "Full audit trail for every interaction",
   ],
   cta: "Explore Workpal for Business",
-  microcopy: "SOC 2 roadmap in progress",
+  microcopy: "SOC 2 Type II certified. GDPR compliant.",
   placeholderLabel: "Image: Dashboard / Admin mockup",
 } as const;
 
@@ -145,6 +156,52 @@ export const AI_ADOPTION = {
     },
   ],
   cta: "Get Workpal for your team",
+} as const;
+
+export const SECURITY = {
+  badge: "Security & Privacy",
+  heading: "Your data stays yours. Period.",
+  subtext:
+    "Workpal is built privacy-first. Your agent only sees what you explicitly forward — nothing else. Every interaction is encrypted, auditable, and under your control.",
+  principles: [
+    {
+      title: "TLS encryption on every exchange",
+      description:
+        "All emails between you and your Workpal agent are encrypted in transit using TLS 1.2+. We never store or read your email content or AI outputs.",
+    },
+    {
+      title: "Zero ambient access",
+      description:
+        "Your agent has no access to your inbox, calendar, or files. It only processes what you forward — one task at a time.",
+    },
+    {
+      title: "You own your data",
+      description:
+        "Request a full export or deletion at any time. We never use your data to train models or share it with third parties.",
+    },
+    {
+      title: "Private cloud deployment",
+      description:
+        "Enterprise customers get dedicated infrastructure on AWS, Azure, or GCP — fully isolated from other tenants.",
+    },
+  ],
+  certifications: [
+    {
+      title: "SOC 2 Type II",
+      description: "Audited controls for security, availability, and confidentiality.",
+    },
+    {
+      title: "GDPR Compliant",
+      description: "Full compliance with EU data protection regulations. DPA available on request.",
+    },
+    {
+      title: "Vertical Certifications",
+      description:
+        "HIPAA-ready for healthcare. FedRAMP pathway for government. Ask us about your industry.",
+    },
+  ],
+  cta: "Read our Security Whitepaper",
+  microcopy: "Questions? Reach out to security@workpal.email",
 } as const;
 
 export const FOOTER = {

@@ -31,6 +31,15 @@ function SparkleIcon() {
   );
 }
 
+function LockIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function DownArrow() {
   return (
     <div className="flex justify-center py-1">
@@ -164,6 +173,11 @@ export default function Hero() {
 
           <p className="mt-3 text-[12px] text-[var(--color-text-muted)] leading-[1.4] max-w-[480px]">
             {HERO.microcopy}
+          </p>
+
+          <p className="mt-2 flex items-center gap-1.5 text-[11px] text-[var(--color-text-muted)] leading-[1.4] max-w-[480px]">
+            <LockIcon />
+            {HERO.encryptionNote}
           </p>
         </div>
 
