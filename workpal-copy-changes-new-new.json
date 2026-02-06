@@ -1,0 +1,259 @@
+{
+  "meta": {
+    "project": "workpal.email",
+    "type": "landing_page_viral_conversion_fixes",
+    "total_fixes": 9,
+    "priority_order": [15, 7, 11, 13, 8]
+  },
+  "fixes": [
+    {
+      "id": 7,
+      "section": "hero",
+      "priority": "critical",
+      "title": "Hero section buries the lead",
+      "problem": "\"An AI assistant that actually knows your work\" is generic. Every AI product says this. The actual differentiator is radical simplicity: forward an email and get work back.",
+      "action": "Lead with the mechanism, not the promise.",
+      "current_copy": {
+        "headline": "An AI assistant that actually knows your work.",
+        "subheadline": "Workpal learns your skills, your role, your deliverables. Forward it any task from your inbox — it does the work and replies only to you. No one else can access it. Ever."
+      },
+      "suggested_copy": {
+        "headline": "Forward an email. Get the work done.",
+        "subheadline": "No app to install. No prompt to write. Just forward any task to your AI operator — it does the work and emails you back."
+      }
+    },
+    {
+      "id": 8,
+      "section": "social_proof",
+      "priority": "critical",
+      "title": "No social proof anywhere",
+      "problem": "Zero testimonials, zero user counts, zero logos. Without social proof, \"Free forever\" feels like a trap, not generosity.",
+      "action": "Add trust signals immediately below the hero CTA.",
+      "suggested_elements": [
+        {
+          "type": "user_count_banner",
+          "copy": "Trusted by 500+ professionals",
+          "note": "Use real number if available; even \"Trusted by early adopters at\" + logo row works"
+        },
+        {
+          "type": "testimonial_cards",
+          "count": 3,
+          "schema": {
+            "quote": "string",
+            "name": "string",
+            "role": "string",
+            "company": "string (optional)",
+            "avatar_url": "string (optional)"
+          },
+          "placeholder_examples": [
+            {
+              "quote": "I forwarded a 40-page RFP at midnight and had a draft response by morning. My client thought I pulled an all-nighter.",
+              "name": "Priya M.",
+              "role": "Management Consultant"
+            },
+            {
+              "quote": "My sales team went from 0% AI adoption to 100% in one day. No training needed.",
+              "name": "James T.",
+              "role": "VP Sales"
+            },
+            {
+              "quote": "I stopped copying emails into ChatGPT. This is just... how it should work.",
+              "name": "Sarah K.",
+              "role": "Operations Manager"
+            }
+          ]
+        },
+        {
+          "type": "company_logos",
+          "note": "Show logos of companies where beta users work. Even 4-5 greyscale logos add credibility."
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "section": "email_sequence_demo",
+      "priority": "high",
+      "title": "3-step email sequence is good but static",
+      "problem": "The boss@client.com scenario is the strongest conversion asset but it's just text. Needs to feel alive.",
+      "action": "Make the email thread interactive or animated.",
+      "suggested_implementations": [
+        {
+          "option": "css_animation",
+          "description": "Scrolling email thread that plays out in real time — boss email slides in, forward animation, processing dots, then reply appears with a typing effect.",
+          "complexity": "medium"
+        },
+        {
+          "option": "inline_video",
+          "description": "Move the Loom video embed directly into this section instead of a separate \"Watch how Workpal works\" section below.",
+          "complexity": "low"
+        },
+        {
+          "option": "interactive_demo",
+          "description": "Let user click \"Forward\" button on the mock email to trigger the reply animation. Micro-interaction builds muscle memory for the real product.",
+          "complexity": "high"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "section": "pricing_copy",
+      "priority": "medium",
+      "title": "\"Free forever\" creates wrong expectations",
+      "problem": "Signals either (a) product isn't valuable enough to charge for, or (b) promise will eventually change. Anchors to an unsustainable commitment.",
+      "action": "Reframe the free tier messaging.",
+      "current_copy": "Free forever for individuals. No credit card. No new apps to learn.",
+      "suggested_copy": "Free to start. No credit card. No new apps to learn.",
+      "note": "Preserves low-friction signup without anchoring to a promise you may not keep."
+    },
+    {
+      "id": 11,
+      "section": "hero_cta",
+      "priority": "critical",
+      "title": "CTA is too abstract",
+      "problem": "\"Get My Workpal\" doesn't match the actual user action (pasting LinkedIn URL + email). Every click before value delivery reduces conversion.",
+      "action": "Replace button CTA with an inline signup form in the hero section.",
+      "current_cta": {
+        "type": "button",
+        "text": "Get My Workpal"
+      },
+      "suggested_cta": {
+        "type": "inline_form",
+        "headline": "Paste your LinkedIn — get your AI operator in 60 seconds",
+        "fields": [
+          {
+            "name": "linkedin_url",
+            "type": "url",
+            "placeholder": "https://linkedin.com/in/yourname"
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "placeholder": "you@company.com"
+          }
+        ],
+        "submit_button_text": "Create my AI operator",
+        "below_text": "Free to start. No credit card required."
+      }
+    },
+    {
+      "id": 12,
+      "section": "comparison",
+      "priority": "high",
+      "title": "ChatGPT comparison needs visual before/after, not feature table",
+      "problem": "Bullet-point feature tables don't create emotional contrast. Need to show the same task done both ways.",
+      "action": "Replace feature checklist with side-by-side task walkthrough.",
+      "suggested_layout": {
+        "type": "split_screen_comparison",
+        "task": "Boss sends: \"Summarize these 3 vendor proposals and recommend one.\"",
+        "left_panel": {
+          "label": "ChatGPT / Claude",
+          "steps": [
+            "Open ChatGPT in new tab",
+            "Copy-paste email text",
+            "Download and re-upload 3 PDF attachments",
+            "Write a detailed prompt explaining what you need",
+            "Wait for response, re-prompt twice",
+            "Copy output back into email, reformat",
+            "Send to boss"
+          ],
+          "time_estimate": "~25 minutes",
+          "visual_style": "cluttered, multi-tab, frustrated"
+        },
+        "right_panel": {
+          "label": "WorkPal",
+          "steps": [
+            "Forward the email",
+            "Get structured analysis back in your inbox",
+            "Review and send to boss"
+          ],
+          "time_estimate": "~2 minutes",
+          "visual_style": "clean, single inbox, done"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "section": "use_cases",
+      "priority": "critical",
+      "title": "Missing use case specificity",
+      "problem": "Page says \"Sales, ops, legal, HR, finance\" but doesn't show what WorkPal produces for each. Specificity sells, generality doesn't.",
+      "action": "Add 4 concrete use case cards with real-ish output previews.",
+      "suggested_use_cases": [
+        {
+          "persona": "Management Consultant",
+          "trigger": "Client forwards: \"Analyze these 10 competitor decks and brief me by morning.\"",
+          "workpal_output_preview": "Competitive landscape matrix with positioning gaps, pricing comparison table, and 3 strategic recommendations — delivered as a formatted email with attached summary deck.",
+          "time_saved": "4 hours → 2 minutes"
+        },
+        {
+          "persona": "Sales Rep",
+          "trigger": "Prospect replies: \"Sounds interesting, but how does this compare to [competitor]?\"",
+          "workpal_output_preview": "Personalized competitive comparison email addressing the prospect's specific use case, with objection handling and a soft close for a demo call.",
+          "time_saved": "30 minutes → 1 forward"
+        },
+        {
+          "persona": "Lawyer",
+          "trigger": "Partner forwards: \"Review this contract redline and flag any issues.\"",
+          "workpal_output_preview": "Clause-by-clause risk assessment highlighting 7 flagged provisions with recommended negotiation positions and precedent references.",
+          "time_saved": "2 hours → 1 forward"
+        },
+        {
+          "persona": "HR Manager",
+          "trigger": "Hiring manager sends: \"Write a job description for this new role based on the attached org chart.\"",
+          "workpal_output_preview": "Complete JD with role summary, qualifications, responsibilities, and compensation band suggestion — formatted and ready to post.",
+          "time_saved": "45 minutes → 1 forward"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "section": "urgency",
+      "priority": "medium",
+      "title": "No urgency or scarcity",
+      "problem": "No reason to sign up today vs next month.",
+      "action": "Add at least one urgency mechanism.",
+      "suggested_options": [
+        {
+          "type": "limited_beta",
+          "copy": "Early access — limited to first 1,000 users",
+          "implementation": "Show a progress bar or counter"
+        },
+        {
+          "type": "live_counter",
+          "copy": "Join 847 professionals who signed up this week",
+          "implementation": "Real-time or near-real-time signup counter"
+        },
+        {
+          "type": "premium_incentive",
+          "copy": "First 1,000 users get lifetime Pro features — free",
+          "implementation": "Badge or tag on early accounts"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "section": "live_demo",
+      "priority": "critical",
+      "title": "Add a \"Try without signing up\" option",
+      "problem": "Users must fully sign up before experiencing any value. Trust barrier kills conversion.",
+      "action": "Add a working demo input on the landing page.",
+      "suggested_implementation": {
+        "type": "inline_demo_widget",
+        "headline": "Try it right now — no signup needed",
+        "subheadline": "Paste any email text below and see what WorkPal would send back.",
+        "fields": [
+          {
+            "name": "email_body",
+            "type": "textarea",
+            "placeholder": "Paste an email you'd normally forward to a colleague or assistant...",
+            "max_length": 5000
+          }
+        ],
+        "submit_button_text": "See what WorkPal produces",
+        "rate_limit": "1 free try per visitor (cookie/IP based)",
+        "output_display": "Render the AI response in a mock email thread UI, then CTA: \"Like what you see? Get your own WorkPal in 60 seconds.\"",
+        "conversion_note": "This alone could 5x conversion rate. Removes the trust barrier completely."
+      }
+    }
+  ]
+}

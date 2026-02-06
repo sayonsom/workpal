@@ -1,8 +1,41 @@
-import Card from "../ui/Card";
 import Button from "../ui/Button";
-import { ArrowRightIcon } from "../ui/Icons";
-import ImagePlaceholder from "../ui/ImagePlaceholder";
 import { HOW_IT_WORKS } from "@/lib/constants";
+
+/* ── Step number pill ── */
+function StepPill({ step }: { step: number }) {
+  return (
+    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-cta text-white text-[14px] font-bold">
+      {step}
+    </span>
+  );
+}
+
+/* ── Video player with mp4 + webm sources ── */
+function StepVideo({
+  mp4,
+  webm,
+  alt,
+}: {
+  mp4: string;
+  webm: string;
+  alt: string;
+}) {
+  return (
+    <div className="rounded-[8px] overflow-hidden border border-[var(--color-border-light)] shadow-[var(--shadow-md)] bg-white">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-auto block"
+        aria-label={alt}
+      >
+        <source src={webm} type="video/webm" />
+        <source src={mp4} type="video/mp4" />
+      </video>
+    </div>
+  );
+}
 
 export default function HowItWorks() {
   const steps = HOW_IT_WORKS.steps;
@@ -11,7 +44,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-16 md:py-24 bg-surface-subtle">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Section header */}
-        <div className="text-center max-w-[600px] mx-auto mb-12">
+        <div className="text-center max-w-[600px] mx-auto mb-16">
           <h2 className="text-[32px] md:text-[36px] font-bold text-text-primary leading-[1.2]">
             {HOW_IT_WORKS.heading}
           </h2>
@@ -20,67 +53,49 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        {/* 3-step card flow with arrows */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 items-start">
-          {/* Step 1 */}
-          <Card>
-            <ImagePlaceholder
-              label={steps[0].placeholderLabel}
-              aspectRatio="16/10"
-              className="mb-4"
-            />
-            <h3 className="text-[18px] font-bold text-text-primary mb-2">
-              {steps[0].title}
-            </h3>
-            <p className="text-[15px] text-[var(--color-text-subtle)] leading-[1.4]">
-              {steps[0].description}
-            </p>
-          </Card>
+        {/* 3 rows — alternating video left/right */}
+        <div className="space-y-16 md:space-y-24">
+          {steps.map((step, i) => {
+            const isEven = i % 2 === 0;
 
-          {/* Arrow 1 */}
-          <div className="hidden lg:flex items-center justify-center self-center">
-            <ArrowRightIcon />
-          </div>
+            return (
+              <div
+                key={i}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
+              >
+                {/* Video — left on odd steps (0, 2), right on even step (1) */}
+                <div
+                  className={`${isEven ? "md:order-1" : "md:order-2"} order-2`}
+                >
+                  <StepVideo
+                    mp4={step.videoMp4}
+                    webm={step.videoWebm}
+                    alt={step.videoAlt}
+                  />
+                </div>
 
-          {/* Step 2 */}
-          <Card>
-            <ImagePlaceholder
-              label={steps[1].placeholderLabel}
-              aspectRatio="16/10"
-              className="mb-4"
-            />
-            <h3 className="text-[18px] font-bold text-text-primary mb-2">
-              {steps[1].title}
-            </h3>
-            <p className="text-[15px] text-[var(--color-text-subtle)] leading-[1.4]">
-              {steps[1].description}
-            </p>
-          </Card>
-
-          {/* Arrow 2 */}
-          <div className="hidden lg:flex items-center justify-center self-center">
-            <ArrowRightIcon />
-          </div>
-
-          {/* Step 3 */}
-          <Card>
-            <ImagePlaceholder
-              label={steps[2].placeholderLabel}
-              aspectRatio="16/10"
-              className="mb-4"
-            />
-            <h3 className="text-[18px] font-bold text-text-primary mb-2">
-              {steps[2].title}
-            </h3>
-            <p className="text-[15px] text-[var(--color-text-subtle)] leading-[1.4]">
-              {steps[2].description}
-            </p>
-          </Card>
+                {/* Text — opposite side of video */}
+                <div
+                  className={`${isEven ? "md:order-2" : "md:order-1"} order-1`}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <StepPill step={step.step} />
+                    <h3 className="text-[24px] md:text-[28px] font-bold text-text-primary leading-[1.2]">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="text-[15px] text-[var(--color-text-subtle)] leading-[1.6] max-w-[440px]">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Secondary CTA */}
-        <div className="mt-12 text-center">
-          <Button variant="secondary">{HOW_IT_WORKS.cta}</Button>
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <Button variant="primary">{HOW_IT_WORKS.cta}</Button>
         </div>
       </div>
     </section>

@@ -23,10 +23,10 @@ export const HERO = {
   headline: "Forward an email. Get the work done.",
   subtext:
     "Workpal reads your LinkedIn to understand your role, experience, and expertise \u2014 then produces work that sounds like you, not a chatbot. Just forward a task and get it back done.",
-  formHeadline: "Paste your LinkedIn \u2014 get your AI operator in 60 seconds",
+  formHeadline: "Paste your LinkedIn \u2014 get your Workpal in 60 seconds",
   linkedInPlaceholder: "https://linkedin.com/in/yourname",
   emailPlaceholder: "you@company.com",
-  ctaLabel: "Create my AI operator",
+  ctaLabel: "Create my Workpal",
   ctaSecondary: { label: "Watch 2-min demo", href: "#demo" },
   microcopy: "Free to start. No credit card required.",
   urgency: "Early access \u2014 limited to first 1,000 users",
@@ -80,22 +80,31 @@ export const HOW_IT_WORKS = {
   subtext: "Your LinkedIn becomes your AI\u2019s foundation. No dashboard. No learning curve.",
   steps: [
     {
+      step: 1,
       title: "Share your LinkedIn",
       description:
         "Paste your LinkedIn URL and email. Workpal imports your role, industry, skills, and experience \u2014 so it writes like a 10-year veteran of your field, not a generic chatbot.",
-      placeholderLabel: "LinkedIn import + professional profile calibration",
+      videoMp4: "/assets/videos/mockup-1-linkedin.mp4",
+      videoWebm: "/assets/videos/mockup-1-linkedin.webm",
+      videoAlt: "LinkedIn profile import and Workpal calibration",
     },
     {
+      step: 2,
       title: "Delegate, don\u2019t chat",
       description:
         "Forward any email \u2014 with attachments, context, whatever. Each task gets a fresh, dedicated instance of your Workpal. No prior conversation leaking in. No stale context.",
-      placeholderLabel: "Email forwarding to workpal address",
+      videoMp4: "/assets/videos/mockup-2-forward.mp4",
+      videoWebm: "/assets/videos/mockup-2-forward.webm",
+      videoAlt: "Email being forwarded to Workpal address",
     },
     {
+      step: 3,
       title: "Review and ship",
       description:
         "Briefs, analyses, comparisons, drafts \u2014 structured like your past work and written in your voice. You decide what goes out.",
-      placeholderLabel: "Polished AI reply in email thread",
+      videoMp4: "/assets/videos/mockup-3-reply.mp4",
+      videoWebm: "/assets/videos/mockup-3-reply.webm",
+      videoAlt: "Workpal reply with polished deliverable in your inbox",
     },
   ],
   cta: "Create my Workpal \u2014 it\u2019s free to start",

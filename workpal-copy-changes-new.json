@@ -1,0 +1,245 @@
+{
+  "hero": {
+    "eyebrow": {
+      "current": "Everything done in 2 taps. From your inbox.",
+      "change_to": "No prompts. No dashboards. Just email."
+    },
+    "headline": {
+      "current": "An AI assistant that actually knows your work.",
+      "change_to": "An AI operator that works from your inbox."
+    },
+    "subheadline": {
+      "current": "Workpal learns your skills, your role, your deliverables. Forward it any task from your inbox — it does the work and replies only to you. No one else can access it. Ever.",
+      "change_to": "Forward the task. Forward the context. Get the work back, done. No copy-paste. No new apps. Just email."
+    },
+    "cta": {
+      "current": "Get My Workpal",
+      "change_to": "Get My Workpal",
+      "note": "Keep as is"
+    },
+    "sub_cta": {
+      "current": "Free forever for individuals. No credit card. No new apps to learn.",
+      "change_to": "Free forever for individuals. No credit card. No learning curve."
+    }
+  },
+
+  "demo_scenario": {
+    "step_1_email": {
+      "sender": "boss@client.com → you@consultant.com",
+      "subject": {
+        "current": "Deep dive on 10 competitor decks",
+        "change_to": "Meridian deal — need a summary before tomorrow"
+      },
+      "body": {
+        "current": "Do a deep dive on these 10 competitor slide decks and get back to me by morning.",
+        "change_to": "Can you put together a summary of where we landed on the Meridian deal? Pricing, timeline, and the changes we made after their last round of feedback. Need it before tomorrow's call."
+      }
+    },
+    "step_2": {
+      "current": "You wake up. Forward in 1 tap.",
+      "change_to": null,
+      "note": "Keep as is"
+    },
+    "step_3_reply": {
+      "subject": {
+        "current": "Re: Deep dive on 10 competitor decks",
+        "change_to": "Re: Meridian deal — need a summary before tomorrow"
+      },
+      "body": {
+        "current": "Here's a detailed competitive analysis across all 10 decks with key themes, gaps, and recommendations…",
+        "change_to": "Here's the Meridian deal summary — final pricing structure, timeline of key changes, and a breakdown of their feedback and how we addressed it…"
+      }
+    }
+  },
+
+  "video_section": {
+    "headline": {
+      "current": "Watch how Workpal works.",
+      "change_to": "Watch how Workpal works.",
+      "note": "Keep as is"
+    },
+    "subheadline": {
+      "current": "A 2-minute walkthrough — from forwarding your first email to getting work back, done.",
+      "change_to": "90 seconds. One late-night email. Zero hours of writing.",
+      "note": "Update once the video is produced"
+    },
+    "structural_note": "Move this section ABOVE 'How it actually works' — the video sells faster than feature steps"
+  },
+
+  "how_it_works": {
+    "section_headline": {
+      "current": "How it actually works.",
+      "change_to": null,
+      "note": "Keep as is"
+    },
+    "section_subheadline": {
+      "current": "No dashboard. No learning curve. Just email.",
+      "change_to": null,
+      "note": "Keep as is"
+    },
+    "step_1": {
+      "title": {
+        "current": "Get your agent",
+        "change_to": "Create your Workpal"
+      },
+      "description": {
+        "current": "Paste your LinkedIn. We create an AI operator that understands your role and context.",
+        "change_to": "Drop your email. Tell us your role in one line. That's it."
+      }
+    },
+    "step_2": {
+      "title": {
+        "current": "Forward anything",
+        "change_to": null,
+        "note": "Keep as is"
+      },
+      "description": {
+        "current": "Forward any email, doc, or task. Your agent only sees what you forward — nothing else.",
+        "change_to": null,
+        "note": "Keep as is"
+      }
+    },
+    "step_3": {
+      "title": {
+        "current": "Get it back, done",
+        "change_to": null,
+        "note": "Keep as is"
+      },
+      "description": {
+        "current": "Your agent replies to you with drafts, summaries, and actions. You decide what gets sent.",
+        "change_to": "Briefs, analyses, comparisons, drafts — structured and ready to send. You decide what goes out."
+      }
+    }
+  },
+
+  "comparison_section": {
+    "section_headline": {
+      "current": "Why not just use ChatGPT, Gemini, or Claude?",
+      "change_to": null,
+      "note": "Keep as is"
+    },
+    "section_subheadline": {
+      "current": "Great for thinking. Not built for inbox work.",
+      "change_to": null,
+      "note": "Keep as is — strong line"
+    },
+    "chatgpt_column": {
+      "note": "Keep all 4 bullets as is"
+    },
+    "workpal_column": {
+      "bullets": [
+        {
+          "current": "Each forwarded email is its own clean context",
+          "change_to": "Forward multiple emails — Workpal connects the dots across threads"
+        },
+        {
+          "current": "No cross-task memory bleed or hidden state",
+          "change_to": null,
+          "note": "Keep as is"
+        },
+        {
+          "current": "Replies come back to the same thread",
+          "change_to": "Output shows up in your inbox, in the right thread"
+        },
+        {
+          "current": "Clear audit trail: input email → output",
+          "change_to": "No prompting required — forward the ask and the context, Workpal figures out the task"
+        }
+      ]
+    },
+    "bottom_text": {
+      "current": "Designed for real work, not open-ended chatting.",
+      "change_to": null,
+      "note": "Keep as is"
+    }
+  },
+
+  "team_section": {
+    "headline": {
+      "current": "The fastest way to get your whole team using AI.",
+      "change_to": "The only AI tool with a 100% adoption rate."
+    },
+    "subheadline": {
+      "current": "Most AI tools fail because they require people to change how they work. Workpal doesn't. If they can forward an email, they can use an AI agent.",
+      "change_to": null,
+      "note": "Keep as is — great line"
+    },
+    "card_1": {
+      "title": { "current": "No training required", "change_to": null, "note": "Keep" },
+      "description": { "current": "Your team already knows how to use email. That's all they need.", "change_to": null, "note": "Keep" }
+    },
+    "card_2": {
+      "title": { "current": "Works for every role", "change_to": null, "note": "Keep" },
+      "description": { "current": "Sales, ops, legal, HR, finance — anyone who gets email gets an AI agent.", "change_to": null, "note": "Keep" }
+    },
+    "card_3": {
+      "title": { "current": "Non-technical people thrive", "change_to": null, "note": "Keep" },
+      "description": { "current": "No prompts to engineer, no interfaces to learn. Just forward and get work back.", "change_to": null, "note": "Keep" }
+    },
+    "card_4": {
+      "title": { "current": "Adoption that actually sticks", "change_to": null, "note": "Keep" },
+      "description": { "current": "People use tools that fit their workflow. Workpal lives where they already work.", "change_to": null, "note": "Keep" }
+    }
+  },
+
+  "security_section": {
+    "note": "Keep entire section as is — no changes needed"
+  },
+
+  "enterprise_section": {
+    "headline": {
+      "current": "Your team is already using AI. You just don't control it.",
+      "change_to": null,
+      "note": "Best line on the page. Don't touch it."
+    },
+    "subheadline": {
+      "current": "Every ChatGPT tab is ungoverned data flow. Workpal gives your team an AI they'll actually use — with visibility, controls, and auditability.",
+      "change_to": null,
+      "note": "Keep as is"
+    },
+    "bullets": [
+      {
+        "current": "No inbox access by default — agents only see what users forward",
+        "change_to": null,
+        "note": "Keep"
+      },
+      {
+        "current": "Private cloud deployment (AWS, Azure, GCP)",
+        "change_to": null,
+        "note": "Keep"
+      },
+      {
+        "current": "Full audit trail for every interaction",
+        "change_to": "Full audit trail — every input, every output, every decision"
+      }
+    ]
+  },
+
+  "final_cta": {
+    "headline": {
+      "current": "Your AI assistant is one email away.",
+      "change_to": "Your next all-nighter is optional."
+    },
+    "subheadline": {
+      "current": "Paste your LinkedIn, drop your email. Your Workpal starts learning who you are and what you deliver — instantly.",
+      "change_to": "Drop your email. Forward your first task. See what comes back."
+    },
+    "cta_button": {
+      "current": "Get My Workpal",
+      "change_to": null,
+      "note": "Keep"
+    },
+    "sub_cta": {
+      "current": "Free forever for individuals. No credit card required.",
+      "change_to": null,
+      "note": "Keep"
+    }
+  },
+
+  "footer": {
+    "tagline": {
+      "current": "Built with ☕ for people who hate context-switching.",
+      "change_to": "Built for people who'd rather sleep than copy-paste."
+    }
+  }
+}

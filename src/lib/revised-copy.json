@@ -1,0 +1,282 @@
+{
+  "meta": {
+    "brand": "workpal",
+    "title": "Workpal — Your Intellectual Clone, In Your Inbox",
+    "og_title": "Workpal — Your Intellectual Clone, In Your Inbox",
+    "og_description": "An AI that works like you. Forward any task from your inbox. Get finished work back in your voice, your frameworks, your standards.",
+    "description": "Workpal learns how you think, write, and deliver. Forward any task — it produces your quality of work, in your voice. No chat history pollution."
+  },
+  "nav": {
+    "links": [
+      { "label": "How it Works", "href": "/#how-it-works" },
+      { "label": "Why Not ChatGPT?", "href": "/#comparison" },
+      { "label": "FAQ", "href": "/#faq" },
+      { "label": "For Business", "href": "/business" }
+    ],
+    "cta": { "label": "Get Your Clone", "href": "/signup" }
+  },
+  "hero": {
+    "headline": "An AI that works like you.",
+    "tagline": "Your intellectual clone. Ready in your inbox.",
+    "subheadline": "Workpal learns how you think, write, and deliver. Forward any task — it produces your quality of work, in your voice, with your frameworks. Each task is its own clean slate. No memory bleed. No chat history pollution.",
+    "cta_primary": { "label": "Create My Clone", "href": "/signup" },
+    "cta_secondary": { "label": "Watch 2-min demo", "href": "#demo" },
+    "trust_line": "Free to start. First 10 tasks on us. No credit card.",
+    "security_badge": "All exchanges TLS encrypted. We never read your emails or AI outputs."
+  },
+  "scenario": {
+    "section_id": "scenario",
+    "title": "You sleep. Your clone delivers.",
+    "steps": [
+      {
+        "step": 1,
+        "label": "The ask lands",
+        "time": "2:59 AM · Your laptop is closed",
+        "from": "boss@client.com",
+        "to": "you@consultant.com",
+        "subject": "Deep dive on 10 competitor decks",
+        "body": "Do a deep dive on these 10 competitor slide decks and get back to me by morning."
+      },
+      {
+        "step": 2,
+        "label": "One tap. Forwarded to your clone.",
+        "time": "7:01 AM · You wake up",
+        "from": "you@consultant.com",
+        "to": "you@workpal.email",
+        "subject": "Fwd: Deep dive on 10 competitor decks",
+        "body": null
+      },
+      {
+        "step": 3,
+        "label": "Finished work. Your voice. Your standards.",
+        "time": "7:14 AM · Your clone replies",
+        "from": "you@workpal.email",
+        "to": "you@consultant.com",
+        "subject": "Re: Deep dive on 10 competitor decks",
+        "body": "Here's the competitive analysis across all 10 decks. Key themes identified: 3 converging on AI-first positioning, 2 pivoting to vertical SaaS. Gaps: none address compliance automation. Full comparison matrix, SWOT per competitor, and 4 strategic recommendations attached.",
+        "cta": "Review & send to your client →"
+      }
+    ]
+  },
+  "how_it_works": {
+    "section_id": "how-it-works",
+    "title": "Three steps. Then it works like you.",
+    "subtitle": "No dashboard. No learning curve. Just email.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Teach it who you are",
+        "description": "Paste your LinkedIn. Upload past deliverables, writing samples, frameworks you use. Your clone learns your voice, your depth, your standards — not generic AI output.",
+        "image_alt": "LinkedIn profile + document upload interface"
+      },
+      {
+        "step": 2,
+        "title": "Delegate, don't chat",
+        "description": "Forward any email — with attachments, context, whatever. Each task gets a fresh, dedicated instance of your clone. No prior conversation leaking in. No stale context.",
+        "image_alt": "Email forwarding to workpal address"
+      },
+      {
+        "step": 3,
+        "title": "Review and ship",
+        "description": "Your clone replies with work that sounds like you wrote it. Drafts, analyses, summaries, frameworks. Edit if needed, hit send to your client. That's it.",
+        "image_alt": "Polished AI reply in email thread"
+      }
+    ]
+  },
+  "output_showcase": {
+    "section_id": "output",
+    "title": "See what your clone produces.",
+    "subtitle": "Not generic AI output. Work that sounds like you.",
+    "examples": [
+      {
+        "input_label": "You forward this:",
+        "input_subject": "Fwd: Need market sizing for Southeast Asia EV charging",
+        "input_body": "Client wants a rough market sizing by Friday. Attached are 3 reports and the RFP.",
+        "output_label": "Your clone replies with:",
+        "output_subject": "Re: Need market sizing for Southeast Asia EV charging",
+        "output_preview": "Market sizing attached. Bottom-up approach using ASEAN registration data cross-referenced with charging infrastructure density. TAM: $4.2B by 2028 across 6 markets. Key assumptions documented on slide 2. Three scenarios modeled: conservative, base, aggressive. Flagged a data gap in Vietnam — suggested proxy methodology on slide 7.",
+        "output_note": "Structured like your past deliverables. Uses your preferred frameworks."
+      }
+    ]
+  },
+  "comparison": {
+    "section_id": "comparison",
+    "title": "Why not just use ChatGPT, Gemini, or Claude?",
+    "subtitle": "They're brilliant thinking partners. But they don't know your work.",
+    "competitor_label": "ChatGPT / Gemini / Claude",
+    "workpal_label": "Your Workpal Clone",
+    "columns": {
+      "competitor": "Generic assistant. No memory of your style, frameworks, or standards.",
+      "workpal": "Your clone — trained on your role, voice, and past deliverables."
+    },
+    "rows": [
+      {
+        "dimension": "Identity",
+        "competitor": "Generic assistant. No memory of your style, frameworks, or standards.",
+        "workpal": "Your clone — trained on your role, voice, and past deliverables."
+      },
+      {
+        "dimension": "Output quality",
+        "competitor": "Sounds like AI wrote it. Generic tone. Needs heavy editing.",
+        "workpal": "Sounds like you wrote it. Your tone, your depth, your frameworks."
+      },
+      {
+        "dimension": "Workflow",
+        "competitor": "Copy-paste from email → chatbot → back to email. Tab-switching hell.",
+        "workpal": "Forward. Get finished work back. Never leave your inbox."
+      },
+      {
+        "dimension": "Task isolation",
+        "competitor": "Yesterday's conversation bleeds into today's. Hidden state accumulates.",
+        "workpal": "Each forwarded email is a fresh, dedicated instance. Zero cross-contamination."
+      },
+      {
+        "dimension": "Traceability",
+        "competitor": "Scroll through endless chat history to find that one output.",
+        "workpal": "Every deliverable tied to the original email thread. Searchable in your inbox."
+      }
+    ],
+    "footer": "Designed for delegation, not conversation.",
+    "cta": { "label": "Try it on a real email →", "href": "/signup" }
+  },
+  "for_teams": {
+    "section_id": "teams",
+    "title": "50 people. 50 clones. Zero training.",
+    "subtitle": "Your team already uses email. That's the only skill required.",
+    "selling_points": [
+      {
+        "title": "No adoption friction",
+        "description": "If they can forward an email, they can use an AI agent. No prompts to learn, no interfaces to master."
+      },
+      {
+        "title": "Every clone is specialized",
+        "description": "Sales gets a sales clone. Legal gets a legal clone. Each one trained on that person's role, context, and deliverables."
+      },
+      {
+        "title": "Non-technical people thrive",
+        "description": "The people who struggle most with ChatGPT are often the ones who'd benefit most. Workpal removes the skill gap entirely."
+      },
+      {
+        "title": "Governed by default",
+        "description": "Every ChatGPT tab is ungoverned data flow. Workpal gives you a full audit trail — who forwarded what, what the clone produced, what got sent."
+      }
+    ],
+    "enterprise_features": [
+      "Zero ambient inbox access — agents only see what's forwarded",
+      "Private cloud deployment (AWS, Azure, GCP)",
+      "Full audit trail for every interaction",
+      "SSO and role-based admin controls"
+    ],
+    "cta": { "label": "Explore Workpal for Business →", "href": "/business" },
+    "compliance_badges": ["SOC 2 Type II", "GDPR Compliant"]
+  },
+  "security": {
+    "section_id": "security",
+    "title": "Your clone sees only what you show it.",
+    "subtitle": "No inbox access. No calendar snooping. No ambient data collection.",
+    "items": [
+      {
+        "title": "TLS encryption on every exchange",
+        "description": "All emails between you and your clone are encrypted in transit. We never store or read your content."
+      },
+      {
+        "title": "Zero ambient access",
+        "description": "Your clone has no access to your inbox, calendar, or files. It only processes what you explicitly forward — one task at a time."
+      },
+      {
+        "title": "Task-scoped memory only",
+        "description": "Your clone knows your role and style permanently. But task data is scoped to that task only — it never leaks into other tasks."
+      },
+      {
+        "title": "You own everything",
+        "description": "Full export or deletion at any time. We never use your data to train models or share with third parties."
+      }
+    ],
+    "certifications": [
+      { "name": "SOC 2 Type II", "description": "Audited controls for security, availability, and confidentiality." },
+      { "name": "GDPR Compliant", "description": "Full EU data protection compliance. DPA available on request." },
+      { "name": "Vertical ready", "description": "HIPAA-ready for healthcare. FedRAMP pathway for government." }
+    ],
+    "contact": "security@workpal.email"
+  },
+  "faq": {
+    "section_id": "faq",
+    "title": "Questions you're already thinking.",
+    "items": [
+      {
+        "question": "How is this different from just emailing ChatGPT?",
+        "answer": "ChatGPT doesn't know who you are. It doesn't know your writing style, your frameworks, or the quality bar you hold yourself to. Workpal builds a persistent profile of how you work — your clone carries that identity into every task. But unlike ChatGPT, each task is completely isolated. No conversation history bleeding between tasks."
+      },
+      {
+        "question": "Can it really match my writing style?",
+        "answer": "It gets better over time. During onboarding, you provide your LinkedIn, writing samples, and past deliverables. Your clone learns your tone, vocabulary, structure preferences, and depth of analysis. The more you use it, the more it calibrates. You can also give it direct feedback — 'too formal,' 'add more data,' 'this isn't how I'd frame it' — and it adapts."
+      },
+      {
+        "question": "What types of tasks can it handle?",
+        "answer": "Anything you'd delegate to a sharp junior version of yourself: competitive analyses, market research summaries, email drafts, proposal outlines, slide content, data synthesis, meeting prep, client briefs, internal reports. It's strongest on knowledge work that has a clear input and expected output format."
+      },
+      {
+        "question": "What do you mean by 'no memory bleed'?",
+        "answer": "In ChatGPT or Claude, your previous conversations subtly influence new ones — context accumulates, old instructions linger, outputs drift. With Workpal, every forwarded email spawns a fresh instance of your clone. It knows your style and role (permanent identity), but the task data is completely scoped. Task A never touches Task B."
+      },
+      {
+        "question": "Can I forward emails with attachments?",
+        "answer": "Yes. PDFs, slides, spreadsheets, docs — your clone processes them as part of the task context. If someone sends you 10 competitor decks and says 'analyze these,' you forward the whole thread with attachments. Your clone reads everything."
+      },
+      {
+        "question": "What if the output isn't good enough to send?",
+        "answer": "You always review before anything goes out. Your clone replies only to you — never to your client or boss directly. Think of it as a very capable first draft from someone who knows your standards. You edit, refine, and send when you're satisfied. Over time, the edits get smaller."
+      },
+      {
+        "question": "Does Workpal have access to my inbox?",
+        "answer": "No. Zero ambient access. Your clone cannot read your inbox, calendar, contacts, or files. It only sees what you explicitly forward to it. One task at a time. This is a deliberate architectural choice — we believe AI agents should operate on a need-to-know basis."
+      },
+      {
+        "question": "Will my colleagues see what I forward or what my clone produces?",
+        "answer": "No. Your clone is yours. It replies only to your email address. No one — not your boss, not your IT admin, not Workpal staff — can see your tasks or outputs unless you explicitly share them. On enterprise plans, admins see metadata (usage stats, volume) but never content."
+      },
+      {
+        "question": "What happens to my data after a task is done?",
+        "answer": "Task-specific data (the email you forwarded, attachments, the clone's output) is processed and delivered back to you. We don't retain task content beyond delivery. Your permanent profile (role, style, preferences) persists so your clone stays calibrated, but you can delete it at any time."
+      },
+      {
+        "question": "Why do you need my LinkedIn to get started?",
+        "answer": "Your LinkedIn is the fastest way to teach your clone who you are — your role, industry, skills, experience level. It's a shortcut to calibration. It's not required — you can skip it and manually describe your role instead, or upload writing samples directly. We never post to your LinkedIn or access it after the initial import."
+      },
+      {
+        "question": "What if my company has compliance requirements?",
+        "answer": "We built for this. SOC 2 Type II certified, GDPR compliant, HIPAA-ready for healthcare, FedRAMP pathway for government. Enterprise deployments run on private cloud infrastructure. We can sign BAAs, DPAs, and custom security agreements. Email security@workpal.email."
+      },
+      {
+        "question": "How is this priced?",
+        "answer": "Free for your first 10 tasks — no credit card, no strings. After that, individual plans start at a monthly subscription. Teams and enterprise get volume pricing with admin controls and dedicated infrastructure. We'll publish pricing publicly soon — or reach out and we'll quote you directly."
+      },
+      {
+        "question": "What stops this from becoming another abandoned AI tool?",
+        "answer": "Most AI tools fail because they require people to change how they work — learn a new interface, write prompts, switch tabs. Workpal lives in your inbox. The workflow is: forward, get work back. That's it. The adoption barrier is essentially zero, which is why retention is fundamentally different from dashboard-based AI tools."
+      },
+      {
+        "question": "Can I use this for sensitive client work?",
+        "answer": "Yes. All exchanges are TLS encrypted. We never read, store, or train on your content. Enterprise customers get dedicated infrastructure on AWS/Azure/GCP, fully isolated. We're SOC 2 Type II certified and GDPR compliant. If your industry has specific compliance requirements, reach out — we likely already support it or have a pathway."
+      }
+    ]
+  },
+  "final_cta": {
+    "title": "Your clone is one email away.",
+    "subtitle": "Paste your LinkedIn. Drop your email. Your intellectual clone starts learning who you are — instantly.",
+    "cta": { "label": "Create My Clone", "href": "/signup" },
+    "trust_line": "Free to start. First 10 tasks on us. No credit card required.",
+    "security_badge": "All exchanges TLS encrypted. We never read your emails or AI outputs."
+  },
+  "footer": {
+    "brand": "workpal",
+    "tagline": "Built for people who'd rather delegate than prompt.",
+    "links": [
+      { "label": "Privacy", "href": "/privacy" },
+      { "label": "Terms", "href": "/terms" },
+      { "label": "Security", "href": "/security" },
+      { "label": "Contact", "href": "mailto:hello@workpal.email" }
+    ],
+    "copyright": "© 2026 Workpal Inc."
+  }
+}
