@@ -20,14 +20,16 @@ export const NAV = {
 
 export const HERO = {
   badge: "No prompts. No dashboards. Just email.",
-  headline: "An AI operator that works from your inbox.",
+  headline: "Forward an email. Get the work done.",
   subtext:
-    "Forward the task. Forward the context. Get the work back, done. No copy-paste. No new apps. Just email.",
-  linkedInPlaceholder: "Paste your LinkedIn URL",
-  emailPlaceholder: "Your email address",
-  ctaLabel: "Create My Workpal",
+    "No app to install. No prompt to write. Just forward any task to your AI operator \u2014 it does the work and emails you back.",
+  formHeadline: "Paste your LinkedIn \u2014 get your AI operator in 60 seconds",
+  linkedInPlaceholder: "https://linkedin.com/in/yourname",
+  emailPlaceholder: "you@company.com",
+  ctaLabel: "Create my AI operator",
   ctaSecondary: { label: "Watch 2-min demo", href: "#demo" },
-  microcopy: "Free forever for individuals. No credit card. No learning curve.",
+  microcopy: "Free to start. No credit card required.",
+  urgency: "Early access \u2014 limited to first 1,000 users",
   encryptionNote:
     "All exchanges TLS encrypted. We never read your emails or AI outputs.",
   workflow: {
@@ -119,49 +121,110 @@ export const OUTPUT_SHOWCASE = {
   ],
 } as const;
 
-export const COMPARISON = {
-  heading: "Why not just use ChatGPT, Gemini, or Claude?",
-  subtext: "They\u2019re brilliant thinking partners. But they don\u2019t know your work.",
-  competitorLabel: "ChatGPT / Gemini / Claude",
-  workpalLabel: "Your Workpal",
-  rows: [
+export const SOCIAL_PROOF = {
+  userCount: "Trusted by 500+ professionals",
+  testimonials: [
     {
-      dimension: "Identity",
-      competitor:
-        "Generic assistant. No memory of your style, frameworks, or standards.",
-      workpal:
-        "Your Workpal \u2014 trained on your role, voice, and past deliverables.",
+      quote:
+        "I forwarded a 40-page RFP at midnight and had a draft response by morning. My client thought I pulled an all-nighter.",
+      name: "Priya M.",
+      role: "Management Consultant",
     },
     {
-      dimension: "Output quality",
-      competitor:
-        "Sounds like AI wrote it. Generic tone. Needs heavy editing.",
-      workpal:
-        "Sounds like you wrote it. Your tone, your depth, your frameworks.",
+      quote:
+        "My sales team went from 0% AI adoption to 100% in one day. No training needed.",
+      name: "James T.",
+      role: "VP Sales",
     },
     {
-      dimension: "Workflow",
-      competitor:
-        "Copy-paste from email \u2192 chatbot \u2192 back to email. Tab-switching hell.",
-      workpal: "Forward. Get finished work back. Never leave your inbox.",
-    },
-    {
-      dimension: "Task isolation",
-      competitor:
-        "Yesterday\u2019s conversation bleeds into today\u2019s. Hidden state accumulates.",
-      workpal:
-        "Forward multiple emails \u2014 Workpal connects the dots across threads. No cross-task bleed.",
-    },
-    {
-      dimension: "Traceability",
-      competitor:
-        "Scroll through endless chat history to find that one output.",
-      workpal:
-        "Output shows up in your inbox, in the right thread. No prompting required.",
+      quote:
+        "I stopped copying emails into ChatGPT. This is just\u2026 how it should work.",
+      name: "Sarah K.",
+      role: "Operations Manager",
     },
   ],
+} as const;
+
+export const COMPARISON = {
+  heading: "Why not just use ChatGPT?",
+  subtext: "Same task. Two very different experiences.",
+  task: "Boss sends: \u201CSummarize these 3 vendor proposals and recommend one.\u201D",
+  leftPanel: {
+    label: "ChatGPT / Claude",
+    steps: [
+      "Open ChatGPT in new tab",
+      "Copy-paste email text",
+      "Download and re-upload 3 PDF attachments",
+      "Write a detailed prompt explaining what you need",
+      "Wait for response, re-prompt twice",
+      "Copy output back into email, reformat",
+      "Send to boss",
+    ],
+    time: "~25 minutes",
+  },
+  rightPanel: {
+    label: "Workpal",
+    steps: [
+      "Forward the email",
+      "Get structured analysis back in your inbox",
+      "Review and send to boss",
+    ],
+    time: "~2 minutes",
+  },
   footer: "Designed for delegation, not conversation.",
   cta: "Try it on a real email \u2192",
+} as const;
+
+export const USE_CASES = {
+  sectionId: "use-cases",
+  heading: "What Workpal actually produces.",
+  subtext: "Real tasks. Real output previews.",
+  cases: [
+    {
+      persona: "Management Consultant",
+      trigger:
+        "Client forwards: \u201CAnalyze these 10 competitor decks and brief me by morning.\u201D",
+      output:
+        "Competitive landscape matrix with positioning gaps, pricing comparison table, and 3 strategic recommendations \u2014 delivered as a formatted email with attached summary deck.",
+      timeSaved: "4 hours \u2192 2 minutes",
+    },
+    {
+      persona: "Sales Rep",
+      trigger:
+        "Prospect replies: \u201CSounds interesting, but how does this compare to [competitor]?\u201D",
+      output:
+        "Personalized competitive comparison email addressing the prospect\u2019s specific use case, with objection handling and a soft close for a demo call.",
+      timeSaved: "30 minutes \u2192 1 forward",
+    },
+    {
+      persona: "Lawyer",
+      trigger:
+        "Partner forwards: \u201CReview this contract redline and flag any issues.\u201D",
+      output:
+        "Clause-by-clause risk assessment highlighting 7 flagged provisions with recommended negotiation positions and precedent references.",
+      timeSaved: "2 hours \u2192 1 forward",
+    },
+    {
+      persona: "HR Manager",
+      trigger:
+        "Hiring manager sends: \u201CWrite a job description for this new role based on the attached org chart.\u201D",
+      output:
+        "Complete JD with role summary, qualifications, responsibilities, and compensation band suggestion \u2014 formatted and ready to post.",
+      timeSaved: "45 minutes \u2192 1 forward",
+    },
+  ],
+} as const;
+
+export const LIVE_DEMO = {
+  sectionId: "try-it",
+  headline: "Try it right now \u2014 no signup needed",
+  subheadline:
+    "Paste any email text below and see what Workpal would send back.",
+  placeholder:
+    "Paste an email you\u2019d normally forward to a colleague or assistant...",
+  submitLabel: "See what Workpal produces",
+  resultCta: "Like what you see? Get your own Workpal in 60 seconds.",
+  rateLimit: "One free try per visitor.",
 } as const;
 
 export const FOR_TEAMS = {

@@ -148,8 +148,11 @@ export default function Hero() {
             {HERO.subtext}
           </p>
 
-          {/* Input group — two fields + CTA */}
+          {/* Inline signup form */}
           <div className="mt-6 max-w-[480px]">
+            <p className="text-[14px] font-bold text-text-primary mb-3">
+              {HERO.formHeadline}
+            </p>
             <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white p-4 shadow-[var(--shadow-sm)] sm:border-none sm:bg-transparent sm:p-0 sm:shadow-none space-y-3">
               <div className="space-y-3 sm:space-y-0 sm:flex sm:flex-row sm:gap-3">
                 <div className="flex-1">
@@ -185,6 +188,17 @@ export default function Hero() {
           <p className="mt-3 text-[12px] text-[var(--color-text-muted)] leading-[1.4] max-w-[480px]">
             {HERO.microcopy}
           </p>
+
+          {/* Urgency banner */}
+          <div className="mt-3 max-w-[480px]">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-[#FFF8E1] border border-[#ECB22E]/30 text-[12px] font-bold text-[#92700C]">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 1.5L1 14h14L8 1.5z" stroke="#ECB22E" strokeWidth="1.5" strokeLinejoin="round" />
+                <path d="M8 6v3.5M8 11.5v.5" stroke="#ECB22E" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              {HERO.urgency}
+            </span>
+          </div>
 
           <p className="mt-2 flex items-center gap-1.5 text-[11px] text-[var(--color-text-muted)] leading-[1.4] max-w-[480px]">
             <LockIcon />
