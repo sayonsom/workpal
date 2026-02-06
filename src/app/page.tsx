@@ -6,6 +6,7 @@ import WhyNotChatGPT from "@/components/landing/WhyNotChatGPT";
 import AIAdoption from "@/components/landing/AIAdoption";
 import Security from "@/components/landing/Security";
 import ForBusiness from "@/components/landing/ForBusiness";
+import BottomCTA from "@/components/landing/BottomCTA";
 import Footer from "@/components/landing/Footer";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         <AIAdoption />
         <Security />
         <ForBusiness />
+        <BottomCTA />
       </main>
       <Footer />
     </>

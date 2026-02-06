@@ -204,6 +204,18 @@ export const SECURITY = {
   microcopy: "Questions? Reach out to security@workpal.email",
 } as const;
 
+export const BOTTOM_CTA = {
+  heading: "Your AI assistant is one email away.",
+  subtext:
+    "Paste your LinkedIn, drop your email. Your Workpal starts learning who you are and what you deliver — instantly.",
+  linkedInPlaceholder: "Paste your LinkedIn URL",
+  emailPlaceholder: "Your email address",
+  ctaLabel: "Get My Workpal",
+  microcopy: "Free forever for individuals. No credit card required.",
+  encryptionNote:
+    "All email exchanges are TLS encrypted. We don\u2019t read your emails or the AI outputs.",
+} as const;
+
 /* ═══════════════════════════════════════════════
    /business page constants
    ═══════════════════════════════════════════════ */
