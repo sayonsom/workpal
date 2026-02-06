@@ -120,6 +120,32 @@ export const FOR_BUSINESS = {
   placeholderLabel: "Image: Dashboard / Admin mockup",
 } as const;
 
+export const AI_ADOPTION = {
+  badge: "Zero learning curve",
+  heading: "The fastest way to get your whole team using AI.",
+  subtext:
+    "Most AI tools fail because they require people to change how they work. Workpal doesn\u2019t. If they can forward an email, they can use an AI agent.",
+  points: [
+    {
+      title: "No training required",
+      description: "Your team already knows how to use email. That\u2019s all they need.",
+    },
+    {
+      title: "Works for every role",
+      description: "Sales, ops, legal, HR, finance \u2014 anyone who gets email gets an AI agent.",
+    },
+    {
+      title: "Non-technical people thrive",
+      description: "No prompts to engineer, no interfaces to learn. Just forward and get work back.",
+    },
+    {
+      title: "Adoption that actually sticks",
+      description: "People use tools that fit their workflow. Workpal lives where they already work.",
+    },
+  ],
+  cta: "Get Workpal for your team",
+} as const;
+
 export const FOOTER = {
   links: [
     { label: "Privacy", href: "#" },

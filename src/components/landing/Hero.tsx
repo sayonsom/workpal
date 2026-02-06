@@ -57,7 +57,7 @@ function WorkflowDiagram() {
   return (
     <div className="space-y-0">
       {/* ── STEP 1: Boss email arrives ── */}
-      <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white shadow-[var(--shadow-sm)] overflow-hidden">
+      <div className="workflow-step rounded-[8px] border border-[var(--color-border-light)] bg-white shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-surface-subtle border-b border-[var(--color-border-light)] flex items-center gap-2">
           <StepPill step={1} />
           <span className="text-[11px] text-[var(--color-text-muted)] font-medium">{step1.label}</span>
@@ -74,10 +74,10 @@ function WorkflowDiagram() {
         </div>
       </div>
 
-      <DownArrow />
+      <div className="workflow-step"><DownArrow /></div>
 
       {/* ── STEP 2: Forward to Workpal ── */}
-      <div className="rounded-[8px] border-2 border-info bg-[#f0f9ff] shadow-[var(--shadow-sm)] overflow-hidden">
+      <div className="workflow-step rounded-[8px] border-2 border-info bg-[#f0f9ff] shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-[#e0f2fe] border-b border-info/20 flex items-center gap-2">
           <StepPill step={2} />
           <span className="text-[11px] text-info font-medium">{step2.label}</span>
@@ -93,10 +93,10 @@ function WorkflowDiagram() {
         </div>
       </div>
 
-      <DownArrow />
+      <div className="workflow-step"><DownArrow /></div>
 
       {/* ── STEP 3: Workpal delivers ── */}
-      <div className="rounded-[8px] border-2 border-cta bg-[#f0fdf4] shadow-[var(--shadow-sm)] overflow-hidden">
+      <div className="workflow-step rounded-[8px] border-2 border-cta bg-[#f0fdf4] shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-[#dcfce7] border-b border-cta/20 flex items-center gap-2">
           <StepPill step={3} />
           <span className="text-[11px] text-cta font-medium">{step3.label}</span>

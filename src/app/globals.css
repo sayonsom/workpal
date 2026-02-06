@@ -57,3 +57,20 @@ body {
 .animate-fade-in {
   animation: fadeIn var(--duration-slow) var(--ease-default) both;
 }
+
+/* Workflow step staggered reveal */
+@keyframes stepReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.workflow-step {
+  opacity: 0;
+  animation: stepReveal 400ms var(--ease-default) both;
+}
+
+.workflow-step:nth-child(1) { animation-delay: 300ms; }
+.workflow-step:nth-child(2) { animation-delay: 600ms; }
+.workflow-step:nth-child(3) { animation-delay: 900ms; }
+.workflow-step:nth-child(4) { animation-delay: 1200ms; }
+.workflow-step:nth-child(5) { animation-delay: 1500ms; }
