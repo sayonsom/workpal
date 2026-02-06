@@ -18,19 +18,36 @@ export const NAV = {
 } as const;
 
 export const HERO = {
-  badge: "Your own AI, right in your inbox.",
+  badge: "Everything done in 2 taps. From your inbox.",
   headlineLines: ["Get your own", "Workpal email."],
   subtext:
-    "Workpal is your personal AI assistant that does tedious tasks for you \u2014 directly from your inbox. It reports only to you, and no one else.",
+    "Your personal AI agent that does tedious tasks for you \u2014 directly from your inbox. Designed around your skills. Reports only to you. No uploading to ChatGPT. No copy-paste.",
   inputPlaceholder: "Enter your email address",
   ctaLabel: "Get My Workpal",
   microcopy:
     "Free forever for individuals. No credit card. No new apps to learn.",
-  emailUI: {
-    from: "You",
-    to: "agent@workpal.email",
-    subject: "Summarize Q3 report",
-    reply: "Here\u2019s a 5-point summary + next steps\u2026",
+  workflow: {
+    step1: {
+      label: "12:59 AM \u00b7 Your laptop is closed",
+      from: "boss@client.com",
+      to: "you@consultant.com",
+      subject: "Deep dive on 10 competitor decks",
+      body: "Do a deep dive on these 10 competitor slide decks and get back to me by morning.",
+    },
+    step2: {
+      label: "You wake up. Forward in 1 tap.",
+      from: "you@consultant.com",
+      to: "you@workpal.email",
+      annotation: "Fwd:",
+    },
+    step3: {
+      label: "Your Workpal does the work.",
+      from: "you@workpal.email",
+      to: "you@consultant.com",
+      subject: "Re: Deep dive on 10 competitor decks",
+      body: "Here\u2019s a detailed competitive analysis across all 10 decks with key themes, gaps, and recommendations\u2026",
+      action: "Review & send to your client \u2192",
+    },
   },
 } as const;
 
