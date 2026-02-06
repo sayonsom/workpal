@@ -1,20 +1,31 @@
+import Image from "next/image";
 import Button from "../ui/Button";
 import { SITE, NAV } from "@/lib/constants";
 
 export default function Navbar() {
   return (
     <nav
-      className="sticky top-0 z-50 h-11 bg-white border-b border-[var(--color-border-light)]"
+      className="sticky top-0 z-50 h-12 bg-white border-b border-[var(--color-border-light)]"
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-[1200px] h-full flex items-center justify-between px-4">
-        {/* Logo */}
+        {/* Logo mark + wordmark */}
         <a
           href="/"
-          className="text-[18px] font-bold text-brand leading-none"
+          className="flex items-center gap-2 leading-none"
         >
-          {SITE.nameLower}
+          <Image
+            src="/logo.png"
+            alt="Workpal logo"
+            width={24}
+            height={24}
+            className="w-6 h-6"
+            priority
+          />
+          <span className="text-[17px] font-bold text-text-primary">
+            {SITE.nameLower}
+          </span>
         </a>
 
         {/* Right side: links + CTA */}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SITE, FOOTER } from "@/lib/constants";
 
 export default function Footer() {
@@ -6,10 +7,19 @@ export default function Footer() {
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Main row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Logo */}
-          <span className="text-[18px] font-bold text-white">
-            {SITE.nameLower}
-          </span>
+          {/* Logo mark + wordmark */}
+          <a href="/" className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Workpal logo"
+              width={22}
+              height={22}
+              className="w-[22px] h-[22px] brightness-0 invert"
+            />
+            <span className="text-[17px] font-bold text-white">
+              {SITE.nameLower}
+            </span>
+          </a>
 
           {/* Links */}
           <div className="flex items-center gap-6">
