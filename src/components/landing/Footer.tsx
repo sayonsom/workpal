@@ -27,6 +27,9 @@ export default function Footer() {
               <a
                 key={link.label}
                 href={link.href}
+                {...("external" in link && link.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 className="text-[15px] text-[rgba(255,255,255,0.86)] hover:text-white transition-colors duration-[180ms] ease-[cubic-bezier(0.2,0,0,1)]"
               >
                 {link.label}

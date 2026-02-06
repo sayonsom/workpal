@@ -34,6 +34,9 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
+              {...("external" in link && link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="text-[15px] text-text-primary hover:text-[var(--color-text-subtle)] transition-colors duration-[180ms] ease-[cubic-bezier(0.2,0,0,1)] hidden md:inline"
             >
               {link.label}

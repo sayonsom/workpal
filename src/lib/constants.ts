@@ -14,6 +14,7 @@ export const NAV = {
     { label: "Why Not ChatGPT?", href: "/#comparison" },
     { label: "FAQ", href: "/#faq" },
     { label: "For Business", href: "/business" },
+    { label: "Blog", href: "https://medium.com/workpal", external: true },
   ],
   cta: "Get Your Workpal",
 } as const;
@@ -436,7 +437,8 @@ export const FOOTER = {
     { label: "Privacy", href: "/privacy" },
     { label: "Terms", href: "/terms" },
     { label: "Security", href: "/security" },
-    { label: "Contact", href: "mailto:hello@workpal.email" },
+    { label: "Blog", href: "https://medium.com/workpal", external: true },
+    { label: "Contact Us", href: "/contact" },
   ],
 } as const;
 
@@ -689,4 +691,92 @@ export const BUSINESS_CTA = {
   cta: "Request a Demo",
   ctaSecondary: "Talk to Sales",
   microcopy: "No commitment. 30-minute call.",
+} as const;
+
+/* ═══════════════════════════════════════════════
+   /contact page constants
+   ═══════════════════════════════════════════════ */
+
+export const CONTACT = {
+  heading: "How can we help?",
+  email: "hi@workpal.email",
+  categories: [
+    {
+      title: "Sales",
+      description:
+        "Enterprise contracts, custom plans, or request a product demo.",
+    },
+    {
+      title: "Support",
+      description:
+        "Account, billing, data questions, or technical issues.",
+    },
+    {
+      title: "Partnerships",
+      description:
+        "Data partnerships, integrations, or co-marketing opportunities.",
+    },
+  ],
+  booking: {
+    heading: "Schedule a Call",
+    subtitle: "30-minute Discovery Call",
+    description:
+      "Pick a time that works for you. We\u2019ll send a calendar invite to confirm.",
+    meetingTypes: [
+      "Microsoft Teams",
+      "Zoom",
+      "Google Meet",
+      "Phone Call",
+    ],
+    timezones: [
+      "US/Eastern",
+      "US/Central",
+      "US/Mountain",
+      "US/Pacific",
+      "Europe/London",
+      "Europe/Berlin",
+      "Europe/Paris",
+      "Asia/Dubai",
+      "Asia/Kolkata",
+      "Asia/Singapore",
+      "Asia/Tokyo",
+      "Australia/Sydney",
+      "Pacific/Auckland",
+    ],
+    timeSlots: [
+      "9:00 AM",
+      "9:30 AM",
+      "10:00 AM",
+      "10:30 AM",
+      "11:00 AM",
+      "11:30 AM",
+      "12:00 PM",
+      "12:30 PM",
+      "1:00 PM",
+      "1:30 PM",
+      "2:00 PM",
+      "2:30 PM",
+      "3:00 PM",
+      "3:30 PM",
+      "4:00 PM",
+      "4:30 PM",
+      "5:00 PM",
+    ],
+    cta: "Request Call",
+  },
+  form: {
+    heading: "Send us a message",
+    inquiryTypes: [
+      "General",
+      "Demo request",
+      "Enterprise pricing",
+      "API access",
+      "Partnership",
+      "Technical support",
+    ],
+    cta: "Send Message",
+    successMessage: "Message sent! We\u2019ll get back to you within 24 hours.",
+    bookingSuccessMessage:
+      "Booking request sent! We\u2019ll send you a calendar invite shortly.",
+  },
 } as const;
