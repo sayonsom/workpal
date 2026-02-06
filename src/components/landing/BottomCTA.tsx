@@ -1,6 +1,6 @@
 import Button from "../ui/Button";
 import { SendIcon } from "../ui/Icons";
-import { BOTTOM_CTA } from "@/lib/constants";
+import { FINAL_CTA } from "@/lib/constants";
 
 function LockIcon() {
   return (
@@ -17,10 +17,10 @@ export default function BottomCTA() {
       <div className="mx-auto max-w-[1200px] px-4">
         <div className="max-w-[560px] mx-auto text-center">
           <h2 className="text-[32px] md:text-[36px] font-bold text-white leading-[1.2]">
-            {BOTTOM_CTA.heading}
+            {FINAL_CTA.heading}
           </h2>
           <p className="mt-4 text-[15px] text-white/70 leading-[1.4]">
-            {BOTTOM_CTA.subtext}
+            {FINAL_CTA.subtext}
           </p>
 
           {/* Input group — mirrors Hero */}
@@ -34,7 +34,7 @@ export default function BottomCTA() {
                   <input
                     id="bottom-linkedin"
                     type="url"
-                    placeholder={BOTTOM_CTA.linkedInPlaceholder}
+                    placeholder={FINAL_CTA.linkedInPlaceholder}
                     className="w-full h-11 sm:h-9 px-3 rounded-[6px] border border-white/20 bg-white/10 text-[16px] sm:text-[15px] text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
                   />
                 </div>
@@ -45,25 +45,25 @@ export default function BottomCTA() {
                   <input
                     id="bottom-email"
                     type="email"
-                    placeholder={BOTTOM_CTA.emailPlaceholder}
+                    placeholder={FINAL_CTA.emailPlaceholder}
                     className="w-full h-11 sm:h-9 px-3 rounded-[6px] border border-white/20 bg-white/10 text-[16px] sm:text-[15px] text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
                   />
                 </div>
               </div>
               <Button variant="primary" className="w-full sm:w-auto">
-                {BOTTOM_CTA.ctaLabel}
+                {FINAL_CTA.ctaLabel}
                 <SendIcon className="ml-2" size={14} />
               </Button>
             </div>
           </div>
 
           <p className="mt-4 text-[12px] text-white/50">
-            {BOTTOM_CTA.microcopy}
+            {FINAL_CTA.microcopy}
           </p>
 
           <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px] text-white/40">
             <LockIcon />
-            {BOTTOM_CTA.encryptionNote}
+            {FINAL_CTA.encryptionNote}
           </p>
         </div>
       </div>

@@ -10,13 +10,13 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Workpal — Your AI Operator, In Your Inbox",
+  title: "Workpal — Your Intellectual Clone, In Your Inbox",
   description:
-    "Get a free AI operator that works from your email. No signups, no dashboards. Forward tasks, get them done. You stay in control.",
+    "Workpal learns how you think, write, and deliver. Forward any task — it produces your quality of work, in your voice. No chat history pollution.",
   openGraph: {
-    title: "Workpal — Your AI Operator, In Your Inbox",
+    title: "Workpal — Your Intellectual Clone, In Your Inbox",
     description:
-      "Get a free AI operator that works from your email. No signups, no dashboards. Forward tasks, get them done. You stay in control.",
+      "An AI that works like you. Forward any task from your inbox. Get finished work back in your voice, your frameworks, your standards.",
     type: "website",
   },
 };

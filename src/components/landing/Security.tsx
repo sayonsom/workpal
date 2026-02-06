@@ -1,5 +1,4 @@
 import Badge from "../ui/Badge";
-import Button from "../ui/Button";
 import { SECURITY } from "@/lib/constants";
 
 /* ── Inline SVG icons ── */
@@ -123,11 +122,16 @@ export default function Security() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* Contact */}
         <div className="mt-10 text-center">
-          <Button variant="secondary">{SECURITY.cta} &rarr;</Button>
-          <p className="mt-2 text-[12px] text-[var(--color-text-muted)]">
-            {SECURITY.microcopy}
+          <p className="text-[12px] text-[var(--color-text-muted)]">
+            Questions? Reach out to{" "}
+            <a
+              href={`mailto:${SECURITY.contact}`}
+              className="text-link hover:underline"
+            >
+              {SECURITY.contact}
+            </a>
           </p>
         </div>
       </div>

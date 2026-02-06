@@ -1,11 +1,11 @@
 import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
-import VideoDemo from "@/components/landing/VideoDemo";
 import HowItWorks from "@/components/landing/HowItWorks";
+import OutputShowcase from "@/components/landing/OutputShowcase";
 import WhyNotChatGPT from "@/components/landing/WhyNotChatGPT";
-import AIAdoption from "@/components/landing/AIAdoption";
+import ForTeams from "@/components/landing/ForTeams";
 import Security from "@/components/landing/Security";
-import ForBusiness from "@/components/landing/ForBusiness";
+import FAQSection from "@/components/landing/FAQ";
 import BottomCTA from "@/components/landing/BottomCTA";
 import Footer from "@/components/landing/Footer";
 
@@ -15,12 +15,12 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <VideoDemo />
         <HowItWorks />
+        <OutputShowcase />
         <WhyNotChatGPT />
-        <AIAdoption />
+        <ForTeams />
         <Security />
-        <ForBusiness />
+        <FAQSection />
         <BottomCTA />
       </main>
       <Footer />

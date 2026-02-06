@@ -69,9 +69,10 @@ function WorkflowDiagram() {
       <div className="workflow-step rounded-[8px] border border-[var(--color-border-light)] bg-white shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-surface-subtle border-b border-[var(--color-border-light)] flex items-center gap-2">
           <StepPill step={1} />
-          <span className="text-[11px] text-[var(--color-text-muted)] font-medium">{step1.label}</span>
+          <span className="text-[11px] text-[var(--color-text-muted)] font-medium">{step1.time}</span>
         </div>
         <div className="px-3 py-2.5">
+          <p className="text-[11px] font-bold text-[var(--color-text-subtle)] mb-1">{step1.label}</p>
           <div className="flex items-center gap-1.5 text-[12px]">
             <InboxIcon />
             <span className="font-bold text-text-primary">{step1.from}</span>
@@ -85,32 +86,34 @@ function WorkflowDiagram() {
 
       <div className="workflow-step"><DownArrow /></div>
 
-      {/* ── STEP 2: Forward to Workpal ── */}
+      {/* ── STEP 2: Forward to clone ── */}
       <div className="workflow-step rounded-[8px] border-2 border-info bg-[#f0f9ff] shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-[#e0f2fe] border-b border-info/20 flex items-center gap-2">
           <StepPill step={2} />
-          <span className="text-[11px] text-info font-medium">{step2.label}</span>
+          <span className="text-[11px] text-info font-medium">{step2.time}</span>
         </div>
         <div className="px-3 py-2.5">
+          <p className="text-[11px] font-bold text-info mb-1">{step2.label}</p>
           <div className="flex items-center gap-1.5 text-[12px]">
             <ForwardIcon />
             <span className="font-bold text-text-primary">{step2.from}</span>
             <span className="text-info font-bold">&rarr;</span>
             <span className="font-bold text-info">{step2.to}</span>
           </div>
-          <div className="mt-1 text-[13px] font-bold text-info">{step2.annotation} {HERO.workflow.step1.subject}</div>
+          <div className="mt-1 text-[13px] font-bold text-info">{step2.subject}</div>
         </div>
       </div>
 
       <div className="workflow-step"><DownArrow /></div>
 
-      {/* ── STEP 3: Workpal delivers ── */}
+      {/* ── STEP 3: Clone delivers ── */}
       <div className="workflow-step rounded-[8px] border-2 border-cta bg-[#f0fdf4] shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-[#dcfce7] border-b border-cta/20 flex items-center gap-2">
           <StepPill step={3} />
-          <span className="text-[11px] text-cta font-medium">{step3.label}</span>
+          <span className="text-[11px] text-cta font-medium">{step3.time}</span>
         </div>
         <div className="px-3 py-2.5">
+          <p className="text-[11px] font-bold text-cta mb-1">{step3.label}</p>
           <div className="flex items-center gap-1.5 text-[12px]">
             <SparkleIcon />
             <span className="font-bold text-cta">{step3.from}</span>
@@ -138,11 +141,7 @@ export default function Hero() {
           <Badge variant="subtle">{HERO.badge}</Badge>
 
           <h1 className="mt-4 text-[40px] md:text-[48px] font-bold text-text-primary leading-[1.2]">
-            {HERO.headlineLines.map((line, i) => (
-              <span key={i} className="block">
-                {line}
-              </span>
-            ))}
+            {HERO.headline}
           </h1>
 
           <p className="mt-4 text-[15px] text-[var(--color-text-subtle)] leading-[1.4] max-w-[480px]">

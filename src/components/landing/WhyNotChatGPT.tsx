@@ -1,4 +1,3 @@
-import Card from "../ui/Card";
 import Button from "../ui/Button";
 import { CheckIcon, XIcon } from "../ui/Icons";
 import { COMPARISON } from "@/lib/constants";
@@ -17,41 +16,47 @@ export default function WhyNotChatGPT() {
           </p>
         </div>
 
-        {/* Two-column comparison */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[800px] mx-auto">
-          {/* Left card — general-purpose */}
-          <Card accentBorder={false} hoverable={false}>
-            <h3 className="text-[15px] font-bold text-text-primary mb-4">
-              {COMPARISON.leftCard.title}
-            </h3>
-            <ul className="space-y-3">
-              {COMPARISON.leftCard.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <XIcon className="shrink-0 mt-0.5" />
-                  <span className="text-[15px] text-text-primary leading-[1.4]">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Card>
+        {/* Row-based comparison table */}
+        <div className="max-w-[900px] mx-auto">
+          {/* Table header — desktop only */}
+          <div className="hidden md:grid grid-cols-[140px_1fr_1fr] gap-4 pb-3 border-b border-[var(--color-border-light)]">
+            <div />
+            <div className="text-[13px] font-bold text-[var(--color-text-muted)] uppercase tracking-wide">
+              {COMPARISON.competitorLabel}
+            </div>
+            <div className="text-[13px] font-bold text-cta uppercase tracking-wide">
+              {COMPARISON.workpalLabel}
+            </div>
+          </div>
 
-          {/* Right card — Workpal */}
-          <Card accentBorder={true} hoverable={false}>
-            <h3 className="text-[15px] font-bold text-cta mb-4">
-              {COMPARISON.rightCard.title}
-            </h3>
-            <ul className="space-y-3">
-              {COMPARISON.rightCard.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <CheckIcon className="shrink-0 mt-0.5" />
-                  <span className="text-[15px] text-text-primary leading-[1.4]">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Card>
+          {/* Rows */}
+          {COMPARISON.rows.map((row, i) => (
+            <div
+              key={i}
+              className="grid grid-cols-1 md:grid-cols-[140px_1fr_1fr] gap-3 md:gap-4 py-4 md:py-5 border-b border-[var(--color-border-light)] last:border-b-0"
+            >
+              {/* Dimension label */}
+              <div className="text-[14px] font-bold text-text-primary md:pt-0.5">
+                {row.dimension}
+              </div>
+
+              {/* Competitor */}
+              <div className="flex items-start gap-2">
+                <XIcon className="shrink-0 mt-0.5" />
+                <span className="text-[14px] text-[var(--color-text-subtle)] leading-[1.4]">
+                  {row.competitor}
+                </span>
+              </div>
+
+              {/* Workpal */}
+              <div className="flex items-start gap-2">
+                <CheckIcon className="shrink-0 mt-0.5" />
+                <span className="text-[14px] text-text-primary leading-[1.4]">
+                  {row.workpal}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Footer text + CTA */}
@@ -59,10 +64,7 @@ export default function WhyNotChatGPT() {
           <p className="text-[13px] text-[var(--color-text-muted)] mb-4">
             {COMPARISON.footer}
           </p>
-          <Button variant="secondary">{COMPARISON.cta} &rarr;</Button>
-          <p className="mt-2 text-[12px] text-[var(--color-text-muted)]">
-            {COMPARISON.microcopy}
-          </p>
+          <Button variant="secondary">{COMPARISON.cta}</Button>
         </div>
       </div>
     </section>
