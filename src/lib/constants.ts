@@ -10,9 +10,9 @@ export const SITE = {
 
 export const NAV = {
   links: [
-    { label: "How it Works", href: "#how-it-works" },
-    { label: "Why Not ChatGPT?", href: "#comparison" },
-    { label: "For Business", href: "#for-business" },
+    { label: "How it Works", href: "/#how-it-works" },
+    { label: "Why Not ChatGPT?", href: "/#comparison" },
+    { label: "For Business", href: "/business" },
   ],
   cta: "Get Your Workpal",
 } as const;
@@ -202,6 +202,245 @@ export const SECURITY = {
   ],
   cta: "Read our Security Whitepaper",
   microcopy: "Questions? Reach out to security@workpal.email",
+} as const;
+
+/* ═══════════════════════════════════════════════
+   /business page constants
+   ═══════════════════════════════════════════════ */
+
+export const BUSINESS_HERO = {
+  badge: "Workpal for Business",
+  headlineLines: [
+    "Give every team member",
+    "a governed AI operator.",
+  ],
+  subtext:
+    "Your team gets AI that works from their inbox. You get visibility, audit trails, and full control. No new tools to deploy.",
+  cta: "Request a Demo",
+  ctaSecondary: "Talk to Sales",
+  placeholderLabel: "Image: Enterprise admin dashboard mockup",
+} as const;
+
+export const BUSINESS_PROBLEM = {
+  badge: "The Shadow AI Problem",
+  heading: "Your team is already using AI. You have no visibility.",
+  subtext:
+    "Every ChatGPT tab, every Gemini prompt, every Claude conversation — that\u2019s your company data flowing into consumer LLMs with zero oversight.",
+  points: [
+    {
+      title: "No audit trail",
+      description:
+        "You can\u2019t see what data employees are pasting into AI tools or what outputs they\u2019re acting on.",
+    },
+    {
+      title: "Compliance risk",
+      description:
+        "Regulated industries need to know where data goes. Consumer AI tools offer no guarantees.",
+    },
+    {
+      title: "Zero governance",
+      description:
+        "No access controls, no usage policies, no way to enforce data handling standards.",
+    },
+    {
+      title: "Data leakage",
+      description:
+        "Sensitive contracts, financials, and client data end up in training sets you don\u2019t control.",
+    },
+  ],
+} as const;
+
+export const BUSINESS_HOW_TEAMS_WORK = {
+  heading: "How Workpal works for teams.",
+  subtext: "Deploy in minutes. No infrastructure changes. No training sessions.",
+  steps: [
+    {
+      number: "1",
+      title: "IT provisions agents",
+      description:
+        "Admin creates Workpal agents for team members through the dashboard. Set policies and data rules upfront.",
+      placeholderLabel: "Image: Admin provisioning dashboard",
+    },
+    {
+      number: "2",
+      title: "Team gets @workpal.email",
+      description:
+        "Each team member receives their own agent email address. It shows up as a contact — nothing to install.",
+      placeholderLabel: "Image: Agent email in contact list",
+    },
+    {
+      number: "3",
+      title: "Members forward tasks",
+      description:
+        "Team members forward emails, docs, and requests to their agent. Same workflow they already use.",
+      placeholderLabel: "Image: Email forward action",
+    },
+    {
+      number: "4",
+      title: "IT gets full visibility",
+      description:
+        "Every interaction is logged. Admins see usage patterns, flag risks, and export audit trails.",
+      placeholderLabel: "Image: Audit trail dashboard",
+    },
+  ],
+} as const;
+
+export const BUSINESS_SECURITY = {
+  badge: "Enterprise Security",
+  heading: "Security that satisfies your CISO.",
+  subtext:
+    "Built for regulated industries. Every layer designed for zero-trust, full auditability, and data sovereignty.",
+  categories: [
+    {
+      title: "Encryption & Transit",
+      items: [
+        "TLS 1.2+ on all email exchanges",
+        "AES-256 encryption at rest",
+        "Zero plaintext storage of email content",
+      ],
+    },
+    {
+      title: "Access & Control",
+      items: [
+        "Zero ambient access — agents only see forwarded content",
+        "Role-based admin controls",
+        "SSO / SAML integration",
+      ],
+    },
+    {
+      title: "Data Sovereignty",
+      items: [
+        "Choose your data residency region",
+        "Zero-retention policies available",
+        "No data used for model training",
+      ],
+    },
+    {
+      title: "Audit & Compliance",
+      items: [
+        "Full interaction audit logging",
+        "Exportable compliance reports",
+        "Real-time usage dashboards",
+      ],
+    },
+  ],
+  certifications: [
+    {
+      title: "SOC 2 Type II",
+      description:
+        "Audited controls for security, availability, and confidentiality.",
+    },
+    {
+      title: "GDPR Compliant",
+      description:
+        "Full EU data protection compliance. DPA available on request.",
+    },
+    {
+      title: "HIPAA Ready",
+      description:
+        "BAA available. Built for healthcare data handling requirements.",
+    },
+    {
+      title: "FedRAMP Pathway",
+      description:
+        "Government-grade security in progress. Contact us for timeline.",
+    },
+  ],
+  cta: "Download Security Whitepaper",
+  microcopy: "Questions? security@workpal.email",
+} as const;
+
+export const BUSINESS_USE_CASES = {
+  heading: "Built for every team, not just technical ones.",
+  subtext: "If they can forward an email, they can use Workpal.",
+  roles: [
+    {
+      title: "Consultants",
+      example: "Forward 10 competitor decks, get a synthesis by morning.",
+      bullets: [
+        "Research and competitive analysis",
+        "Slide deck drafts and summaries",
+        "Client deliverable preparation",
+      ],
+    },
+    {
+      title: "Finance",
+      example:
+        "Forward a quarterly report, get variance analysis in minutes.",
+      bullets: [
+        "Financial analysis and modeling",
+        "Report generation and formatting",
+        "Vendor invoice processing",
+      ],
+    },
+    {
+      title: "Legal",
+      example:
+        "Forward a 40-page contract, get a risk summary and key terms.",
+      bullets: [
+        "Contract review and redlining",
+        "Regulatory research summaries",
+        "Due diligence document processing",
+      ],
+    },
+    {
+      title: "Operations",
+      example:
+        "Forward a vendor thread, get a structured comparison table.",
+      bullets: [
+        "Workflow documentation",
+        "Vendor communication drafts",
+        "Process optimization analysis",
+      ],
+    },
+  ],
+} as const;
+
+export const BUSINESS_DEPLOYMENT = {
+  heading: "Deploy your way.",
+  subtext:
+    "From multi-tenant cloud to air-gapped on-premise. Your infrastructure, your rules.",
+  options: [
+    {
+      title: "Cloud",
+      description: "Multi-tenant SaaS. Fast setup, fully managed.",
+      features: [
+        "SOC 2 Type II certified",
+        "99.9% uptime SLA",
+        "Automatic updates",
+      ],
+      recommended: false,
+    },
+    {
+      title: "Private Cloud",
+      description: "Dedicated infrastructure in your VPC. Full isolation.",
+      features: [
+        "AWS, Azure, or GCP",
+        "Your data residency region",
+        "Dedicated encryption keys",
+      ],
+      recommended: true,
+    },
+    {
+      title: "On-Premise",
+      description: "Full control. Runs behind your firewall.",
+      features: [
+        "Air-gapped deployment",
+        "Custom model hosting",
+        "No external data transfer",
+      ],
+      recommended: false,
+    },
+  ],
+} as const;
+
+export const BUSINESS_CTA = {
+  heading: "Ready to govern AI for your team?",
+  subtext:
+    "See Workpal in action. We\u2019ll show you deployment options, security architecture, and a live demo tailored to your use case.",
+  cta: "Request a Demo",
+  ctaSecondary: "Talk to Sales",
+  microcopy: "No commitment. 30-minute call.",
 } as const;
 
 export const FOOTER = {

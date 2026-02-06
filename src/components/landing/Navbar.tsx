@@ -11,7 +11,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-[1200px] h-full flex items-center justify-between px-4">
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           className="text-[18px] font-bold text-brand leading-none"
         >
           {SITE.nameLower}
