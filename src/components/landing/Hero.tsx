@@ -140,15 +140,23 @@ export default function Hero() {
             {HERO.subtext}
           </p>
 
-          {/* Input group */}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 max-w-[480px]">
-            <input
-              type="email"
-              placeholder={HERO.inputPlaceholder}
-              aria-label={HERO.inputPlaceholder}
-              className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-            />
-            <Button variant="primary">
+          {/* Input group — two fields + CTA */}
+          <div className="mt-6 max-w-[480px] space-y-3">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="url"
+                placeholder={HERO.linkedInPlaceholder}
+                aria-label={HERO.linkedInPlaceholder}
+                className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+              />
+              <input
+                type="email"
+                placeholder={HERO.emailPlaceholder}
+                aria-label={HERO.emailPlaceholder}
+                className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+              />
+            </div>
+            <Button variant="primary" className="w-full sm:w-auto">
               {HERO.ctaLabel}
               <SendIcon className="ml-2" size={14} />
             </Button>

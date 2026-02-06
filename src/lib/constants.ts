@@ -22,7 +22,8 @@ export const HERO = {
   headlineLines: ["Get your own", "Workpal email."],
   subtext:
     "Your personal AI agent that does tedious tasks for you \u2014 directly from your inbox. Designed around your skills. Reports only to you. No uploading to ChatGPT. No copy-paste.",
-  inputPlaceholder: "Enter your email address",
+  linkedInPlaceholder: "Paste your LinkedIn URL",
+  emailPlaceholder: "Your work email",
   ctaLabel: "Get My Workpal",
   microcopy:
     "Free forever for individuals. No credit card. No new apps to learn.",
