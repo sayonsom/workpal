@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Workpal",
   nameLower: "workpal",
-  tagline: "Your intellectual clone. Ready in your inbox.",
+  tagline: "Your personal AI. Ready in your inbox.",
   agentEmail: "your-agent@workpal.email",
   sampleAgentEmail: "agent@workpal.email",
   copyright: "2025 Workpal Inc.",
@@ -15,17 +15,17 @@ export const NAV = {
     { label: "FAQ", href: "/#faq" },
     { label: "For Business", href: "/business" },
   ],
-  cta: "Get Your Clone",
+  cta: "Get Your Workpal",
 } as const;
 
 export const HERO = {
-  badge: "Your intellectual clone. Ready in your inbox.",
+  badge: "Your personal AI. Ready in your inbox.",
   headline: "An AI that works like you.",
   subtext:
     "Workpal learns how you think, write, and deliver. Forward any task \u2014 it produces your quality of work, in your voice, with your frameworks. Each task is its own clean slate. No memory bleed. No chat history pollution.",
   linkedInPlaceholder: "Paste your LinkedIn URL",
   emailPlaceholder: "Your email address",
-  ctaLabel: "Create My Clone",
+  ctaLabel: "Create My Workpal",
   ctaSecondary: { label: "Watch 2-min demo", href: "#demo" },
   microcopy: "Free to start. First 10 tasks on us. No credit card.",
   encryptionNote:
@@ -40,7 +40,7 @@ export const HERO = {
       body: "Do a deep dive on these 10 competitor slide decks and get back to me by morning.",
     },
     step2: {
-      label: "One tap. Forwarded to your clone.",
+      label: "One tap. Forwarded to your Workpal.",
       time: "7:01 AM \u00b7 You wake up",
       from: "you@consultant.com",
       to: "you@workpal.email",
@@ -49,7 +49,7 @@ export const HERO = {
     },
     step3: {
       label: "Finished work. Your voice. Your standards.",
-      time: "7:14 AM \u00b7 Your clone replies",
+      time: "7:14 AM \u00b7 Your Workpal replies",
       from: "you@workpal.email",
       to: "you@consultant.com",
       subject: "Re: Deep dive on 10 competitor decks",
@@ -61,7 +61,7 @@ export const HERO = {
 
 export const SCENARIO = {
   sectionId: "scenario",
-  title: "You sleep. Your clone delivers.",
+  title: "You sleep. Your Workpal delivers.",
 } as const;
 
 export const HOW_IT_WORKS = {
@@ -71,28 +71,28 @@ export const HOW_IT_WORKS = {
     {
       title: "Teach it who you are",
       description:
-        "Paste your LinkedIn. Upload past deliverables, writing samples, frameworks you use. Your clone learns your voice, your depth, your standards \u2014 not generic AI output.",
+        "Paste your LinkedIn. Upload past deliverables, writing samples, frameworks you use. Your Workpal learns your voice, your depth, your standards \u2014 not generic AI output.",
       placeholderLabel: "LinkedIn profile + document upload interface",
     },
     {
       title: "Delegate, don\u2019t chat",
       description:
-        "Forward any email \u2014 with attachments, context, whatever. Each task gets a fresh, dedicated instance of your clone. No prior conversation leaking in. No stale context.",
+        "Forward any email \u2014 with attachments, context, whatever. Each task gets a fresh, dedicated instance of your Workpal. No prior conversation leaking in. No stale context.",
       placeholderLabel: "Email forwarding to workpal address",
     },
     {
       title: "Review and ship",
       description:
-        "Your clone replies with work that sounds like you wrote it. Drafts, analyses, summaries, frameworks. Edit if needed, hit send to your client. That\u2019s it.",
+        "Your Workpal replies with work that sounds like you wrote it. Drafts, analyses, summaries, frameworks. Edit if needed, hit send to your client. That\u2019s it.",
       placeholderLabel: "Polished AI reply in email thread",
     },
   ],
-  cta: "Create my clone \u2014 it\u2019s free to start",
+  cta: "Create my Workpal \u2014 it\u2019s free to start",
 } as const;
 
 export const OUTPUT_SHOWCASE = {
   sectionId: "output",
-  title: "See what your clone produces.",
+  title: "See what your Workpal produces.",
   subtitle: "Not generic AI output. Work that sounds like you.",
   examples: [
     {
@@ -100,7 +100,7 @@ export const OUTPUT_SHOWCASE = {
       inputSubject: "Fwd: Need market sizing for Southeast Asia EV charging",
       inputBody:
         "Client wants a rough market sizing by Friday. Attached are 3 reports and the RFP.",
-      outputLabel: "Your clone replies with:",
+      outputLabel: "Your Workpal replies with:",
       outputSubject: "Re: Need market sizing for Southeast Asia EV charging",
       outputPreview:
         "Market sizing attached. Bottom-up approach using ASEAN registration data cross-referenced with charging infrastructure density. TAM: $4.2B by 2028 across 6 markets. Key assumptions documented on slide 2. Three scenarios modeled: conservative, base, aggressive. Flagged a data gap in Vietnam \u2014 suggested proxy methodology on slide 7.",
@@ -114,14 +114,14 @@ export const COMPARISON = {
   heading: "Why not just use ChatGPT, Gemini, or Claude?",
   subtext: "They\u2019re brilliant thinking partners. But they don\u2019t know your work.",
   competitorLabel: "ChatGPT / Gemini / Claude",
-  workpalLabel: "Your Workpal Clone",
+  workpalLabel: "Your Workpal",
   rows: [
     {
       dimension: "Identity",
       competitor:
         "Generic assistant. No memory of your style, frameworks, or standards.",
       workpal:
-        "Your clone \u2014 trained on your role, voice, and past deliverables.",
+        "Your Workpal \u2014 trained on your role, voice, and past deliverables.",
     },
     {
       dimension: "Output quality",
@@ -157,7 +157,7 @@ export const COMPARISON = {
 
 export const FOR_TEAMS = {
   sectionId: "teams",
-  title: "50 people. 50 clones. Zero training.",
+  title: "50 people. 50 Workpals. Zero training.",
   subtitle: "Your team already uses email. That\u2019s the only skill required.",
   sellingPoints: [
     {
@@ -166,9 +166,9 @@ export const FOR_TEAMS = {
         "If they can forward an email, they can use an AI agent. No prompts to learn, no interfaces to master.",
     },
     {
-      title: "Every clone is specialized",
+      title: "Every Workpal is specialized",
       description:
-        "Sales gets a sales clone. Legal gets a legal clone. Each one trained on that person\u2019s role, context, and deliverables.",
+        "Sales gets a sales Workpal. Legal gets a legal Workpal. Each one trained on that person\u2019s role, context, and deliverables.",
     },
     {
       title: "Non-technical people thrive",
@@ -178,7 +178,7 @@ export const FOR_TEAMS = {
     {
       title: "Governed by default",
       description:
-        "Every ChatGPT tab is ungoverned data flow. Workpal gives you a full audit trail \u2014 who forwarded what, what the clone produced, what got sent.",
+        "Every ChatGPT tab is ungoverned data flow. Workpal gives you a full audit trail \u2014 who forwarded what, what was produced, what got sent.",
     },
   ],
   enterpriseFeatures: [
@@ -193,24 +193,24 @@ export const FOR_TEAMS = {
 
 export const SECURITY = {
   badge: "Security & Privacy",
-  heading: "Your clone sees only what you show it.",
+  heading: "Your Workpal sees only what you show it.",
   subtext:
     "No inbox access. No calendar snooping. No ambient data collection.",
   principles: [
     {
       title: "TLS encryption on every exchange",
       description:
-        "All emails between you and your clone are encrypted in transit. We never store or read your content.",
+        "All emails between you and your Workpal are encrypted in transit. We never store or read your content.",
     },
     {
       title: "Zero ambient access",
       description:
-        "Your clone has no access to your inbox, calendar, or files. It only processes what you explicitly forward \u2014 one task at a time.",
+        "Your Workpal has no access to your inbox, calendar, or files. It only processes what you explicitly forward \u2014 one task at a time.",
     },
     {
       title: "Task-scoped memory only",
       description:
-        "Your clone knows your role and style permanently. But task data is scoped to that task only \u2014 it never leaks into other tasks.",
+        "Your Workpal knows your role and style permanently. But task data is scoped to that task only \u2014 it never leaks into other tasks.",
     },
     {
       title: "You own everything",
@@ -245,12 +245,12 @@ export const FAQ = {
     {
       question: "How is this different from just emailing ChatGPT?",
       answer:
-        "ChatGPT doesn\u2019t know who you are. It doesn\u2019t know your writing style, your frameworks, or the quality bar you hold yourself to. Workpal builds a persistent profile of how you work \u2014 your clone carries that identity into every task. But unlike ChatGPT, each task is completely isolated. No conversation history bleeding between tasks.",
+        "ChatGPT doesn\u2019t know who you are. It doesn\u2019t know your writing style, your frameworks, or the quality bar you hold yourself to. Workpal builds a persistent profile of how you work \u2014 your Workpal carries that identity into every task. But unlike ChatGPT, each task is completely isolated. No conversation history bleeding between tasks.",
     },
     {
       question: "Can it really match my writing style?",
       answer:
-        "It gets better over time. During onboarding, you provide your LinkedIn, writing samples, and past deliverables. Your clone learns your tone, vocabulary, structure preferences, and depth of analysis. The more you use it, the more it calibrates. You can also give it direct feedback \u2014 \u2018too formal,\u2019 \u2018add more data,\u2019 \u2018this isn\u2019t how I\u2019d frame it\u2019 \u2014 and it adapts.",
+        "It gets better over time. During onboarding, you provide your LinkedIn, writing samples, and past deliverables. Your Workpal learns your tone, vocabulary, structure preferences, and depth of analysis. The more you use it, the more it calibrates. You can also give it direct feedback \u2014 \u2018too formal,\u2019 \u2018add more data,\u2019 \u2018this isn\u2019t how I\u2019d frame it\u2019 \u2014 and it adapts.",
     },
     {
       question: "What types of tasks can it handle?",
@@ -260,38 +260,38 @@ export const FAQ = {
     {
       question: "What do you mean by \u2018no memory bleed\u2019?",
       answer:
-        "In ChatGPT or Claude, your previous conversations subtly influence new ones \u2014 context accumulates, old instructions linger, outputs drift. With Workpal, every forwarded email spawns a fresh instance of your clone. It knows your style and role (permanent identity), but the task data is completely scoped. Task A never touches Task B.",
+        "In ChatGPT or Claude, your previous conversations subtly influence new ones \u2014 context accumulates, old instructions linger, outputs drift. With Workpal, every forwarded email spawns a fresh instance. It knows your style and role (permanent identity), but the task data is completely scoped. Task A never touches Task B.",
     },
     {
       question: "Can I forward emails with attachments?",
       answer:
-        "Yes. PDFs, slides, spreadsheets, docs \u2014 your clone processes them as part of the task context. If someone sends you 10 competitor decks and says \u2018analyze these,\u2019 you forward the whole thread with attachments. Your clone reads everything.",
+        "Yes. PDFs, slides, spreadsheets, docs \u2014 your Workpal processes them as part of the task context. If someone sends you 10 competitor decks and says \u2018analyze these,\u2019 you forward the whole thread with attachments. Your Workpal reads everything.",
     },
     {
       question: "What if the output isn\u2019t good enough to send?",
       answer:
-        "You always review before anything goes out. Your clone replies only to you \u2014 never to your client or boss directly. Think of it as a very capable first draft from someone who knows your standards. You edit, refine, and send when you\u2019re satisfied. Over time, the edits get smaller.",
+        "You always review before anything goes out. Your Workpal replies only to you \u2014 never to your client or boss directly. Think of it as a very capable first draft from someone who knows your standards. You edit, refine, and send when you\u2019re satisfied. Over time, the edits get smaller.",
     },
     {
       question: "Does Workpal have access to my inbox?",
       answer:
-        "No. Zero ambient access. Your clone cannot read your inbox, calendar, contacts, or files. It only sees what you explicitly forward to it. One task at a time. This is a deliberate architectural choice \u2014 we believe AI agents should operate on a need-to-know basis.",
+        "No. Zero ambient access. Your Workpal cannot read your inbox, calendar, contacts, or files. It only sees what you explicitly forward to it. One task at a time. This is a deliberate architectural choice \u2014 we believe AI agents should operate on a need-to-know basis.",
     },
     {
       question:
-        "Will my colleagues see what I forward or what my clone produces?",
+        "Will my colleagues see what I forward or what my Workpal produces?",
       answer:
-        "No. Your clone is yours. It replies only to your email address. No one \u2014 not your boss, not your IT admin, not Workpal staff \u2014 can see your tasks or outputs unless you explicitly share them. On enterprise plans, admins see metadata (usage stats, volume) but never content.",
+        "No. Your Workpal is yours. It replies only to your email address. No one \u2014 not your boss, not your IT admin, not Workpal staff \u2014 can see your tasks or outputs unless you explicitly share them. On enterprise plans, admins see metadata (usage stats, volume) but never content.",
     },
     {
       question: "What happens to my data after a task is done?",
       answer:
-        "Task-specific data (the email you forwarded, attachments, the clone\u2019s output) is processed and delivered back to you. We don\u2019t retain task content beyond delivery. Your permanent profile (role, style, preferences) persists so your clone stays calibrated, but you can delete it at any time.",
+        "Task-specific data (the email you forwarded, attachments, the Workpal\u2019s output) is processed and delivered back to you. We don\u2019t retain task content beyond delivery. Your permanent profile (role, style, preferences) persists so your Workpal stays calibrated, but you can delete it at any time.",
     },
     {
       question: "Why do you need my LinkedIn to get started?",
       answer:
-        "Your LinkedIn is the fastest way to teach your clone who you are \u2014 your role, industry, skills, experience level. It\u2019s a shortcut to calibration. It\u2019s not required \u2014 you can skip it and manually describe your role instead, or upload writing samples directly. We never post to your LinkedIn or access it after the initial import.",
+        "Your LinkedIn is the fastest way to teach your Workpal who you are \u2014 your role, industry, skills, experience level. It\u2019s a shortcut to calibration. It\u2019s not required \u2014 you can skip it and manually describe your role instead, or upload writing samples directly. We never post to your LinkedIn or access it after the initial import.",
     },
     {
       question: "What if my company has compliance requirements?",
@@ -317,12 +317,12 @@ export const FAQ = {
 } as const;
 
 export const FINAL_CTA = {
-  heading: "Your clone is one email away.",
+  heading: "Your Workpal is one email away.",
   subtext:
-    "Paste your LinkedIn. Drop your email. Your intellectual clone starts learning who you are \u2014 instantly.",
+    "Paste your LinkedIn. Drop your email. Your Workpal starts learning who you are \u2014 instantly.",
   linkedInPlaceholder: "Paste your LinkedIn URL",
   emailPlaceholder: "Your email address",
-  ctaLabel: "Create My Clone",
+  ctaLabel: "Create My Workpal",
   microcopy: "Free to start. First 10 tasks on us. No credit card required.",
   encryptionNote:
     "All exchanges TLS encrypted. We never read your emails or AI outputs.",

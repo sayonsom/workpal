@@ -86,7 +86,7 @@ function WorkflowDiagram() {
 
       <div className="workflow-step"><DownArrow /></div>
 
-      {/* ── STEP 2: Forward to clone ── */}
+      {/* ── STEP 2: Forward to Workpal ── */}
       <div className="workflow-step rounded-[8px] border-2 border-info bg-[#f0f9ff] shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-[#e0f2fe] border-b border-info/20 flex items-center gap-2">
           <StepPill step={2} />
@@ -106,7 +106,7 @@ function WorkflowDiagram() {
 
       <div className="workflow-step"><DownArrow /></div>
 
-      {/* ── STEP 3: Clone delivers ── */}
+      {/* ── STEP 3: Workpal delivers ── */}
       <div className="workflow-step rounded-[8px] border-2 border-cta bg-[#f0fdf4] shadow-[var(--shadow-sm)] overflow-hidden">
         <div className="px-3 py-2 bg-[#dcfce7] border-b border-cta/20 flex items-center gap-2">
           <StepPill step={3} />
