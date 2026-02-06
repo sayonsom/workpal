@@ -1,0 +1,272 @@
+APP SPECIFICATION — Cofiboy Landing Page v1 (IT-Safe, Email-Native)
+===================================================================
+
+PRODUCT POSITIONING
+-------------------
+Cofiboy gives every professional a governed AI operator they can use from email.
+No new apps. No dashboards. Forward a task, get structured work back — with you in control.
+
+Core promise:
+  Turn inbox chaos into structured work.
+  Your agent only sees what you forward. You decide what gets sent.
+
+Tagline candidates (pick best fit during build):
+  - "Forward the work. Get it done."
+  - "Your AI coworker, right in your inbox."
+  - "Inbox-native AI, with you in control."
+
+
+==============================================
+SECTION 1: NAVBAR
+==============================================
+
+Layout: Sticky top. Height 44px. White bg. Bottom border rgba(29,28,29,0.13).
+Max-width 1200px centered.
+
+Left:  Logo wordmark "cofiboy" — lowercase, Lato Bold, 18px, color #3F0E40
+Right: Text links — "How it Works" | "Why Not ChatGPT?" | "For Business" (anchor scroll)
+       Primary CTA button — "Get Your Agent" (#007A5A, white text, 6px radius)
+
+Mobile: Stack logo above. Links + CTA in a row. No hamburger.
+
+
+==============================================
+SECTION 2: HERO
+==============================================
+
+Goal: Instant clarity + low perceived risk + frictionless entry.
+
+Layout: Two-column desktop. Single stack on mobile.
+
+LEFT COLUMN (text):
+
+  Eyebrow badge (pill):
+    "No signup. No new apps." — subtle bg #F8F8F8, border, 12px text
+
+  Headline (H1):
+    "Your AI operator."
+    "Already in your inbox."
+    — Lato Bold, 40–48px, #1D1C1D, line-height 1.2
+
+  Subtext (1–2 lines):
+    "Forward tasks or emails. Get drafts, summaries, and next steps — right back in your inbox.
+     You stay in control of what gets sent."
+    — 15px, rgba(29,28,29, 0.70), line-height 1.4
+
+  Input group:
+    - Text input: placeholder "Paste your LinkedIn URL" — 36px height, 6px radius
+    - Primary button: "Create My Agent →" — #007A5A
+    - Micro-copy: "Free forever for individuals. No credit card. Your agent only sees what you forward." — 12px muted
+
+RIGHT COLUMN (visual):
+
+  Fake email UI component (build as styled component, NOT a static image):
+    - Header: "You → cofi-agent@cofiboy.com"
+    - Subject line: "Summarize Q3 report"
+    - Agent reply bubble: "Here's a 5-point summary + next steps…"
+    - Style: Slack-like surface colors (#FFFFFF surface, rgba borders, sm shadow)
+    - This IS the hero visual. It communicates the concept while serving as the illustration.
+
+
+==============================================
+SECTION 3: HOW IT WORKS
+==============================================
+
+Goal: Build confidence. Dead-simple 3-step flow.
+
+Section header:
+  "How it actually works." — H2, bold, centered, #1D1C1D
+  Subtext: "No dashboard. No learning curve. Just email." — centered, subtle text
+
+Layout: 3 cards in a row (desktop). Stacked below lg breakpoint.
+Cards: White bg, 8px radius, sm shadow, 24px padding.
+
+STEP 1: "Get your agent"
+  Visual: Placeholder slot (LinkedIn → agent creation illustration)
+  Copy: "Paste your LinkedIn. We create an AI operator that understands your role and context."
+
+STEP 2: "Forward anything"
+  Visual: Placeholder slot (email forwarding illustration)
+  Copy: "Forward any email, doc, or task. Your agent only sees what you forward — nothing else."
+
+STEP 3: "Get it back, done"
+  Visual: Placeholder slot (agent reply in inbox illustration)
+  Copy: "Your agent replies to you with drafts, summaries, and actions. You decide what gets sent."
+
+Connector: Subtle arrow or dashed line between cards (inline SVG, not icon library).
+
+Below cards:
+  Secondary CTA: "Try it now — it's free" (white bg, border, #1D1C1D text)
+
+
+==============================================
+SECTION 4: WHY NOT JUST USE CHATGPT / GEMINI / CLAUDE?
+==============================================
+
+Goal: Kill the "we already use ChatGPT" objection. Highlight workflow fit + context control.
+
+Background: #FFFFFF (white — section stands on content, not bg color)
+
+Section header:
+  "Why not just use ChatGPT, Gemini, or Claude?" — H2, bold, centered
+  Subtext: "Great for thinking. Not built for inbox work." — centered, subtle text
+
+Layout: 2 equal columns side by side (desktop). Stacked on mobile.
+
+LEFT CARD — "General-purpose chat"
+  Card style: White bg, 8px radius, border rgba(29,28,29,0.13), 24px padding
+  Header: "ChatGPT / Gemini / Claude" — bold, 15px
+
+  Items (each with inline SVG X icon in #E01E5A):
+    ✗ "One long, messy conversation history"
+    ✗ "Memory and past chats bleed into new tasks"
+    ✗ "Manual copy-paste from email and attachments"
+    ✗ "Hard to trace outputs back to the original thread"
+
+RIGHT CARD — "Cofiboy (Inbox-native AI)"
+  Card style: White bg, 8px radius, border 2px #007A5A (green accent border), 24px padding
+  Header: "Cofiboy" — bold, 15px, #007A5A
+
+  Items (each with inline SVG checkmark in #2BAC76):
+    ✓ "Each forwarded email is its own clean context"
+    ✓ "No cross-task memory bleed or hidden state"
+    ✓ "Replies come back to the same thread"
+    ✓ "Clear audit trail: input email → output"
+
+Below comparison:
+  One-liner: "Designed for real work, not open-ended chatting." — centered, 13px, muted
+
+  CTA (secondary): "Try it on a real email →"
+  Micro-copy: "Forward one email. See the difference."
+
+
+==============================================
+SECTION 5: FOR BUSINESS
+==============================================
+
+Goal: Speak to IT leaders / managers. Shadow AI urgency.
+
+Background: #F8F8F8
+
+Layout: Two-column desktop. Stacked on mobile.
+
+LEFT COLUMN:
+
+  Eyebrow badge (pill): "For Teams & Enterprise" — #3F0E40 bg, white text
+
+  Headline (H2):
+    "Your team is already using AI."
+    "You just don't control it."
+    — Bold, 32–36px, #1D1C1D
+
+  Body (2-3 lines MAX):
+    "Every ChatGPT tab is ungoverned data flow.
+     Cofiboy gives your team an AI they'll actually use — with visibility,
+     controls, and auditability."
+
+  Bullets (MAX 3, inline SVG checkmarks in #2BAC76):
+    ✓ "No inbox access by default — agents only see what users forward"
+    ✓ "Private cloud deployment (AWS, Azure, GCP)"
+    ✓ "Full audit trail for every interaction"
+
+  CTA: "Explore Cofiboy for Business →" — Primary button (#007A5A)
+  Micro-copy: "SOC 2 roadmap in progress" — 12px muted
+
+RIGHT COLUMN:
+  Large placeholder for dashboard/admin mockup visual.
+  Use aubergine (#3F0E40) accents in the placeholder styling.
+  Aspect ratio ~16:10.
+
+
+==============================================
+SECTION 6: FOOTER
+==============================================
+
+Background: #3F0E40 (aubergine). Text: rgba(255,255,255,0.86).
+
+Layout: Single row desktop. Stacked mobile.
+
+Left:   "cofiboy" wordmark (white, bold)
+Center: "Privacy" | "Terms" | "Contact" (placeholder hrefs)
+Right:  "Built with ☕ for people who hate context-switching." — italic, muted white
+
+Bottom: "© 2025 Cofiboy Inc." — 12px, rgba(255,255,255,0.56)
+
+
+==============================================
+VISUAL PLACEHOLDERS SPEC
+==============================================
+
+All image placeholder areas:
+  1. Defined aspect ratio via Tailwind aspect-ratio utilities
+  2. Light gray (#F8F8F8) bg with dashed border rgba(29,28,29,0.13)
+  3. Label inside: "Image: [description]" — 12px muted text
+  4. Wrapped in component accepting `src` prop for future swap
+  5. Hero fake-email-UI is BUILT as a styled component (not a placeholder)
+
+Placeholder IDs:
+  - hero-visual:       Fake email thread UI (styled component)
+  - step-1-visual:     LinkedIn → Agent creation
+  - step-2-visual:     Email forwarding
+  - step-3-visual:     Agent reply in inbox
+  - business-visual:   Dashboard/admin mockup
+
+
+==============================================
+RESPONSIVE BREAKPOINTS
+==============================================
+
+Tailwind defaults:
+  sm: 640px | md: 768px | lg: 1024px | xl: 1280px
+
+Two-column (Hero, Comparison, Business) → stack below md (768px)
+Three-column (How It Works) → stack below lg (1024px)
+Nav → simplified row below md
+
+
+==============================================
+SEO & META
+==============================================
+
+Title: "Cofiboy — Your AI Operator, In Your Inbox"
+Description: "Get a free AI operator that works from your email. No signups, no dashboards. Forward tasks, get them done. You stay in control."
+OG Image: Simple 1200x630 card — logo + tagline on brand colors
+
+
+==============================================
+INTERACTIONS & ANIMATIONS
+==============================================
+
+Minimal:
+  - Buttons: bg transition 180ms ease
+  - Cards: translateY(-2px) on hover, 180ms
+  - Hero: fade-in on load (opacity 0→1, 240ms)
+  - Input focus: border-color → #1D9BD1, 120ms
+  - NO scroll-triggered animations. NO intersection observers.
+
+
+==============================================
+PERFORMANCE TARGETS
+==============================================
+
+  - Zero external JS beyond Next.js + Tailwind
+  - No analytics for v1
+  - < 100KB first-load JS
+  - Fonts via next/font (self-hosted)
+  - Lighthouse: 95+ all categories
+
+
+==============================================
+OUT OF SCOPE (v1)
+==============================================
+
+  - Dark mode
+  - Blog / content pages
+  - Pricing page
+  - Login / dashboard
+  - Real form submission (wire LinkedIn input to POST /api/waitlist later)
+  - Cookie consent
+  - Live chat
+  - Hamburger menu
+  - Third-party integrations
+  - Analytics
