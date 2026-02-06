@@ -5,7 +5,7 @@ export const SITE = {
   agentEmail: "your-agent@workpal.email",
   sampleAgentEmail: "agent@workpal.email",
   copyright: "2025 Workpal Inc.",
-  footerTagline: "Built for people who\u2019d rather delegate than prompt.",
+  footerTagline: "Built for people who\u2019d rather sleep than copy-paste.",
 } as const;
 
 export const NAV = {
@@ -19,15 +19,15 @@ export const NAV = {
 } as const;
 
 export const HERO = {
-  badge: "Your personal AI. Ready in your inbox.",
-  headline: "An AI that works like you.",
+  badge: "No prompts. No dashboards. Just email.",
+  headline: "An AI operator that works from your inbox.",
   subtext:
-    "Workpal learns how you think, write, and deliver. Forward any task \u2014 it produces your quality of work, in your voice, with your frameworks. Each task is its own clean slate. No memory bleed. No chat history pollution.",
+    "Forward the task. Forward the context. Get the work back, done. No copy-paste. No new apps. Just email.",
   linkedInPlaceholder: "Paste your LinkedIn URL",
   emailPlaceholder: "Your email address",
   ctaLabel: "Create My Workpal",
   ctaSecondary: { label: "Watch 2-min demo", href: "#demo" },
-  microcopy: "Free to start. First 10 tasks on us. No credit card.",
+  microcopy: "Free forever for individuals. No credit card. No learning curve.",
   encryptionNote:
     "All exchanges TLS encrypted. We never read your emails or AI outputs.",
   workflow: {
@@ -36,15 +36,15 @@ export const HERO = {
       time: "2:59 AM \u00b7 Your laptop is closed",
       from: "boss@client.com",
       to: "you@consultant.com",
-      subject: "Deep dive on 10 competitor decks",
-      body: "Do a deep dive on these 10 competitor slide decks and get back to me by morning.",
+      subject: "Meridian deal \u2014 need a summary before tomorrow",
+      body: "Can you put together a summary of where we landed on the Meridian deal? Pricing, timeline, and the changes we made after their last round of feedback. Need it before tomorrow\u2019s call.",
     },
     step2: {
       label: "One tap. Forwarded to your Workpal.",
       time: "7:01 AM \u00b7 You wake up",
       from: "you@consultant.com",
       to: "you@workpal.email",
-      subject: "Fwd: Deep dive on 10 competitor decks",
+      subject: "Fwd: Meridian deal \u2014 need a summary before tomorrow",
       annotation: "Fwd:",
     },
     step3: {
@@ -52,8 +52,8 @@ export const HERO = {
       time: "7:14 AM \u00b7 Your Workpal replies",
       from: "you@workpal.email",
       to: "you@consultant.com",
-      subject: "Re: Deep dive on 10 competitor decks",
-      body: "Here\u2019s the competitive analysis across all 10 decks. Key themes identified: 3 converging on AI-first positioning, 2 pivoting to vertical SaaS. Gaps: none address compliance automation. Full comparison matrix, SWOT per competitor, and 4 strategic recommendations attached.",
+      subject: "Re: Meridian deal \u2014 need a summary before tomorrow",
+      body: "Here\u2019s the Meridian deal summary \u2014 final pricing structure, timeline of key changes, and a breakdown of their feedback and how we addressed it.",
       action: "Review & send to your client \u2192",
     },
   },
@@ -64,15 +64,24 @@ export const SCENARIO = {
   title: "You sleep. Your Workpal delivers.",
 } as const;
 
+export const VIDEO_DEMO = {
+  badge: "See it in action",
+  heading: "Watch how Workpal works.",
+  subtext:
+    "90 seconds. One late-night email. Zero hours of writing.",
+  ctaLabel: "Watch the demo",
+  placeholder: "Video embed \u2014 90-second product walkthrough",
+} as const;
+
 export const HOW_IT_WORKS = {
   heading: "Three steps. Then it works like you.",
   subtext: "No dashboard. No learning curve. Just email.",
   steps: [
     {
-      title: "Teach it who you are",
+      title: "Create your Workpal",
       description:
-        "Paste your LinkedIn. Upload past deliverables, writing samples, frameworks you use. Your Workpal learns your voice, your depth, your standards \u2014 not generic AI output.",
-      placeholderLabel: "LinkedIn profile + document upload interface",
+        "Drop your email. Tell us your role in one line. That\u2019s it.",
+      placeholderLabel: "Email + role input interface",
     },
     {
       title: "Delegate, don\u2019t chat",
@@ -83,7 +92,7 @@ export const HOW_IT_WORKS = {
     {
       title: "Review and ship",
       description:
-        "Your Workpal replies with work that sounds like you wrote it. Drafts, analyses, summaries, frameworks. Edit if needed, hit send to your client. That\u2019s it.",
+        "Briefs, analyses, comparisons, drafts \u2014 structured and ready to send. You decide what goes out.",
       placeholderLabel: "Polished AI reply in email thread",
     },
   ],
@@ -141,14 +150,14 @@ export const COMPARISON = {
       competitor:
         "Yesterday\u2019s conversation bleeds into today\u2019s. Hidden state accumulates.",
       workpal:
-        "Each forwarded email is a fresh, dedicated instance. Zero cross-contamination.",
+        "Forward multiple emails \u2014 Workpal connects the dots across threads. No cross-task bleed.",
     },
     {
       dimension: "Traceability",
       competitor:
         "Scroll through endless chat history to find that one output.",
       workpal:
-        "Every deliverable tied to the original email thread. Searchable in your inbox.",
+        "Output shows up in your inbox, in the right thread. No prompting required.",
     },
   ],
   footer: "Designed for delegation, not conversation.",
@@ -157,7 +166,7 @@ export const COMPARISON = {
 
 export const FOR_TEAMS = {
   sectionId: "teams",
-  title: "50 people. 50 Workpals. Zero training.",
+  title: "The only AI tool with a 100% adoption rate.",
   subtitle: "Your team already uses email. That\u2019s the only skill required.",
   sellingPoints: [
     {
@@ -189,7 +198,7 @@ export const FOR_TEAMS = {
   enterpriseFeatures: [
     "Zero ambient inbox access \u2014 agents only see what\u2019s forwarded",
     "Private cloud deployment (AWS, Azure, GCP)",
-    "Full audit trail for every interaction",
+    "Full audit trail \u2014 every input, every output, every decision",
     "SSO and role-based admin controls",
     "Workpal transfer on employee offboarding \u2014 retain institutional knowledge",
   ],
@@ -328,9 +337,9 @@ export const FAQ = {
 } as const;
 
 export const FINAL_CTA = {
-  heading: "Your Workpal is one email away.",
+  heading: "Your next all-nighter is optional.",
   subtext:
-    "Paste your LinkedIn. Drop your email. Your Workpal starts learning who you are \u2014 instantly.",
+    "Drop your email. Forward your first task. See what comes back.",
   linkedInPlaceholder: "Paste your LinkedIn URL",
   emailPlaceholder: "Your email address",
   ctaLabel: "Create My Workpal",

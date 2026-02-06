@@ -1,5 +1,6 @@
 import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
+import VideoDemo from "@/components/landing/VideoDemo";
 import HowItWorks from "@/components/landing/HowItWorks";
 import OutputShowcase from "@/components/landing/OutputShowcase";
 import WhyNotChatGPT from "@/components/landing/WhyNotChatGPT";
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <VideoDemo />
         <HowItWorks />
         <OutputShowcase />
         <WhyNotChatGPT />
