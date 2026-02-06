@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: #3F0E40;
+  --color-cta: #007A5A;
+  --color-cta-hover: #006B4F;
+  --color-danger: #E01E5A;
+  --color-warning: #ECB22E;
+  --color-info: #1D9BD1;
+  --color-success: #2BAC76;
+  --color-surface-subtle: #F8F8F8;
+  --color-text-primary: #1D1C1D;
+  --color-link: #1264A3;
+
+  --font-sans: var(--font-lato), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Semantic color variables for inline styles */
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F8F8F8;
+  --color-text-subtle: rgba(29, 28, 29, 0.70);
+  --color-text-muted: rgba(29, 28, 29, 0.55);
+  --color-border-light: rgba(29, 28, 29, 0.13);
+  --color-border-strong: rgba(29, 28, 29, 0.20);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+  /* Motion */
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --duration-slow: 240ms;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Hero fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--duration-slow) var(--ease-default) both;
 }
