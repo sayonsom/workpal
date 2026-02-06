@@ -21,7 +21,7 @@ function QuoteIcon() {
 
 export default function SocialProof() {
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-12 md:py-16 bg-surface-subtle">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* User count banner */}
         <div className="text-center mb-10">

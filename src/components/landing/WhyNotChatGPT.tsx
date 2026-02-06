@@ -4,7 +4,7 @@ import { COMPARISON } from "@/lib/constants";
 
 export default function WhyNotChatGPT() {
   return (
-    <section id="comparison" className="py-16 md:py-24">
+    <section id="comparison" className="py-16 md:py-24 bg-surface-subtle">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Section header */}
         <div className="text-center max-w-[640px] mx-auto mb-10">
@@ -18,7 +18,7 @@ export default function WhyNotChatGPT() {
 
         {/* Task prompt */}
         <div className="max-w-[900px] mx-auto mb-8">
-          <div className="rounded-[8px] bg-surface-subtle border border-[var(--color-border-light)] px-4 py-3 text-center">
+          <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] px-4 py-3 text-center shadow-[var(--shadow-sm)]">
             <p className="text-[14px] text-text-primary leading-[1.4]">
               {COMPARISON.task}
             </p>
@@ -29,10 +29,13 @@ export default function WhyNotChatGPT() {
         <div className="max-w-[900px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left panel — ChatGPT / Claude */}
           <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white shadow-[var(--shadow-sm)] overflow-hidden">
-            <div className="px-4 py-3 bg-surface-subtle border-b border-[var(--color-border-light)]">
+            <div className="px-4 py-3 bg-white border-b border-[var(--color-border-light)]">
               <span className="text-[13px] font-bold text-[var(--color-text-muted)] uppercase tracking-wide">
                 {COMPARISON.leftPanel.label}
               </span>
+              <p className="mt-1 text-[12px] text-danger/80 leading-[1.3]">
+                {COMPARISON.leftPanel.tagline}
+              </p>
             </div>
             <div className="p-4">
               <ol className="space-y-3">
@@ -62,6 +65,9 @@ export default function WhyNotChatGPT() {
               <span className="text-[13px] font-bold text-cta uppercase tracking-wide">
                 {COMPARISON.rightPanel.label}
               </span>
+              <p className="mt-1 text-[12px] text-cta/80 leading-[1.3]">
+                {COMPARISON.rightPanel.tagline}
+              </p>
             </div>
             <div className="p-4">
               <ol className="space-y-3">

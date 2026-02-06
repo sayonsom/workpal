@@ -8,7 +8,7 @@ export default function HowItWorks() {
   const steps = HOW_IT_WORKS.steps;
 
   return (
-    <section id="how-it-works" className="py-16 md:py-24">
+    <section id="how-it-works" className="py-16 md:py-24 bg-surface-subtle">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Section header */}
         <div className="text-center max-w-[600px] mx-auto mb-12">

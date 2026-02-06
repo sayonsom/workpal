@@ -22,7 +22,7 @@ export const HERO = {
   badge: "No prompts. No dashboards. Just email.",
   headline: "Forward an email. Get the work done.",
   subtext:
-    "No app to install. No prompt to write. Just forward any task to your AI operator \u2014 it does the work and emails you back.",
+    "Workpal reads your LinkedIn to understand your role, experience, and expertise \u2014 then produces work that sounds like you, not a chatbot. Just forward a task and get it back done.",
   formHeadline: "Paste your LinkedIn \u2014 get your AI operator in 60 seconds",
   linkedInPlaceholder: "https://linkedin.com/in/yourname",
   emailPlaceholder: "you@company.com",
@@ -50,7 +50,7 @@ export const HERO = {
       annotation: "Fwd:",
     },
     step3: {
-      label: "Finished work. Your voice. Your standards.",
+      label: "Finished work. Your voice. Grounded in your experience.",
       time: "7:14 AM \u00b7 Your Workpal replies",
       from: "you@workpal.email",
       to: "you@consultant.com",
@@ -77,13 +77,13 @@ export const VIDEO_DEMO = {
 
 export const HOW_IT_WORKS = {
   heading: "Three steps. Then it works like you.",
-  subtext: "No dashboard. No learning curve. Just email.",
+  subtext: "Your LinkedIn becomes your AI\u2019s foundation. No dashboard. No learning curve.",
   steps: [
     {
-      title: "Create your Workpal",
+      title: "Share your LinkedIn",
       description:
-        "Drop your email. Tell us your role in one line. That\u2019s it.",
-      placeholderLabel: "Email + role input interface",
+        "Paste your LinkedIn URL and email. Workpal imports your role, industry, skills, and experience \u2014 so it writes like a 10-year veteran of your field, not a generic chatbot.",
+      placeholderLabel: "LinkedIn import + professional profile calibration",
     },
     {
       title: "Delegate, don\u2019t chat",
@@ -94,7 +94,7 @@ export const HOW_IT_WORKS = {
     {
       title: "Review and ship",
       description:
-        "Briefs, analyses, comparisons, drafts \u2014 structured and ready to send. You decide what goes out.",
+        "Briefs, analyses, comparisons, drafts \u2014 structured like your past work and written in your voice. You decide what goes out.",
       placeholderLabel: "Polished AI reply in email thread",
     },
   ],
@@ -104,7 +104,8 @@ export const HOW_IT_WORKS = {
 export const OUTPUT_SHOWCASE = {
   sectionId: "output",
   title: "See what your Workpal produces.",
-  subtitle: "Not generic AI output. Work that sounds like you.",
+  subtitle: "Not generic AI output. Work grounded in your professional background.",
+  linkedInCallout: "Calibrated from your LinkedIn: role, industry, expertise, seniority",
   examples: [
     {
       inputLabel: "You forward this:",
@@ -116,7 +117,7 @@ export const OUTPUT_SHOWCASE = {
       outputPreview:
         "Market sizing attached. Bottom-up approach using ASEAN registration data cross-referenced with charging infrastructure density. TAM: $4.2B by 2028 across 6 markets. Key assumptions documented on slide 2. Three scenarios modeled: conservative, base, aggressive. Flagged a data gap in Vietnam \u2014 suggested proxy methodology on slide 7.",
       outputNote:
-        "Structured like your past deliverables. Uses your preferred frameworks.",
+        "Structured like your past deliverables. Depth and framing reflect your seniority and domain expertise.",
     },
   ],
 } as const;
@@ -151,6 +152,7 @@ export const COMPARISON = {
   task: "Boss sends: \u201CSummarize these 3 vendor proposals and recommend one.\u201D",
   leftPanel: {
     label: "ChatGPT / Claude",
+    tagline: "Generic output. No context about you.",
     steps: [
       "Open ChatGPT in new tab",
       "Copy-paste email text",
@@ -158,27 +160,28 @@ export const COMPARISON = {
       "Write a detailed prompt explaining what you need",
       "Wait for response, re-prompt twice",
       "Copy output back into email, reformat",
-      "Send to boss",
+      "Send to boss \u2014 still sounds like a chatbot",
     ],
     time: "~25 minutes",
   },
   rightPanel: {
     label: "Workpal",
+    tagline: "Your voice. Your expertise. Grounded in your LinkedIn.",
     steps: [
       "Forward the email",
-      "Get structured analysis back in your inbox",
-      "Review and send to boss",
+      "Get a structured analysis written in your style",
+      "Review and send to boss \u2014 sounds like you wrote it",
     ],
     time: "~2 minutes",
   },
-  footer: "Designed for delegation, not conversation.",
+  footer: "ChatGPT doesn\u2019t know you. Workpal was built from your professional profile.",
   cta: "Try it on a real email \u2192",
 } as const;
 
 export const USE_CASES = {
   sectionId: "use-cases",
   heading: "What Workpal actually produces.",
-  subtext: "Real tasks. Real output previews.",
+  subtext: "Outputs shaped by your professional background \u2014 not generic prompts.",
   cases: [
     {
       persona: "Management Consultant",
@@ -186,6 +189,8 @@ export const USE_CASES = {
         "Client forwards: \u201CAnalyze these 10 competitor decks and brief me by morning.\u201D",
       output:
         "Competitive landscape matrix with positioning gaps, pricing comparison table, and 3 strategic recommendations \u2014 delivered as a formatted email with attached summary deck.",
+      whyPersonalized:
+        "Knows you\u2019re a strategy consultant. Uses MECE frameworks, not bullet-point summaries.",
       timeSaved: "4 hours \u2192 2 minutes",
     },
     {
@@ -194,6 +199,8 @@ export const USE_CASES = {
         "Prospect replies: \u201CSounds interesting, but how does this compare to [competitor]?\u201D",
       output:
         "Personalized competitive comparison email addressing the prospect\u2019s specific use case, with objection handling and a soft close for a demo call.",
+      whyPersonalized:
+        "Mirrors your closing style and deal language. Doesn\u2019t sound like marketing copy.",
       timeSaved: "30 minutes \u2192 1 forward",
     },
     {
@@ -202,6 +209,8 @@ export const USE_CASES = {
         "Partner forwards: \u201CReview this contract redline and flag any issues.\u201D",
       output:
         "Clause-by-clause risk assessment highlighting 7 flagged provisions with recommended negotiation positions and precedent references.",
+      whyPersonalized:
+        "Understands your practice area and jurisdiction. Flags what matters to you, not generic legal risks.",
       timeSaved: "2 hours \u2192 1 forward",
     },
     {
@@ -210,6 +219,8 @@ export const USE_CASES = {
         "Hiring manager sends: \u201CWrite a job description for this new role based on the attached org chart.\u201D",
       output:
         "Complete JD with role summary, qualifications, responsibilities, and compensation band suggestion \u2014 formatted and ready to post.",
+      whyPersonalized:
+        "Reflects your company\u2019s tone and hiring standards. Not a template from the internet.",
       timeSaved: "45 minutes \u2192 1 forward",
     },
   ],
@@ -240,7 +251,7 @@ export const FOR_TEAMS = {
     {
       title: "Every Workpal is specialized",
       description:
-        "Sales gets a sales Workpal. Legal gets a legal Workpal. Each one trained on that person\u2019s role, context, and deliverables.",
+        "Sales gets a sales Workpal. Legal gets a legal Workpal. Each one calibrated from their LinkedIn \u2014 their role, their industry, their seniority, their expertise.",
     },
     {
       title: "Non-technical people thrive",
@@ -323,7 +334,7 @@ export const FAQ = {
     {
       question: "How is this different from just emailing ChatGPT?",
       answer:
-        "ChatGPT doesn\u2019t know who you are. It doesn\u2019t know your writing style, your frameworks, or the quality bar you hold yourself to. Workpal builds a persistent profile of how you work \u2014 your Workpal carries that identity into every task. But unlike ChatGPT, each task is completely isolated. No conversation history bleeding between tasks.",
+        "ChatGPT doesn\u2019t know who you are. It gives the same generic output to an intern and a managing director. Workpal reads your LinkedIn \u2014 your education, career trajectory, domain expertise, seniority \u2014 and builds a permanent professional identity. A McKinsey consultant gets McKinsey-grade frameworks. A litigator gets litigation-grade precision. Every task carries that identity. But unlike ChatGPT, each task is completely isolated. No conversation history bleeding between tasks.",
     },
     {
       question: "Can it really match my writing style?",
@@ -369,7 +380,7 @@ export const FAQ = {
     {
       question: "Why do you need my LinkedIn to get started?",
       answer:
-        "Your LinkedIn is the fastest way to teach your Workpal who you are \u2014 your role, industry, skills, experience level. It\u2019s a shortcut to calibration. It\u2019s not required \u2014 you can skip it and manually describe your role instead, or upload writing samples directly. We never post to your LinkedIn or access it after the initial import.",
+        "Your LinkedIn is how Workpal becomes uniquely yours. It reads your education, career history, industry, skills, and seniority \u2014 then calibrates everything: tone, depth of analysis, frameworks it uses, the level of detail it defaults to. A partner at a law firm gets very different output from the same task than a first-year associate. That\u2019s the point. It\u2019s not required \u2014 you can skip it and manually describe your role \u2014 but it\u2019s the fastest way to get output that sounds like you, not a chatbot.",
     },
     {
       question: "What if my company has compliance requirements?",

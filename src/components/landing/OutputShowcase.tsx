@@ -33,7 +33,7 @@ export default function OutputShowcase() {
   const example = OUTPUT_SHOWCASE.examples[0];
 
   return (
-    <section id={OUTPUT_SHOWCASE.sectionId} className="py-16 md:py-24 bg-surface-subtle">
+    <section id={OUTPUT_SHOWCASE.sectionId} className="py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Header */}
         <div className="text-center max-w-[640px] mx-auto mb-12">
@@ -47,6 +47,18 @@ export default function OutputShowcase() {
 
         {/* Input → Output example */}
         <div className="max-w-[640px] mx-auto">
+          {/* LinkedIn calibration callout */}
+          <div className="mb-4 flex items-center justify-center gap-2 px-4 py-2.5 rounded-[8px] border border-info/20 bg-[#f0f9ff]">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+              <rect x="1" y="1" width="14" height="14" rx="2" stroke="#1D9BD1" strokeWidth="1.5" />
+              <path d="M4.5 6.5V11M4.5 4.5v.5" stroke="#1D9BD1" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M7 8.5c0-1.1.9-2 2-2h.5c.83 0 1.5.67 1.5 1.5V11M7 11V8.5" stroke="#1D9BD1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="text-[13px] font-bold text-info">
+              {OUTPUT_SHOWCASE.linkedInCallout}
+            </span>
+          </div>
+
           {/* Input email */}
           <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white shadow-[var(--shadow-sm)] overflow-hidden">
             <div className="px-4 py-2.5 bg-surface-subtle border-b border-[var(--color-border-light)] flex items-center gap-2">

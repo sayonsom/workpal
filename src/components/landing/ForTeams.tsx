@@ -5,7 +5,7 @@ import { FOR_TEAMS } from "@/lib/constants";
 
 export default function ForTeams() {
   return (
-    <section id={FOR_TEAMS.sectionId} className="py-16 md:py-24 bg-surface-subtle">
+    <section id={FOR_TEAMS.sectionId} className="py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Header */}
         <div className="text-center max-w-[640px] mx-auto mb-12">
