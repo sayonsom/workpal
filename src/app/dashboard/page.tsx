@@ -53,14 +53,14 @@ function DashboardContent() {
 
   function handleAgentUpdated(updated: Agent) {
     setAgents((prev) =>
-      prev.map((a) => (a.id === updated.id ? updated : a))
+      prev.map((a) => (a.agent_id === updated.agent_id ? updated : a))
     );
     setSelectedAgent(updated);
   }
 
   function handleAgentDeleted() {
     setAgents((prev) =>
-      prev.filter((a) => a.id !== selectedAgent?.id)
+      prev.filter((a) => a.agent_id !== selectedAgent?.agent_id)
     );
     setSelectedAgent(null);
   }
@@ -84,7 +84,7 @@ function DashboardContent() {
                 <AgentList
                   agents={agents}
                   onSelectAgent={setSelectedAgent}
-                  selectedAgentId={selectedAgent?.id}
+                  selectedAgentId={selectedAgent?.agent_id}
                 />
               </div>
 
@@ -92,7 +92,7 @@ function DashboardContent() {
               <div>
                 {selectedAgent ? (
                   <AgentDetail
-                    key={selectedAgent.id}
+                    key={selectedAgent.agent_id}
                     agent={selectedAgent}
                     onAgentUpdated={handleAgentUpdated}
                     onAgentDeleted={handleAgentDeleted}

@@ -6,6 +6,7 @@ import {
   getAccessToken,
   getRefreshToken,
   saveAccessToken,
+  saveRefreshToken,
   saveTokens,
   clearTokens,
 } from "./auth";
@@ -17,8 +18,13 @@ import type {
   LoginResponse,
   RefreshResponse,
   Agent,
+  AgentsListResponse,
   PatchAgentRequest,
   CreateAgentRequest,
+  CheckHandleResponse,
+  PersonalizeAgentRequest,
+  PersonalizeAgentResponse,
+  ShareAgentRequest,
   TasksResponse,
   UsageStats,
   Skill,
@@ -34,7 +40,7 @@ const API_BASE = "https://lr90vna1b9.execute-api.us-west-2.amazonaws.com/prod";
 
 // ── Helpers ──
 
-class ApiException extends Error {
+export class ApiException extends Error {
   status: number;
   code?: string;
 
@@ -70,8 +76,11 @@ async function refreshAccessToken(): Promise<string> {
   }
 
   const data: RefreshResponse = await res.json();
-  saveAccessToken(data.access_token);
-  return data.access_token;
+  saveAccessToken(data.id_token);
+  if (data.refresh_token) {
+    saveRefreshToken(data.refresh_token);
+  }
+  return data.id_token;
 }
 
 /**
@@ -153,6 +162,14 @@ async function apiFetch<T>(
 
 // ── Public endpoints (no auth) ──
 
+export async function checkHandle(handle: string): Promise<CheckHandleResponse> {
+  return apiFetch<CheckHandleResponse>(
+    `/check-handle/${encodeURIComponent(handle)}`,
+    { method: "GET" },
+    false
+  );
+}
+
 export async function signup(data: SignupRequest): Promise<SignupResponse> {
   const result = await apiFetch<SignupResponse>(
     "/signup",
@@ -162,7 +179,7 @@ export async function signup(data: SignupRequest): Promise<SignupResponse> {
     },
     false
   );
-  saveTokens(result.tokens.access_token, result.tokens.refresh_token);
+  saveTokens(result.tokens.id_token, result.tokens.refresh_token);
   return result;
 }
 
@@ -175,16 +192,19 @@ export async function login(data: LoginRequest): Promise<LoginResponse> {
     },
     false
   );
-  saveTokens(result.tokens.access_token, result.tokens.refresh_token);
+  // Login response is flat (not nested in tokens)
+  saveTokens(result.id_token, result.refresh_token);
   return result;
 }
 
 // ── Agent endpoints ──
 
 export async function getAgents(): Promise<Agent[]> {
-  return apiFetch<Agent[]>("/agents");
+  const result = await apiFetch<AgentsListResponse>("/agents");
+  return result.agents;
 }
 
+/** @deprecated Agents are now created during signup */
 export async function createAgent(
   data: CreateAgentRequest
 ): Promise<Agent> {
@@ -210,14 +230,40 @@ export async function deleteAgent(agentId: string): Promise<void> {
   });
 }
 
+// ── Personalize ──
+
+export async function personalizeAgent(
+  agentId: string,
+  data: PersonalizeAgentRequest
+): Promise<PersonalizeAgentResponse> {
+  return apiFetch<PersonalizeAgentResponse>(`/agents/${agentId}/personalize`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+// ── Share ──
+
+export async function shareAgent(
+  agentId: string,
+  data: ShareAgentRequest
+): Promise<void> {
+  return apiFetch<void>(`/agents/${agentId}/share`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
 // ── Task endpoints ──
 
 export async function getAgentTasks(
   agentId: string,
+  limit: number = 20,
   cursor?: string
 ): Promise<TasksResponse> {
-  const params = cursor ? `?cursor=${encodeURIComponent(cursor)}` : "";
-  return apiFetch<TasksResponse>(`/agents/${agentId}/tasks${params}`);
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (cursor) params.set("cursor", cursor);
+  return apiFetch<TasksResponse>(`/agents/${agentId}/tasks?${params}`);
 }
 
 // ── Usage ──
@@ -280,10 +326,10 @@ export async function createSample(
 
 export async function updateSample(
   agentId: string,
-  sampleId: string,
+  sampleName: string,
   data: UpdateSampleRequest
 ): Promise<Sample> {
-  return apiFetch<Sample>(`/agents/${agentId}/samples/${sampleId}`, {
+  return apiFetch<Sample>(`/agents/${agentId}/samples/${encodeURIComponent(sampleName)}`, {
     method: "PATCH",
     body: JSON.stringify(data),
   });
@@ -291,11 +337,12 @@ export async function updateSample(
 
 export async function deleteSample(
   agentId: string,
-  sampleId: string
+  sampleName: string
 ): Promise<void> {
-  return apiFetch<void>(`/agents/${agentId}/samples/${sampleId}`, {
-    method: "DELETE",
-  });
+  return apiFetch<void>(
+    `/agents/${agentId}/samples/${encodeURIComponent(sampleName)}`,
+    { method: "DELETE" }
+  );
 }
 
 // ── Account ──

@@ -52,10 +52,10 @@ export default function AgentList({
     <div className="space-y-3">
       {agents.map((agent) => (
         <button
-          key={agent.id}
+          key={agent.agent_id}
           onClick={() => onSelectAgent(agent)}
           className={`w-full text-left rounded-[8px] border bg-white p-4 transition-all duration-[180ms] cursor-pointer ${
-            selectedAgentId === agent.id
+            selectedAgentId === agent.agent_id
               ? "border-cta shadow-[var(--shadow-md)]"
               : "border-[var(--color-border-light)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5"
           }`}
@@ -63,7 +63,7 @@ export default function AgentList({
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <p className="text-[15px] font-bold text-text-primary truncate">
-                {agent.name || "My Workpal"}
+                {agent.display_name || "My Workpal"}
               </p>
               <div className="mt-1 flex items-center gap-2">
                 <p className="text-[14px] text-cta font-bold truncate">
@@ -72,24 +72,28 @@ export default function AgentList({
                 <Button
                   variant="ghost"
                   className="!h-6 !px-2 !text-[11px] !min-h-0 shrink-0"
-                  onClick={(e) => copyEmail(e, agent.agent_email, agent.id)}
+                  onClick={(e) => copyEmail(e, agent.agent_email, agent.agent_id)}
                 >
                   <CopyIcon />
                   <span className="ml-1">
-                    {copiedId === agent.id
+                    {copiedId === agent.agent_id
                       ? DASHBOARD.agentList.copiedTooltip
                       : DASHBOARD.agentList.copyTooltip}
                   </span>
                 </Button>
               </div>
-              <p className="mt-1 text-[12px] text-[var(--color-text-muted)]">
-                Created{" "}
-                {new Date(agent.created_at).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
+              {agent.domain_tags && agent.domain_tags.length > 0 && (
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  {agent.domain_tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-subtle text-[10px] text-[var(--color-text-muted)] font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
             <span
               className={`shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold ${

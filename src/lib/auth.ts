@@ -2,27 +2,33 @@
    Token management — localStorage + cookie flag
    ═══════════════════════════════════════════════ */
 
-const ACCESS_KEY = "workpal_access_token";
+const ACCESS_KEY = "workpal_id_token";
 const REFRESH_KEY = "workpal_refresh_token";
 const COOKIE_NAME = "auth";
 
 /** Store both tokens in localStorage and set an auth cookie flag for middleware */
-export function saveTokens(accessToken: string, refreshToken: string): void {
+export function saveTokens(idToken: string, refreshToken: string): void {
   if (typeof window === "undefined") return;
-  localStorage.setItem(ACCESS_KEY, accessToken);
+  localStorage.setItem(ACCESS_KEY, idToken);
   localStorage.setItem(REFRESH_KEY, refreshToken);
   // Set a simple flag cookie so Next.js middleware can detect auth.
   // The actual token validation happens client-side.
   document.cookie = `${COOKIE_NAME}=1; path=/; max-age=${60 * 60 * 24 * 30}; SameSite=Lax`;
 }
 
-/** Update only the access token (after refresh) */
-export function saveAccessToken(accessToken: string): void {
+/** Update only the id token (after refresh) */
+export function saveAccessToken(idToken: string): void {
   if (typeof window === "undefined") return;
-  localStorage.setItem(ACCESS_KEY, accessToken);
+  localStorage.setItem(ACCESS_KEY, idToken);
 }
 
-/** Get the current access token */
+/** Update only the refresh token (when refresh endpoint returns a new one) */
+export function saveRefreshToken(refreshToken: string): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(REFRESH_KEY, refreshToken);
+}
+
+/** Get the current id token */
 export function getAccessToken(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem(ACCESS_KEY);
@@ -42,7 +48,7 @@ export function clearTokens(): void {
   document.cookie = `${COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
 }
 
-/** Quick check: is an access token present? */
+/** Quick check: is an id token present? */
 export function isAuthenticated(): boolean {
   return !!getAccessToken();
 }

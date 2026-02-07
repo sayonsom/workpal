@@ -3,7 +3,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { HERO, FINAL_CTA } from "@/lib/constants";
-import { signup } from "@/lib/api";
+import { signup, login, checkHandle, ApiException } from "@/lib/api";
+import SuccessModal from "./SuccessModal";
+import Toast from "../ui/Toast";
 
 /* ── Inline SVG icons ── */
 
@@ -61,8 +63,19 @@ export default function BottomCTA() {
   const [email, setEmail] = useState("");
   const [workpalPrefix, setWorkpalPrefix] = useState("");
   const [isCustomizing, setIsCustomizing] = useState(false);
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Success modal + error toast
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successAgentEmail, setSuccessAgentEmail] = useState("");
+  const [toastError, setToastError] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
+  // Handle availability
+  const [handleAvailable, setHandleAvailable] = useState<boolean | null>(null);
+  const [checkingHandle, setCheckingHandle] = useState(false);
 
   const [betaRemaining, setBetaRemaining] = useState<number | null>(null);
   const [betaPercentage, setBetaPercentage] = useState<number | null>(null);
@@ -88,6 +101,28 @@ export default function BottomCTA() {
     fetchBetaCount();
   }, []);
 
+  // Debounced handle availability check
+  useEffect(() => {
+    if (!activePrefix || activePrefix.length < 2) {
+      setHandleAvailable(null);
+      setCheckingHandle(false);
+      return;
+    }
+    setCheckingHandle(true);
+    setHandleAvailable(null);
+    const timer = setTimeout(async () => {
+      try {
+        const result = await checkHandle(activePrefix);
+        setHandleAvailable(result.available);
+      } catch {
+        setHandleAvailable(null);
+      } finally {
+        setCheckingHandle(false);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [activePrefix]);
+
   const handleCustomizeClick = useCallback(() => {
     setIsCustomizing(true);
     setWorkpalPrefix(derivedPrefix);
@@ -99,16 +134,38 @@ export default function BottomCTA() {
 
     if (!email) { setError("Enter your email address."); return; }
     if (!activePrefix) { setError("Your Workpal email address is empty."); return; }
+    if (handleAvailable === false) { setError("That handle is taken. Try another."); return; }
+    if (!password || password.length < 8) { setError("Password must be at least 8 characters."); return; }
+    if (!/[A-Z]/.test(password)) { setError("Password must contain an uppercase letter."); return; }
+    if (!/\d/.test(password)) { setError("Password must contain a digit."); return; }
 
     setLoading(true);
+    setShowToast(false);
     try {
-      await signup({ email, password: "", linkedin_url: "" });
+      const result = await signup({ email, password, workpal_handle: activePrefix });
+      // Update beta counter (non-critical)
       try {
         await fetch("/api/beta-count", { method: "POST" });
       } catch { /* non-critical */ }
-      router.push("/dashboard");
+      // Show success modal instead of redirect
+      setSuccessAgentEmail(result.agent.agent_email);
+      setShowSuccessModal(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      // Existing account — attempt silent login
+      if (err instanceof ApiException && err.status === 409) {
+        try {
+          await login({ email, password });
+          setSuccessAgentEmail(workpalAddress || `${activePrefix}@workpal.email`);
+          setShowSuccessModal(true);
+        } catch {
+          setToastError("Account exists but credentials don\u2019t match. Try logging in.");
+          setShowToast(true);
+        }
+      } else {
+        // Generic API error — show toast
+        setToastError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+        setShowToast(true);
+      }
     } finally {
       setLoading(false);
     }
@@ -192,9 +249,43 @@ export default function BottomCTA() {
                   )}
                 </div>
               )}
-              <p className="mt-1.5 text-[12px] text-white/40 flex items-center gap-1">
+              <div className="mt-1.5 flex items-center gap-1">
                 <ShieldCheckIcon className="shrink-0 text-cta opacity-70" />
-                {HERO.steps.workpalEmail.helpText}
+                <p className="text-[12px] text-white/40">
+                  {HERO.steps.workpalEmail.helpText}
+                </p>
+                {activePrefix && activePrefix.length >= 2 && (
+                  <span className="ml-auto text-[12px] font-bold">
+                    {checkingHandle ? (
+                      <span className="text-white/40">{HERO.handleChecking}</span>
+                    ) : handleAvailable === true ? (
+                      <span className="text-success">{HERO.handleAvailable}</span>
+                    ) : handleAvailable === false ? (
+                      <span className="text-[#ECB22E]">{HERO.handleTaken}</span>
+                    ) : null}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Step 3: Password */}
+            <div className="mb-6">
+              <label htmlFor="bottom-password" className="flex items-center gap-1.5 text-[13px] font-bold text-white/90 mb-2">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-[11px] font-bold">3</span>
+                {HERO.steps.password.label}
+              </label>
+              <input
+                id="bottom-password"
+                type="password"
+                required
+                placeholder={HERO.steps.password.placeholder}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full h-12 px-4 rounded-[8px] border border-white/20 bg-white/10 text-[16px] text-white placeholder:text-white/40 focus:border-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1D1C1D] transition-colors duration-[120ms]"
+              />
+              <p className="mt-1.5 text-[12px] text-white/40 flex items-center gap-1">
+                <LockIcon className="shrink-0 opacity-60" />
+                {HERO.steps.password.helpText}
               </p>
             </div>
 
@@ -257,6 +348,22 @@ export default function BottomCTA() {
           </p>
         </div>
       </div>
+
+      {/* Success modal + error toast */}
+      <SuccessModal
+        open={showSuccessModal}
+        onClose={() => {
+          setShowSuccessModal(false);
+          router.push("/dashboard");
+        }}
+        agentEmail={successAgentEmail}
+      />
+      <Toast
+        message={toastError}
+        variant="error"
+        visible={showToast}
+        onClose={() => setShowToast(false)}
+      />
     </section>
   );
 }

@@ -8,18 +8,30 @@
 export interface SignupRequest {
   email: string;
   password: string;
-  linkedin_url: string;
+  workpal_handle?: string;
+  profile_text?: string;
   name?: string;
 }
 
-export interface AuthTokens {
-  access_token: string;
+export interface SignupTokens {
+  id_token: string;
   refresh_token: string;
+  user_id: string;
+}
+
+export interface SignupAgent {
+  agent_id: string;
+  agent_email: string;
+  display_name: string;
+  domain_tags: string[];
+  profile_summary: string;
+  message?: string;
 }
 
 export interface SignupResponse {
-  tokens: AuthTokens;
-  agent: Agent;
+  tokens: SignupTokens;
+  agent: SignupAgent;
+  message?: string;
 }
 
 export interface LoginRequest {
@@ -27,52 +39,85 @@ export interface LoginRequest {
   password: string;
 }
 
+/** Login response — flat structure (not nested in tokens) */
 export interface LoginResponse {
-  tokens: AuthTokens;
-  user: {
-    id: string;
-    email: string;
-    name?: string;
-  };
+  id_token: string;
+  refresh_token: string;
+  user_id: string;
 }
 
 export interface RefreshResponse {
-  access_token: string;
+  id_token: string;
+  refresh_token: string;
+}
+
+// ── Handle Check ──
+
+export interface CheckHandleResponse {
+  handle: string;
+  email: string;
+  available: boolean;
 }
 
 // ── Agents ──
 
 export interface Agent {
-  id: string;
+  agent_id: string;
   agent_email: string;
-  name: string;
+  owner_email: string;
+  display_name: string;
+  domain_tags: string[];
+  profile_summary: string;
   status: "active" | "paused" | "deleted";
-  linkedin_url?: string;
-  created_at: string;
-  updated_at: string;
+}
+
+export interface AgentsListResponse {
+  agents: Agent[];
+  count: number;
 }
 
 export interface PatchAgentRequest {
-  name?: string;
+  display_name?: string;
   status?: "active" | "paused";
 }
 
+/** @deprecated Agents are now created during signup */
 export interface CreateAgentRequest {
-  name?: string;
+  display_name?: string;
   linkedin_url?: string;
+}
+
+// ── Personalize ──
+
+export interface PersonalizeAgentRequest {
+  profile_text?: string;
+  linkedin_url?: string;
+}
+
+export interface PersonalizeAgentResponse {
+  message: string;
+  agent_id: string;
+  display_name: string;
+  domain_tags: string[];
+  profile_summary: string;
+}
+
+// ── Share ──
+
+export interface ShareAgentRequest {
+  emails: string[];
 }
 
 // ── Tasks ──
 
 export interface Task {
-  id: string;
-  agent_id: string;
+  task_id: string;
   subject: string;
   status: "processing" | "completed" | "failed";
-  input_preview: string;
-  output_preview?: string;
-  created_at: string;
-  completed_at?: string;
+  created_at: number; // Unix timestamp (seconds)
+  input_chars: number;
+  output_chars: number;
+  has_attachments: boolean;
 }
 
 export interface TasksResponse {
@@ -86,8 +131,7 @@ export interface TasksResponse {
 export interface UsageStats {
   tasks_used: number;
   tasks_limit: number;
-  period_start: string;
-  period_end: string;
+  tasks_remaining: number;
   plan: string;
 }
 
@@ -114,20 +158,22 @@ export interface UpdateSkillRequest {
 // ── Samples ──
 
 export interface Sample {
-  id: string;
+  name: string;
   agent_id: string;
-  title: string;
+  description: string;
   content: string;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface CreateSampleRequest {
-  title: string;
+  name: string;
+  description: string;
   content: string;
 }
 
 export interface UpdateSampleRequest {
-  title?: string;
+  name?: string;
+  description?: string;
   content?: string;
 }
 

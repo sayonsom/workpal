@@ -39,7 +39,7 @@ export default function TaskHistory({ agentId }: TaskHistoryProps) {
     if (!nextCursor) return;
     setLoadingMore(true);
     try {
-      const res = await getAgentTasks(agentId, nextCursor);
+      const res = await getAgentTasks(agentId, 20, nextCursor);
       setTasks((prev) => [...prev, ...res.tasks]);
       setNextCursor(res.next_cursor);
       setHasMore(res.has_more);
@@ -72,7 +72,7 @@ export default function TaskHistory({ agentId }: TaskHistoryProps) {
     <div className="space-y-3">
       {tasks.map((task) => (
         <div
-          key={task.id}
+          key={task.task_id}
           className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-4"
         >
           <div className="flex items-start justify-between gap-4">
@@ -80,13 +80,20 @@ export default function TaskHistory({ agentId }: TaskHistoryProps) {
               <p className="text-[14px] font-bold text-text-primary truncate">
                 {task.subject}
               </p>
-              {task.output_preview && (
-                <p className="mt-1 text-[13px] text-[var(--color-text-subtle)] line-clamp-2">
-                  {task.output_preview}
-                </p>
-              )}
+              <div className="mt-1 flex items-center gap-3 text-[12px] text-[var(--color-text-muted)]">
+                <span>{task.input_chars.toLocaleString()} chars in</span>
+                <span>{task.output_chars.toLocaleString()} chars out</span>
+                {task.has_attachments && (
+                  <span className="inline-flex items-center gap-0.5">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M14 7.5l-5.5 5.5a3.5 3.5 0 01-5-5L9 2.5a2 2 0 013 3L6.5 11a.5.5 0 01-1-1L11 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    attachments
+                  </span>
+                )}
+              </div>
               <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">
-                {new Date(task.created_at).toLocaleDateString("en-US", {
+                {new Date(task.created_at * 1000).toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",

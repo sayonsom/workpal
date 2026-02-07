@@ -8,6 +8,8 @@ import type { Agent } from "@/lib/types";
 import TaskHistory from "./TaskHistory";
 import SkillsPanel from "./SkillsPanel";
 import SamplesPanel from "./SamplesPanel";
+import PersonalizePanel from "./PersonalizePanel";
+import SharePanel from "./SharePanel";
 
 function CopyIcon() {
   return (
@@ -34,7 +36,7 @@ function TrashIcon() {
   );
 }
 
-type Tab = "tasks" | "skills" | "samples";
+type Tab = "tasks" | "skills" | "samples" | "personalize" | "share";
 
 interface AgentDetailProps {
   agent: Agent;
@@ -49,7 +51,7 @@ export default function AgentDetail({
 }: AgentDetailProps) {
   const [activeTab, setActiveTab] = useState<Tab>("tasks");
   const [editingName, setEditingName] = useState(false);
-  const [nameValue, setNameValue] = useState(agent.name || "");
+  const [nameValue, setNameValue] = useState(agent.display_name || "");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -59,7 +61,7 @@ export default function AgentDetail({
     if (!nameValue.trim()) return;
     setSaving(true);
     try {
-      const updated = await patchAgent(agent.id, { name: nameValue.trim() });
+      const updated = await patchAgent(agent.agent_id, { display_name: nameValue.trim() });
       onAgentUpdated(updated);
       setEditingName(false);
     } catch {
@@ -72,7 +74,7 @@ export default function AgentDetail({
   async function handleDelete() {
     setDeleting(true);
     try {
-      await deleteAgent(agent.id);
+      await deleteAgent(agent.agent_id);
       onAgentDeleted();
     } catch {
       setDeleting(false);
@@ -93,6 +95,8 @@ export default function AgentDetail({
     { key: "tasks", label: DASHBOARD.agentDetail.tabs.tasks },
     { key: "skills", label: DASHBOARD.agentDetail.tabs.skills },
     { key: "samples", label: DASHBOARD.agentDetail.tabs.samples },
+    { key: "personalize", label: DASHBOARD.agentDetail.tabs.personalize },
+    { key: "share", label: DASHBOARD.agentDetail.tabs.share },
   ];
 
   return (
@@ -136,7 +140,7 @@ export default function AgentDetail({
                 className="!h-8 !text-[13px]"
                 onClick={() => {
                   setEditingName(false);
-                  setNameValue(agent.name || "");
+                  setNameValue(agent.display_name || "");
                 }}
               >
                 Cancel
@@ -145,7 +149,7 @@ export default function AgentDetail({
           ) : (
             <>
               <p className="text-[16px] font-bold text-text-primary">
-                {agent.name || "My Workpal"}
+                {agent.display_name || "My Workpal"}
               </p>
               <button
                 onClick={() => setEditingName(true)}
@@ -211,9 +215,11 @@ export default function AgentDetail({
       </div>
 
       {/* Tab content */}
-      {activeTab === "tasks" && <TaskHistory agentId={agent.id} />}
-      {activeTab === "skills" && <SkillsPanel agentId={agent.id} />}
-      {activeTab === "samples" && <SamplesPanel agentId={agent.id} />}
+      {activeTab === "tasks" && <TaskHistory agentId={agent.agent_id} />}
+      {activeTab === "skills" && <SkillsPanel agentId={agent.agent_id} />}
+      {activeTab === "samples" && <SamplesPanel agentId={agent.agent_id} />}
+      {activeTab === "personalize" && <PersonalizePanel agentId={agent.agent_id} />}
+      {activeTab === "share" && <SharePanel agentId={agent.agent_id} />}
     </div>
   );
 }

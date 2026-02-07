@@ -60,22 +60,13 @@ export default function UsagePanel({ usage, loading }: UsagePanelProps) {
           </div>
         </div>
 
-        {/* Current period */}
+        {/* Tasks remaining */}
         <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-6">
           <p className="text-[13px] text-[var(--color-text-muted)] font-bold uppercase tracking-wide">
-            {DASHBOARD.usage.period}
+            {DASHBOARD.usage.tasksRemaining}
           </p>
-          <p className="mt-2 text-[15px] text-text-primary">
-            {new Date(usage.period_start).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-            })}{" "}
-            &ndash;{" "}
-            {new Date(usage.period_end).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
+          <p className="mt-2 text-[32px] font-bold text-cta">
+            {usage.tasks_remaining}
           </p>
         </div>
 

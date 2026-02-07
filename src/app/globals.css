@@ -74,3 +74,32 @@ body {
 .workflow-step:nth-child(3) { animation-delay: 900ms; }
 .workflow-step:nth-child(4) { animation-delay: 1200ms; }
 .workflow-step:nth-child(5) { animation-delay: 1500ms; }
+
+/* Modal entrance */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-enter {
+  animation: modalFadeIn var(--duration-slow) var(--ease-default) both;
+}
+
+/* Toast slide-in / slide-out */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(calc(100% + 24px)); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(calc(100% + 24px)); }
+}
+
+.toast-enter {
+  animation: slideInRight var(--duration-slow) var(--ease-default) both;
+}
+
+.toast-exit {
+  animation: slideOutRight var(--duration-normal) var(--ease-default) both;
+}

@@ -30,10 +30,11 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
   const [samples, setSamples] = useState<Sample[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
-  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deletingName, setDeletingName] = useState<string | null>(null);
 
   const fetchSamples = useCallback(async () => {
     setLoading(true);
@@ -53,15 +54,17 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim() || !content.trim()) return;
+    if (!name.trim() || !content.trim()) return;
     setSaving(true);
     try {
       const sample = await createSample(agentId, {
-        title: title.trim(),
+        name: name.trim(),
+        description: description.trim(),
         content: content.trim(),
       });
       setSamples((prev) => [...prev, sample]);
-      setTitle("");
+      setName("");
+      setDescription("");
       setContent("");
       setShowForm(false);
     } catch {
@@ -71,15 +74,15 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
     }
   }
 
-  async function handleDelete(sampleId: string) {
-    setDeletingId(sampleId);
+  async function handleDelete(sampleName: string) {
+    setDeletingName(sampleName);
     try {
-      await deleteSample(agentId, sampleId);
-      setSamples((prev) => prev.filter((s) => s.id !== sampleId));
+      await deleteSample(agentId, sampleName);
+      setSamples((prev) => prev.filter((s) => s.name !== sampleName));
     } catch {
       // ignore
     } finally {
-      setDeletingId(null);
+      setDeletingName(null);
     }
   }
 
@@ -117,11 +120,18 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
         >
           <input
             type="text"
-            placeholder={DASHBOARD.samples.titlePlaceholder}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            placeholder={DASHBOARD.samples.namePlaceholder}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             autoFocus
             className="w-full h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none"
+          />
+          <textarea
+            placeholder={DASHBOARD.samples.descriptionPlaceholder}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={2}
+            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none"
           />
           <textarea
             placeholder={DASHBOARD.samples.contentPlaceholder}
@@ -145,7 +155,8 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
               className="!text-[13px] !h-8"
               onClick={() => {
                 setShowForm(false);
-                setTitle("");
+                setName("");
+                setDescription("");
                 setContent("");
               }}
             >
@@ -166,20 +177,25 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
         <div className="space-y-2">
           {samples.map((sample) => (
             <div
-              key={sample.id}
+              key={sample.name}
               className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-4 flex items-start justify-between gap-3"
             >
               <div className="min-w-0 flex-1">
                 <p className="text-[14px] font-bold text-text-primary">
-                  {sample.title}
+                  {sample.name}
                 </p>
+                {sample.description && (
+                  <p className="mt-0.5 text-[12px] text-[var(--color-text-muted)]">
+                    {sample.description}
+                  </p>
+                )}
                 <p className="mt-1 text-[13px] text-[var(--color-text-subtle)] line-clamp-3">
                   {sample.content}
                 </p>
               </div>
               <button
-                onClick={() => handleDelete(sample.id)}
-                disabled={deletingId === sample.id}
+                onClick={() => handleDelete(sample.name)}
+                disabled={deletingName === sample.name}
                 className="shrink-0 text-[var(--color-text-muted)] hover:text-danger transition-colors cursor-pointer"
               >
                 <TrashIcon />

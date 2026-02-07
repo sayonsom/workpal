@@ -50,7 +50,15 @@ export const HERO = {
       editLabel: "Customize",
       helpText: "Forward tasks here. This address only replies to you.",
     },
+    password: {
+      label: "Create a password",
+      placeholder: "Min 8 chars, 1 uppercase, 1 digit",
+      helpText: "Protects your Workpal dashboard.",
+    },
   },
+  handleAvailable: "Available!",
+  handleTaken: "This handle is taken.",
+  handleChecking: "Checking...",
   ctaLabel: "Create my Workpal",
   closedLoopNote: "This email will only respond to",
   closedLoopNoteYou: "you",
@@ -744,6 +752,8 @@ export const DASHBOARD = {
       tasks: "Tasks",
       skills: "Skills",
       samples: "Samples",
+      personalize: "Personalize",
+      share: "Share",
     },
     editName: "Edit name",
     deleteAgent: "Delete Agent",
@@ -765,14 +775,15 @@ export const DASHBOARD = {
   samples: {
     heading: "Writing Samples",
     addCta: "Add Sample",
-    titlePlaceholder: "Sample title",
+    namePlaceholder: "Sample name",
+    descriptionPlaceholder: "Brief description of this sample...",
     contentPlaceholder: "Paste a writing sample...",
     emptyState: "No writing samples yet. Add samples to help your agent learn your style.",
   },
   usage: {
     heading: "Usage",
     tasksUsed: "Tasks used",
-    period: "Current period",
+    tasksRemaining: "Tasks remaining",
     plan: "Plan",
   },
   logout: "Log out",
@@ -796,4 +807,53 @@ export const SETTINGS = {
     confirmCta: "Yes, delete my account",
     cancelCta: "Cancel",
   },
+} as const;
+
+export const SUCCESS_MODAL = {
+  heading: "Your Workpal is ready!",
+  subHeading: "Here\u2019s how to get started.",
+  tabs: {
+    tutorial: {
+      label: "1 min tutorial",
+      placeholder: "Tutorial video coming soon",
+    },
+    desktop: {
+      label: "Working on desktop",
+      steps: [
+        "Open Gmail or Outlook on your computer",
+        "Forward any work email to your Workpal address",
+        "Your Workpal replies directly to your inbox",
+        "Review, edit, and send \u2014 you\u2019re always in control",
+      ],
+    },
+    phone: {
+      label: "Working from phone",
+      steps: [
+        "Open your email app on your phone",
+        "Forward any email to your Workpal address",
+        "Get a polished reply within minutes",
+        "Edit and send from anywhere",
+      ],
+    },
+  },
+  buttons: {
+    gmail: {
+      label: "Start forwarding from Gmail",
+      href: "https://mail.google.com/mail/u/0/#inbox",
+    },
+    linkedin: {
+      label: "Start forwarding from LinkedIn",
+      href: "https://www.linkedin.com/messaging/",
+    },
+    personalize: {
+      label: "Personalize your profile",
+    },
+  },
+} as const;
+
+export const TOAST = {
+  defaultError: "Something went wrong. Please try again.",
+  existingAccount: "Account exists but credentials don\u2019t match. Try logging in.",
+  networkError: "Network error. Check your connection and retry.",
+  closeLabel: "Dismiss",
 } as const;
