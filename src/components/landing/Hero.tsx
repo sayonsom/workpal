@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import { HERO } from "@/lib/constants";
-import { signup, login, checkHandle, ApiException } from "@/lib/api";
+import { signup, checkHandle, ApiException } from "@/lib/api";
 import SuccessModal from "./SuccessModal";
 import Toast from "../ui/Toast";
 
@@ -194,7 +194,6 @@ export default function Hero() {
   const [email, setEmail] = useState("");
   const [workpalPrefix, setWorkpalPrefix] = useState("");
   const [isCustomizing, setIsCustomizing] = useState(false);
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -266,14 +265,11 @@ export default function Hero() {
     if (!email) { setError("Enter your email address."); return; }
     if (!activePrefix) { setError("Your Workpal email address is empty."); return; }
     if (handleAvailable === false) { setError("That handle is taken. Try another."); return; }
-    if (!password || password.length < 8) { setError("Password must be at least 8 characters."); return; }
-    if (!/[A-Z]/.test(password)) { setError("Password must contain an uppercase letter."); return; }
-    if (!/\d/.test(password)) { setError("Password must contain a digit."); return; }
 
     setLoading(true);
     setShowToast(false);
     try {
-      const result = await signup({ email, password, workpal_handle: activePrefix });
+      const result = await signup({ email, password: "", workpal_handle: activePrefix });
       // Update beta counter (non-critical)
       try {
         const counterRes = await fetch("/api/beta-count", { method: "POST" });
@@ -288,14 +284,9 @@ export default function Hero() {
     } catch (err) {
       // Existing account — attempt silent login
       if (err instanceof ApiException && err.status === 409) {
-        try {
-          await login({ email, password });
-          setSuccessAgentEmail(workpalAddress || `${activePrefix}@workpal.email`);
-          setShowSuccessModal(true);
-        } catch {
-          setToastError("Account exists but credentials don\u2019t match. Try logging in.");
-          setShowToast(true);
-        }
+        // Existing account — show success modal directly
+        setSuccessAgentEmail(workpalAddress || `${activePrefix}@workpal.email`);
+        setShowSuccessModal(true);
       } else {
         // Generic API error — show toast
         setToastError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -438,30 +429,6 @@ export default function Hero() {
                     </span>
                   )}
                 </div>
-              </div>
-
-              {/* Step 3: Password */}
-              <div className="mb-5">
-                <label
-                  htmlFor="hero-password"
-                  className="flex items-center gap-1.5 text-[13px] font-bold text-text-primary mb-2"
-                >
-                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-[11px] font-bold">3</span>
-                  {HERO.steps.password.label}
-                </label>
-                <input
-                  id="hero-password"
-                  type="password"
-                  required
-                  placeholder={HERO.steps.password.placeholder}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-12 px-4 rounded-[8px] border border-[var(--color-border-strong)] text-[16px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                />
-                <p className="mt-1.5 text-[12px] text-[var(--color-text-muted)] flex items-center gap-1">
-                  <LockIcon className="shrink-0 opacity-60" />
-                  {HERO.steps.password.helpText}
-                </p>
               </div>
 
               {/* Closed-loop guarantee */}

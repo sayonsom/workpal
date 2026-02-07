@@ -50,11 +50,6 @@ export const HERO = {
       editLabel: "Customize",
       helpText: "Forward tasks here. This address only replies to you.",
     },
-    password: {
-      label: "Create a password",
-      placeholder: "Min 8 chars, 1 uppercase, 1 digit",
-      helpText: "Protects your Workpal dashboard.",
-    },
   },
   handleAvailable: "Available!",
   handleTaken: "This handle is taken.",
