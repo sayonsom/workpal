@@ -3,10 +3,9 @@ import Hero from "@/components/landing/Hero";
 import SocialProof from "@/components/landing/SocialProof";
 import VideoDemo from "@/components/landing/VideoDemo";
 import HowItWorks from "@/components/landing/HowItWorks";
-import OutputShowcase from "@/components/landing/OutputShowcase";
 import WhyNotChatGPT from "@/components/landing/WhyNotChatGPT";
-import UseCases from "@/components/landing/UseCases";
-import LiveDemo from "@/components/landing/LiveDemo";
+import LiveDemoPreview from "@/components/landing/LiveDemoPreview";
+import Personalization from "@/components/landing/Personalization";
 import ForTeams from "@/components/landing/ForTeams";
 import Security from "@/components/landing/Security";
 import FAQSection from "@/components/landing/FAQ";
@@ -22,10 +21,9 @@ export default function Home() {
         <SocialProof />
         <VideoDemo />
         <HowItWorks />
-        <OutputShowcase />
         <WhyNotChatGPT />
-        <UseCases />
-        <LiveDemo />
+        <LiveDemoPreview />
+        <Personalization />
         <ForTeams />
         <Security />
         <FAQSection />

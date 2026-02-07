@@ -1,103 +1,80 @@
-import Button from "../ui/Button";
-import { CheckIcon, XIcon } from "../ui/Icons";
-import { COMPARISON } from "@/lib/constants";
+import { COMPARISON_SECTION } from "@/lib/constants";
+
+function ComparisonIcon({ icon }: { icon: string }) {
+  const isNegative = icon === "\u2715" || icon === "\u26a0";
+  const isDiamond = icon === "\u25c6";
+
+  return (
+    <span
+      className={`shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-full text-[13px] font-bold ${
+        isNegative
+          ? "bg-[#fce4ec] text-danger"
+          : isDiamond
+            ? "bg-[#dcfce7] text-cta"
+            : "bg-[#dcfce7] text-cta"
+      }`}
+    >
+      {icon}
+    </span>
+  );
+}
 
 export default function WhyNotChatGPT() {
   return (
-    <section id="comparison" className="py-16 md:py-24 bg-surface-subtle">
+    <section id={COMPARISON_SECTION.sectionId} className="py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Section header */}
         <div className="text-center max-w-[640px] mx-auto mb-10">
+          <span className="inline-block text-[13px] font-bold text-cta uppercase tracking-wide mb-2">
+            {COMPARISON_SECTION.label}
+          </span>
           <h2 className="text-[32px] md:text-[36px] font-bold text-text-primary leading-[1.2]">
-            {COMPARISON.heading}
+            {COMPARISON_SECTION.heading}
           </h2>
-          <p className="mt-3 text-[15px] text-[var(--color-text-subtle)]">
-            {COMPARISON.subtext}
+          <p className="mt-2 text-[18px] text-[var(--color-text-subtle)]">
+            {COMPARISON_SECTION.subtitle}
           </p>
         </div>
 
-        {/* Task prompt */}
-        <div className="max-w-[900px] mx-auto mb-8">
-          <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] px-4 py-3 text-center shadow-[var(--shadow-sm)]">
-            <p className="text-[14px] text-text-primary leading-[1.4]">
-              {COMPARISON.task}
-            </p>
-          </div>
-        </div>
-
-        {/* Side-by-side panels */}
+        {/* Two-column comparison */}
         <div className="max-w-[900px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left panel — ChatGPT / Claude */}
-          <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white shadow-[var(--shadow-sm)] overflow-hidden">
-            <div className="px-4 py-3 bg-white border-b border-[var(--color-border-light)]">
-              <span className="text-[13px] font-bold text-[var(--color-text-muted)] uppercase tracking-wide">
-                {COMPARISON.leftPanel.label}
-              </span>
-              <p className="mt-1 text-[12px] text-danger/80 leading-[1.3]">
-                {COMPARISON.leftPanel.tagline}
-              </p>
+          {/* Left — ChatGPT Way */}
+          <div className="rounded-[8px] border border-[var(--color-border-light)] bg-[#fffbf5] overflow-hidden">
+            <div className="px-5 py-4 border-b border-[var(--color-border-light)]">
+              <h3 className="text-[16px] font-bold text-[var(--color-text-muted)]">
+                {COMPARISON_SECTION.left.header}
+              </h3>
             </div>
-            <div className="p-4">
-              <ol className="space-y-3">
-                {COMPARISON.leftPanel.steps.map((step, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <span className="shrink-0 mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#fce4ec] text-[11px] font-bold text-danger">
-                      {i + 1}
-                    </span>
-                    <span className="text-[14px] text-[var(--color-text-subtle)] leading-[1.4]">
-                      {step}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-4 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-2">
-                <XIcon size={14} />
-                <span className="text-[14px] font-bold text-danger">
-                  {COMPARISON.leftPanel.time}
-                </span>
-              </div>
+            <div className="p-5 space-y-3">
+              {COMPARISON_SECTION.left.rows.map((row, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <ComparisonIcon icon={row.icon} />
+                  <span className="text-[14px] text-[var(--color-text-subtle)] leading-[1.5]">
+                    {row.text}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right panel — Workpal */}
-          <div className="rounded-[8px] border-2 border-cta bg-white shadow-[var(--shadow-sm)] overflow-hidden">
-            <div className="px-4 py-3 bg-[#f0fdf4] border-b border-cta/20">
-              <span className="text-[13px] font-bold text-cta uppercase tracking-wide">
-                {COMPARISON.rightPanel.label}
-              </span>
-              <p className="mt-1 text-[12px] text-cta/80 leading-[1.3]">
-                {COMPARISON.rightPanel.tagline}
-              </p>
+          {/* Right — Workpal Way */}
+          <div className="rounded-[8px] border-2 border-cta bg-[#f0fdf4] overflow-hidden">
+            <div className="px-5 py-4 border-b border-cta/20">
+              <h3 className="text-[16px] font-bold text-cta">
+                {COMPARISON_SECTION.right.header}
+              </h3>
             </div>
-            <div className="p-4">
-              <ol className="space-y-3">
-                {COMPARISON.rightPanel.steps.map((step, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <span className="shrink-0 mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#dcfce7] text-[11px] font-bold text-cta">
-                      {i + 1}
-                    </span>
-                    <span className="text-[14px] text-text-primary leading-[1.4]">
-                      {step}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-4 pt-3 border-t border-cta/20 flex items-center gap-2">
-                <CheckIcon size={14} />
-                <span className="text-[14px] font-bold text-cta">
-                  {COMPARISON.rightPanel.time}
-                </span>
-              </div>
+            <div className="p-5 space-y-3">
+              {COMPARISON_SECTION.right.rows.map((row, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <ComparisonIcon icon={row.icon} />
+                  <span className="text-[14px] text-text-primary leading-[1.5] font-medium">
+                    {row.text}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Footer text + CTA */}
-        <div className="mt-8 text-center">
-          <p className="text-[13px] text-[var(--color-text-muted)] mb-4">
-            {COMPARISON.footer}
-          </p>
-          <Button variant="secondary">{COMPARISON.cta}</Button>
         </div>
       </div>
     </section>

@@ -19,6 +19,70 @@ function QuoteIcon() {
   );
 }
 
+function LinkedInIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path
+        d="M4.5 6.5V12M7.5 12V9.25C7.5 8.01 8.51 7 9.75 7C10.99 7 12 8.01 12 9.25V12M4.5 4.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+        stroke="#0A66C2"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="1"
+        y="1"
+        width="14"
+        height="14"
+        rx="2"
+        stroke="#0A66C2"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+/** Circle placeholder for a user photo. Shows initials when no photo src is provided. */
+function PhotoCircle({
+  name,
+  photo,
+}: {
+  name: string;
+  photo: string;
+}) {
+  const initials = name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+
+  if (photo) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={photo}
+        alt={name}
+        className="w-10 h-10 rounded-full object-cover border-2 border-[var(--color-border-light)]"
+      />
+    );
+  }
+
+  return (
+    <div className="w-10 h-10 rounded-full bg-surface-subtle border-2 border-dashed border-[var(--color-border-light)] flex items-center justify-center">
+      <span className="text-[12px] font-bold text-[var(--color-text-muted)]">
+        {initials}
+      </span>
+    </div>
+  );
+}
+
 export default function SocialProof() {
   return (
     <section className="py-12 md:py-16 bg-surface-subtle">
@@ -39,13 +103,29 @@ export default function SocialProof() {
               <p className="mt-3 text-[14px] text-text-primary leading-[1.5]">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div className="mt-4 pt-3 border-t border-[var(--color-border-light)]">
-                <p className="text-[13px] font-bold text-text-primary">
-                  {t.name}
-                </p>
-                <p className="text-[12px] text-[var(--color-text-muted)]">
-                  {t.role}
-                </p>
+              <div className="mt-4 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-3">
+                {/* Photo circle */}
+                <PhotoCircle name={t.name} photo={t.photo} />
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-[13px] font-bold text-text-primary truncate">
+                      {t.name}
+                    </p>
+                    <a
+                      href={t.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 hover:opacity-80 transition-opacity"
+                      aria-label={`${t.name} on LinkedIn`}
+                    >
+                      <LinkedInIcon />
+                    </a>
+                  </div>
+                  <p className="text-[12px] text-[var(--color-text-muted)]">
+                    {t.role}, {t.company}
+                  </p>
+                </div>
               </div>
             </Card>
           ))}

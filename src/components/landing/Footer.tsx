@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SITE, FOOTER } from "@/lib/constants";
+import BetaPill from "../ui/BetaPill";
 
 export default function Footer() {
   return (
@@ -19,6 +20,7 @@ export default function Footer() {
             <span className="text-[17px] font-bold text-white">
               {SITE.nameLower}
             </span>
+            <BetaPill variant="light" />
           </a>
 
           {/* Links */}
@@ -27,9 +29,6 @@ export default function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                {...("external" in link && link.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
                 className="text-[15px] text-[rgba(255,255,255,0.86)] hover:text-white transition-colors duration-[180ms] ease-[cubic-bezier(0.2,0,0,1)]"
               >
                 {link.label}
@@ -46,7 +45,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-6 text-center">
           <span className="text-[12px] text-[rgba(255,255,255,0.56)]">
-            &copy; {SITE.copyright}
+            {SITE.copyright}
           </span>
         </div>
       </div>

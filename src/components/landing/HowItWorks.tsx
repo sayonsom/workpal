@@ -41,14 +41,14 @@ export default function HowItWorks() {
   const steps = HOW_IT_WORKS.steps;
 
   return (
-    <section id="how-it-works" className="py-16 md:py-24 bg-surface-subtle">
+    <section id={HOW_IT_WORKS.sectionId} className="py-16 md:py-24 bg-surface-subtle">
       <div className="mx-auto max-w-[1200px] px-4">
         {/* Section header */}
-        <div className="text-center max-w-[600px] mx-auto mb-16">
+        <div className="text-center max-w-[640px] mx-auto mb-16">
           <h2 className="text-[32px] md:text-[36px] font-bold text-text-primary leading-[1.2]">
             {HOW_IT_WORKS.heading}
           </h2>
-          <p className="mt-3 text-[15px] text-[var(--color-text-subtle)]">
+          <p className="mt-3 text-[15px] text-[var(--color-text-subtle)] leading-[1.5]">
             {HOW_IT_WORKS.subtext}
           </p>
         </div>
@@ -95,7 +95,9 @@ export default function HowItWorks() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <Button variant="primary">{HOW_IT_WORKS.cta}</Button>
+          <a href="/#hero-signup">
+            <Button variant="primary">{HOW_IT_WORKS.cta}</Button>
+          </a>
         </div>
       </div>
     </section>

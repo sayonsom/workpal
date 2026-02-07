@@ -1,8 +1,32 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "../ui/Button";
 import { SITE, NAV } from "@/lib/constants";
+import { isAuthenticated } from "@/lib/auth";
+import BetaPill from "../ui/BetaPill";
 
 export default function Navbar() {
+  const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    setAuthed(isAuthenticated());
+  }, []);
+
+  function handleCtaClick() {
+    if (authed) {
+      window.location.href = "/dashboard";
+    } else {
+      const el = document.getElementById("hero-signup");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.href = "/#hero-signup";
+      }
+    }
+  }
+
   return (
     <nav
       className="sticky top-0 z-50 h-12 bg-white border-b border-[var(--color-border-light)]"
@@ -26,6 +50,7 @@ export default function Navbar() {
           <span className="text-[17px] font-bold text-text-primary">
             {SITE.nameLower}
           </span>
+          <BetaPill />
         </a>
 
         {/* Right side: links + CTA */}
@@ -42,7 +67,9 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <Button variant="primary">{NAV.cta}</Button>
+          <Button variant="primary" onClick={handleCtaClick}>
+            {authed ? "Dashboard" : NAV.cta}
+          </Button>
         </div>
       </div>
     </nav>
