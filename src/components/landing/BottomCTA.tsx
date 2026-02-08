@@ -76,12 +76,29 @@ export default function BottomCTA() {
   const [handleAvailable, setHandleAvailable] = useState<boolean | null>(null);
   const [checkingHandle, setCheckingHandle] = useState(false);
 
-  // EA checkbox
-  const [isEA, setIsEA] = useState(false);
+  const [betaRemaining, setBetaRemaining] = useState<number | null>(null);
+  const [betaPercentage, setBetaPercentage] = useState<number | null>(null);
 
   const derivedPrefix = emailToUsername(email);
   const activePrefix = isCustomizing ? workpalPrefix : derivedPrefix;
   const workpalAddress = activePrefix ? `${activePrefix}@workpal.email` : "";
+
+  useEffect(() => {
+    async function fetchBetaCount() {
+      try {
+        const res = await fetch("/api/beta-count");
+        if (res.ok) {
+          const data = await res.json();
+          setBetaRemaining(data.remaining);
+          setBetaPercentage(data.percentage);
+        }
+      } catch {
+        setBetaRemaining(459);
+        setBetaPercentage(69);
+      }
+    }
+    fetchBetaCount();
+  }, []);
 
   // Debounced handle availability check
   useEffect(() => {
@@ -122,6 +139,10 @@ export default function BottomCTA() {
     setShowToast(false);
     try {
       const result = await signup({ email, password: "", workpal_handle: activePrefix });
+      // Update beta counter (non-critical)
+      try {
+        await fetch("/api/beta-count", { method: "POST" });
+      } catch { /* non-critical */ }
       // Show success modal instead of redirect
       setSuccessAgentEmail(result.agent.agent_email);
       setShowSuccessModal(true);
@@ -252,21 +273,6 @@ export default function BottomCTA() {
               </div>
             )}
 
-            {/* EA checkbox */}
-            <label className="flex items-center gap-2.5 mb-5 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={isEA}
-                onChange={(e) => setIsEA(e.target.checked)}
-                className="w-4 h-4 rounded border-white/30 accent-cta cursor-pointer"
-              />
-              <span className="text-[13px] text-white/80 leading-[1.3]">
-                {HERO.eaCheckbox.label}
-                <br />
-                <span className="text-[11px] text-white/40">{HERO.eaCheckbox.helpText}</span>
-              </span>
-            </label>
-
             {error && <p className="mb-4 text-[13px] text-[#ECB22E] font-bold">{error}</p>}
 
             <button
@@ -274,7 +280,7 @@ export default function BottomCTA() {
               disabled={loading}
               className="w-full h-12 rounded-[8px] bg-cta hover:bg-[#006B4F] text-white text-[16px] font-bold flex items-center justify-center gap-2 transition-colors duration-[180ms] ease-[cubic-bezier(0.2,0,0,1)] disabled:opacity-60"
             >
-              {loading ? "Joining waitlist..." : (
+              {loading ? "Creating your Workpal..." : (
                 <>
                   {HERO.ctaLabel}
                   <ArrowRightIcon />
@@ -283,23 +289,33 @@ export default function BottomCTA() {
             </button>
           </form>
 
-          {/* Social proof */}
-          <p className="mt-4 text-center text-[13px] text-white/60 font-bold">
-            {FINAL_CTA.socialProofLine}
-          </p>
-          <p className="mt-2 text-center text-[12px] text-white/40">
+          {/* Beta counter */}
+          <div className="mt-4">
+            <div className="rounded-[6px] bg-[#ECB22E]/10 border border-[#ECB22E]/20 px-3 py-2">
+              <div className="flex items-center gap-2 mb-1.5">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+                  <path d="M8 1.5L1 14h14L8 1.5z" stroke="#ECB22E" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M8 6v3.5M8 11.5v.5" stroke="#ECB22E" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                <span className="text-[12px] font-bold text-[#ECB22E]/80">
+                  {HERO.urgency}
+                  {betaRemaining !== null && (
+                    <> &mdash; <span className="text-[#ECB22E]">{betaRemaining.toLocaleString()} spots remaining</span></>
+                  )}
+                </span>
+              </div>
+              <div className="h-1.5 rounded-full bg-[#ECB22E]/15 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-[#ECB22E]/60 transition-all duration-700 ease-out"
+                  style={{ width: `${betaPercentage ?? 69}%` }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-3 text-center text-[12px] text-white/40">
             {HERO.microcopy}
           </p>
-
-          {/* Gift link */}
-          <div className="mt-4 text-center">
-            <a
-              href="/#gift"
-              className="text-[13px] text-cta hover:text-[#2BAC76] font-bold transition-colors duration-[180ms]"
-            >
-              {FINAL_CTA.giftLink}
-            </a>
-          </div>
         </div>
       </div>
 

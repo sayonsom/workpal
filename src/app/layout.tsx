@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://workpal.email"),
   title: "Workpal — The AI Colleague Who Only Talks to You",
   description:
-    "Built for executive assistants & busy professionals. Forward any email, get the work done. Workpal reads context like a colleague, drafts in your voice, and learns how you work.",
+    "Your private AI email address. Forward any email, get the work done. Workpal reads context like a colleague, drafts in your voice, and learns how you work.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Workpal — The AI Colleague Who Only Talks to You",
     description:
-      "Built for executive assistants & busy professionals. Forward any email, get the work done. No apps, no prompts, no inbox access.",
+      "Your private AI email address. Forward any email, get the work done. No apps, no prompts, no inbox access.",
     type: "website",
     images: [
       {

@@ -13,13 +13,12 @@ export const NAV = {
     { label: "How it Works", href: "/#how-it-works" },
     { label: "Security", href: "/#security" },
     { label: "FAQ", href: "/#faq" },
-    { label: "Gift a Workpal", href: "/#gift" },
   ],
-  cta: "Join the Waitlist",
+  cta: "Create your Workpal",
 } as const;
 
 export const HERO = {
-  badge: "For executive assistants & busy professionals",
+  badge: "Your private AI email address",
   headline: "The AI colleague who only talks to you.",
   headlineSub: "Forward any email. Get the work done. No apps, no prompts, no inbox access.",
   subtext:
@@ -32,11 +31,11 @@ export const HERO = {
   flow: {
     title: "How it works",
     steps: [
-      { label: "Your exec emails you", actor: "exec@company.com", icon: "inbox" },
+      { label: "Someone emails you", actor: "colleague@company.com", icon: "inbox" },
       { label: "You forward to Workpal", actor: "you \u2192 workpal.email", icon: "forward" },
       { label: "Workpal does the work", actor: "workpal.email", icon: "sparkle" },
       { label: "Workpal emails you back", actor: "workpal.email \u2192 you", icon: "reply" },
-      { label: "You edit & send to exec", actor: "you \u2192 exec@company.com", icon: "send" },
+      { label: "You edit & send", actor: "you \u2192 colleague@company.com", icon: "send" },
     ],
     closedNote: "Your Workpal stays behind the scenes \u2014 the outside world never sees it.",
   },
@@ -53,19 +52,15 @@ export const HERO = {
       helpText: "Forward tasks here. This address only replies to you.",
     },
   },
-  eaCheckbox: {
-    label: "I am an Executive Assistant / Office Manager",
-    helpText: "Checking this moves you to the front of the queue",
-  },
   handleAvailable: "Available!",
   handleTaken: "This handle is taken.",
   handleChecking: "Checking...",
-  ctaLabel: "Join the Waitlist",
+  ctaLabel: "Create your Workpal",
   closedLoopNote: "This email will only respond to",
   closedLoopNoteYou: "you",
   socialProofLine: "500+ professionals already using Workpal",
-  urgency: "Invite-only \u00b7 Priority access for executive assistants",
-  microcopy: "Invite-only \u00b7 Priority access for executive assistants",
+  urgency: "Limited beta \u00b7 Free while in beta",
+  microcopy: "60 seconds. No credit card. Your Workpal only ever emails you.",
 } as const;
 
 export const VIDEO_DEMO = {
@@ -110,7 +105,7 @@ export const HOW_IT_WORKS = {
       videoAlt: "Workpal reply with polished deliverable in your inbox",
     },
   ],
-  cta: "Join the Waitlist \u2014 it\u2019s free to start",
+  cta: "Create your Workpal \u2014 it\u2019s free to start",
 } as const;
 
 export const BEFORE_AFTER = {
@@ -250,27 +245,13 @@ export const PERSONALIZATION = {
     },
     {
       stage: "Month 1",
-      description: "Matches your exec\u2019s voice. Knows which contacts prefer formal vs casual.",
+      description: "Matches your voice perfectly. Knows which contacts prefer formal vs casual.",
     },
     {
       stage: "Month 3",
       description: "Drafts are sent with zero edits 60% of the time. It writes like you on your best day.",
     },
   ],
-} as const;
-
-export const GIFT_WORKPAL = {
-  sectionId: "gift",
-  heading: "Gift a Workpal to a colleague",
-  subheading: "Know someone drowning in email? Set up their AI colleague in 10 seconds.",
-  body: "One click. They get an email with their new Workpal address. No signup, no app, no prompts. Just forward and go. You\u2019ll both save hours.",
-  cta: "Gift a Workpal",
-  socialProofLine: "327 Workpals gifted this month",
-  mockEmail: {
-    subject: "Lorraine set up an AI colleague for you",
-    body: "Your Workpal address is sarah.j@workpal.email. Forward any email to it.",
-  },
-  mobileBar: "Gift a Workpal to a colleague \u2192",
 } as const;
 
 export const FOR_TEAMS = {
@@ -357,14 +338,9 @@ export const FAQ = {
         "Workpal is free for up to 10 forwards per month. Pro is $12/month for unlimited forwards with style learning and contact memory.",
     },
     {
-      question: "I manage multiple executives. Can Workpal match different writing styles?",
+      question: "Can Workpal match different writing styles for different people?",
       answer:
-        "Yes. Workpal learns each voice separately. When you forward a thread from Exec A, it drafts in Exec A\u2019s tone. Forward from Exec B, it shifts to match. The more you use it per exec, the sharper it gets.",
-    },
-    {
-      question: "Can I gift a Workpal to someone?",
-      answer:
-        "Yes. One click and they\u2019ll receive an email with their own Workpal address. No signup required. They just start forwarding.",
+        "Yes. Workpal learns each voice separately. When you forward a thread from Person A, it drafts in Person A\u2019s tone. Forward from Person B, it shifts to match. The more you use it per contact, the sharper it gets.",
     },
   ],
 } as const;
@@ -373,8 +349,6 @@ export const FINAL_CTA = {
   heading: "Ready to meet your AI colleague?",
   subtext:
     "60 seconds. No credit card. It only ever emails you.",
-  giftLink: "Know someone who\u2019d love this? Gift them a Workpal instead \u2192",
-  socialProofLine: "500+ professionals already using Workpal \u00b7 Priority access for executive assistants",
 } as const;
 
 export const FOOTER = {
