@@ -277,7 +277,8 @@ export async function getUsage(): Promise<UsageStats> {
 // ── Skills ──
 
 export async function getSkills(agentId: string): Promise<Skill[]> {
-  return apiFetch<Skill[]>(`/agents/${agentId}/skills`);
+  const result = await apiFetch<{ skills: Skill[] }>(`/agents/${agentId}/skills`);
+  return result.skills ?? [];
 }
 
 export async function createSkill(
@@ -313,7 +314,8 @@ export async function deleteSkill(
 // ── Samples ──
 
 export async function getSamples(agentId: string): Promise<Sample[]> {
-  return apiFetch<Sample[]>(`/agents/${agentId}/samples`);
+  const result = await apiFetch<{ samples: Sample[] }>(`/agents/${agentId}/samples`);
+  return result.samples ?? [];
 }
 
 export async function createSample(

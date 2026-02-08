@@ -164,7 +164,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
         </div>
       ) : (
         <div className="space-y-2">
-          {skills.map((skill) => (
+          {(Array.isArray(skills) ? skills : []).map((skill) => (
             <div
               key={skill.id}
               className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-4 flex items-start justify-between gap-3"
