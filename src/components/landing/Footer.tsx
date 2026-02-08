@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { SITE, FOOTER } from "@/lib/constants";
-import BetaPill from "../ui/BetaPill";
 
 export default function Footer() {
   return (
@@ -20,7 +19,6 @@ export default function Footer() {
             <span className="text-[17px] font-bold text-white">
               {SITE.nameLower}
             </span>
-            <BetaPill variant="light" />
           </a>
 
           {/* Links */}

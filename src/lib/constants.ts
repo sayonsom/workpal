@@ -5,7 +5,7 @@ export const SITE = {
   agentEmail: "your-agent@workpal.email",
   sampleAgentEmail: "agent@workpal.email",
   copyright: "\u00a9 2026 Workpal.",
-  footerTagline: "workpal.email \u2014 The AI that only talks to you.",
+  footerTagline: "workpal.email \u2014 Forward your work. Get it done.",
 } as const;
 
 export const NAV = {
@@ -13,28 +13,30 @@ export const NAV = {
     { label: "How it Works", href: "/#how-it-works" },
     { label: "Security", href: "/#security" },
     { label: "FAQ", href: "/#faq" },
+    { label: "Gift a Workpal", href: "/#gift" },
   ],
-  cta: "Get my Workpal Email",
+  cta: "Join the Waitlist",
 } as const;
 
 export const HERO = {
-  badge: "No prompts. No dashboards. Just email.",
-  headline: "Your private AI email address.",
-  headlineSub: "Forward work in, get work back. No additional prompts needed. It never contacts anyone but you.",
+  badge: "For executive assistants & busy professionals",
+  headline: "The AI colleague who only talks to you.",
+  headlineSub: "Forward any email. Get the work done. No apps, no prompts, no inbox access.",
   subtext:
-    "Workpal figures out what to do from the emails you forward \u2014 messy PDFs, long threads, and spreadsheets included.",
+    "Workpal reads context like a smart colleague would \u2014 contracts, long threads, messy attachments. It drafts replies in your voice, flags what matters, and learns how you work. The more you use it, the better it gets.",
   bullets: [
-    "No access to your full inbox. Only what you forward.",
-    "Your AI email (@workpal.email) responds only to you.",
+    "Zero inbox access. Only processes what you explicitly forward.",
+    "Learns your writing style. After 50 emails, it sounds like you.",
+    "Replies only to you. The outside world never sees it.",
   ],
   flow: {
     title: "How it works",
     steps: [
-      { label: "Boss emails you", actor: "boss@client.com", icon: "inbox" },
+      { label: "Your exec emails you", actor: "exec@company.com", icon: "inbox" },
       { label: "You forward to Workpal", actor: "you \u2192 workpal.email", icon: "forward" },
       { label: "Workpal does the work", actor: "workpal.email", icon: "sparkle" },
       { label: "Workpal emails you back", actor: "workpal.email \u2192 you", icon: "reply" },
-      { label: "You edit & send to boss", actor: "you \u2192 boss@client.com", icon: "send" },
+      { label: "You edit & send to exec", actor: "you \u2192 exec@company.com", icon: "send" },
     ],
     closedNote: "Your Workpal stays behind the scenes \u2014 the outside world never sees it.",
   },
@@ -51,14 +53,19 @@ export const HERO = {
       helpText: "Forward tasks here. This address only replies to you.",
     },
   },
+  eaCheckbox: {
+    label: "I am an Executive Assistant / Office Manager",
+    helpText: "Checking this moves you to the front of the queue",
+  },
   handleAvailable: "Available!",
   handleTaken: "This handle is taken.",
   handleChecking: "Checking...",
-  ctaLabel: "Create my Workpal",
+  ctaLabel: "Join the Waitlist",
   closedLoopNote: "This email will only respond to",
   closedLoopNoteYou: "you",
-  urgency: "Open for 1,500 Beta Testers",
-  microcopy: "Free to start \u00b7 No credit card \u00b7 Cancel anytime",
+  socialProofLine: "500+ professionals already using Workpal",
+  urgency: "Invite-only \u00b7 Priority access for executive assistants",
+  microcopy: "Invite-only \u00b7 Priority access for executive assistants",
 } as const;
 
 export const VIDEO_DEMO = {
@@ -88,7 +95,7 @@ export const HOW_IT_WORKS = {
       step: 2,
       title: "Workpal figures out the task",
       description:
-        "It reads the context to determine what\u2019s needed \u2014 a polite decline, a deal summary, data extraction, or a draft reply. No prompting required.",
+        "It reads context like a colleague would \u2014 tone, urgency, relationship dynamics. A polite decline, a deal summary, data extraction, or a draft reply. No prompting required.",
       videoMp4: "/assets/videos/mockup-2-forward.mp4",
       videoWebm: "/assets/videos/mockup-2-forward.webm",
       videoAlt: "Workpal analyzing email context and task",
@@ -97,44 +104,42 @@ export const HOW_IT_WORKS = {
       step: 3,
       title: "You get the result (privately)",
       description:
-        "Workpal emails you back. You review it, tweak if needed, then forward it yourself. You are always in control of what leaves your inbox.",
+        "Workpal emails you back. You review it, tweak if needed, then forward it yourself. You are always in control of what leaves your inbox. Every draft teaches Workpal your style. The more you use it, the sharper it gets.",
       videoMp4: "/assets/videos/mockup-3-reply.mp4",
       videoWebm: "/assets/videos/mockup-3-reply.webm",
       videoAlt: "Workpal reply with polished deliverable in your inbox",
     },
   ],
-  cta: "Create my Workpal \u2014 it\u2019s free to start",
+  cta: "Join the Waitlist \u2014 it\u2019s free to start",
 } as const;
 
-export const COMPARISON_SECTION = {
-  sectionId: "comparison",
-  label: "Why Workpal?",
-  heading: "Stop copy-pasting into ChatGPT.",
-  subtitle: "Stay in your inbox.",
-  left: {
-    header: "The ChatGPT Way",
-    rows: [
-      { icon: "\u2715", text: "Switch tabs, login, find the right chat" },
-      { icon: "\u2715", text: "Copy-paste sensitive email threads" },
-      { icon: "\u2715", text: "Write long, detailed prompts" },
-      { icon: "\u2715", text: "Copy result back into email" },
-      { icon: "\u26a0", text: "Risk pasting wrong info to wrong person" },
+export const BEFORE_AFTER = {
+  sectionId: "before-after",
+  heading: "What changes after your first week",
+  before: {
+    label: "Before Workpal",
+    items: [
+      "Spend 20 min drafting a polite decline",
+      "Read a 47-page contract yourself",
+      "Forget to follow up on 3 threads",
+      "Copy-paste into AI tools, reformat, paste back",
+      "Everyone on the team writes differently",
     ],
   },
-  right: {
-    header: "The Workpal Way",
-    rows: [
-      { icon: "\u2713", text: "Just hit \"Forward\"" },
-      { icon: "\u2713", text: "Context stays in your email" },
-      { icon: "\u2713", text: "Zero prompting \u2014 it reads the thread" },
-      { icon: "\u2713", text: "Result arrives in your inbox" },
-      { icon: "\u25c6", text: "Closed loop: replies only to you" },
+  after: {
+    label: "After Workpal",
+    items: [
+      "Forward \u2192 polite decline in your voice, 90 seconds",
+      "Forward \u2192 12 key changes flagged, 2 minutes",
+      "Workpal reminds you and drafts the follow-up",
+      "Never leave your inbox. Ever.",
+      "Every Workpal learns its user\u2019s style",
     ],
   },
 } as const;
 
 export const SOCIAL_PROOF = {
-  userCount: "Thanks to our 500+ Private Alpha Users",
+  userCount: "500+ professionals already using Workpal",
   testimonials: [
     {
       quote:
@@ -144,6 +149,7 @@ export const SOCIAL_PROOF = {
       company: "RDS Brokerage",
       photo: "/assets/testimonials/lorraine.webp",
       linkedin: "https://www.linkedin.com/in/lorraine-athaide-2514211b/",
+      featured: true,
     },
     {
       quote:
@@ -162,6 +168,7 @@ export const SOCIAL_PROOF = {
       company: "Sene",
       photo: "/assets/testimonials/ray.webp",
       linkedin: "https://www.linkedin.com/in/rayxli/",
+      section: "leadership",
     },
   ],
 } as const;
@@ -173,42 +180,55 @@ export const LIVE_DEMO_PREVIEW = {
   subtitle: "Click a scenario to see what Workpal produces \u2014 no prompt needed.",
   tabs: [
     {
-      tabLabel: "Client Brief",
+      tabLabel: "Exec Reply Draft",
       forwardedEmail: {
-        from: "partner@lawfirm.com",
-        subject: "Meridian acquisition \u2014 can you summarize where we stand?",
-        body: "Hey, the board meets Thursday. Can you pull together a one-page summary of the Meridian deal \u2014 final pricing, revised timeline after their Q2 pushback, and the three concessions we agreed to?",
+        from: "prospect@bigco.com",
+        subject: "Re: Pricing discussion \u2014 we need to revisit",
+        body: "Hi, after reviewing internally, we feel the per-seat pricing is too high for our 200-person rollout. We\u2019d like to discuss volume discounts or a flat enterprise rate. Can you send over revised options by Thursday?",
       },
       workpalReply: {
         fromLine: "you@workpal.email \u2192 you@company.com",
-        subject: "Re: Meridian acquisition \u2014 summary",
-        body: "**Meridian Acquisition \u2014 Executive Summary**\n\n**Final Pricing:** $42M all-cash, revised down from $45M following due diligence adjustments on the IP portfolio valuation.\n\n**Revised Timeline:** Close expected Aug 15 (pushed 6 weeks from original June 30 target due to their Q2 earnings review).\n\n**Key Concessions:**\n1. 18-month earn-out on the SaaS revenue stream\n2. Retained two senior engineers through 2026\n3. Waived the non-compete clause for their APAC division\n\n_Ready to copy into your reply, or edit as needed._",
+        subject: "Re: Pricing discussion \u2014 draft response",
+        body: "**Draft Reply (in your VP of Sales\u2019 tone):**\n\nThanks for the follow-up. Completely understand the need to align on pricing for a rollout of this scale.\n\nThree options to consider:\n\n**1. Volume tier:** 15% discount at 200+ seats, bringing per-seat to $34/mo\n**2. Annual commit:** 20% discount with 12-month prepay\n**3. Pilot-first:** 50 seats at full price for 90 days, then negotiate enterprise rate based on usage\n\nHappy to walk through any of these on a quick call Thursday morning.\n\n_Ready to send. Edit the numbers if needed._",
       },
     },
     {
       tabLabel: "Meeting Follow-up",
       forwardedEmail: {
-        from: "cto@startup.io",
-        subject: "Re: Re: Re: Roadmap sync \u2014 next steps",
-        body: "Good call today. Lots discussed. Can someone pull together the action items? I think we agreed on the API deadline, the hiring plan change, and something about the SOC2 audit but I can\u2019t remember the details.",
+        from: "ceo@company.com",
+        subject: "Board meeting wrap-up",
+        body: "Good meeting today. Can you send follow-up emails to each board member with their specific action items? I think David owns the fundraising timeline, Sarah has the product roadmap update, and Marcus needs to finalize the new hire comp bands.",
       },
       workpalReply: {
         fromLine: "you@workpal.email \u2192 you@company.com",
-        subject: "Re: Roadmap sync \u2014 action items",
-        body: "**Roadmap Sync \u2014 Action Items**\n\n**1. API v2 Deadline:** Moved to Sept 1. Backend team to deliver staging build by Aug 15 for partner testing.\n\n**2. Hiring Plan:** Pausing the third frontend hire. Reallocating budget to a senior DevOps role (JD to be drafted by EOW).\n\n**3. SOC2 Audit:** Kicking off Aug 1 with Vanta. Sarah owns the evidence collection. Target completion: Oct 15.\n\n_Formatted as a follow-up email draft, ready to send to the team._",
+        subject: "Re: Board meeting \u2014 follow-up drafts ready",
+        body: "**3 follow-up emails drafted:**\n\n**To David (Fundraising):**\nAction item: Finalize Series B timeline and send updated deck to lead investors by March 15.\n\n**To Sarah (Product):**\nAction item: Share revised Q2 roadmap with engineering dependencies mapped. Due by next board sync (March 22).\n\n**To Marcus (People):**\nAction item: Finalize comp bands for 3 senior hires and circulate for CEO approval by EOW.\n\n_Each formatted as a separate email draft, ready to send individually._",
       },
     },
     {
-      tabLabel: "Contract Review",
+      tabLabel: "Vendor Decline",
       forwardedEmail: {
-        from: "legal@vendor.com",
-        subject: "SaaS Agreement v3 \u2014 attached for review",
-        body: "Hi, attached is the updated SaaS agreement incorporating your redlines. Please review the liability cap changes in Section 8 and the new data residency clause in Section 12. Need sign-off by Friday.",
+        from: "sales@vendortools.io",
+        subject: "Following up on our demo \u2014 next steps?",
+        body: "Hi! Great demo last week. I wanted to follow up on next steps \u2014 we\u2019re running a promotion this quarter and I\u2019d love to get you locked in. Can we schedule a call to discuss implementation timeline?",
       },
       workpalReply: {
         fromLine: "you@workpal.email \u2192 you@company.com",
-        subject: "Re: SaaS Agreement v3 \u2014 key changes flagged",
-        body: "**Contract Review \u2014 Key Changes Flagged**\n\n**Section 8 (Liability Cap):** Cap reduced from 12 months to 6 months of fees. This is below your standard threshold \u2014 recommend pushing back.\n\n**Section 12 (Data Residency):** New clause restricts data to US-only hosting. Conflicts with your EU client base if you need GDPR-compliant storage in Frankfurt.\n\n**Other Changes:** Minor formatting in Sections 3 and 5. No substantive edits detected elsewhere.\n\n_Summary ready. Review and decide before forwarding your response to legal._",
+        subject: "Re: Vendor follow-up \u2014 decline draft",
+        body: "**Gracious decline draft (in your exec\u2019s voice):**\n\nHi \u2014 thanks for the follow-up and for the thorough demo last week. The team was impressed with the platform.\n\nAfter reviewing our Q2 priorities internally, we\u2019ve decided to hold off on new tooling for now. Our current stack covers the immediate needs, and we want to revisit vendor evaluations in Q3.\n\nI\u2019ll reach out when we\u2019re ready to re-engage. Appreciate your patience.\n\n_Keeps the door open without committing. Ready to send._",
+      },
+    },
+    {
+      tabLabel: "Contract Summary",
+      forwardedEmail: {
+        from: "legal@partner.com",
+        subject: "NDA Redline v4 \u2014 attached for final review",
+        body: "Hi, attached is the updated NDA incorporating your latest redlines. 30 pages. We\u2019ve modified the non-compete scope in Section 7 and adjusted the data handling terms in Section 12. Please review and confirm by Friday.",
+      },
+      workpalReply: {
+        fromLine: "you@workpal.email \u2192 you@company.com",
+        subject: "Re: NDA Redline v4 \u2014 8 material changes flagged",
+        body: "**NDA Review \u2014 Key Changes Flagged**\n\n**Section 7 (Non-Compete):** Scope expanded from 12 to 24 months. Now covers APAC region \u2014 this is unusual and may restrict future partnerships.\n\n**Section 12 (Data Handling):** New clause requires data deletion within 30 days of termination. Your standard is 90 days \u2014 flag for legal.\n\n**6 other changes:** Minor formatting in Sections 2, 4, 5. Definition updates in Section 1. No substantive impact.\n\n_Summary ready. The non-compete expansion is the biggest concern._",
       },
     },
   ],
@@ -216,25 +236,41 @@ export const LIVE_DEMO_PREVIEW = {
 
 export const PERSONALIZATION = {
   sectionId: "personalization",
-  label: "Personalization",
-  heading: "Teach it to sound like you",
-  headingSuffix: "(optional)",
-  subtitle: "Workpal is smart out of the box. But it gets sharper when it knows your background, role, and tone.",
-  cards: [
+  label: "Style Learning",
+  heading: "It learns your voice. Automatically.",
+  subtitle: "Workpal gets sharper with every email you forward \u2014 and every edit you make.",
+  progression: [
     {
-      tag: "Works immediately",
-      tagStyle: "neutral",
-      title: "Without personalization",
-      body: "Generates clean, professional responses. Identifies tasks from context. Handles summaries, drafts, and extraction with standard business tone.",
+      stage: "Day 1",
+      description: "Clean, professional responses. Identifies tasks from context.",
     },
     {
-      tag: "Optional \u2014 add anytime",
-      tagStyle: "accent",
-      title: "With your background",
-      body: "Mimics your seniority, industry jargon, and writing style. Knows the difference between how a VP of Sales writes vs. an engineering lead.",
-      methods: ["LinkedIn", "Resume PDF", "Email signature", "Self-description"],
+      stage: "Week 1",
+      description: "Picks up your industry jargon, formality level, and sentence structure.",
+    },
+    {
+      stage: "Month 1",
+      description: "Matches your exec\u2019s voice. Knows which contacts prefer formal vs casual.",
+    },
+    {
+      stage: "Month 3",
+      description: "Drafts are sent with zero edits 60% of the time. It writes like you on your best day.",
     },
   ],
+} as const;
+
+export const GIFT_WORKPAL = {
+  sectionId: "gift",
+  heading: "Gift a Workpal to a colleague",
+  subheading: "Know someone drowning in email? Set up their AI colleague in 10 seconds.",
+  body: "One click. They get an email with their new Workpal address. No signup, no app, no prompts. Just forward and go. You\u2019ll both save hours.",
+  cta: "Gift a Workpal",
+  socialProofLine: "327 Workpals gifted this month",
+  mockEmail: {
+    subject: "Lorraine set up an AI colleague for you",
+    body: "Your Workpal address is sarah.j@workpal.email. Forward any email to it.",
+  },
+  mobileBar: "Gift a Workpal to a colleague \u2192",
 } as const;
 
 export const FOR_TEAMS = {
@@ -248,35 +284,11 @@ export const FOR_TEAMS = {
         "If they can forward an email, they can use an AI agent. No prompts to learn, no interfaces to master.",
     },
     {
-      title: "Every Workpal is specialized",
-      description:
-        "Sales gets a sales Workpal. Legal gets a legal Workpal. Each one calibrated from their LinkedIn \u2014 their role, their industry, their seniority, their expertise.",
-    },
-    {
       title: "Non-technical people thrive",
       description:
         "The people who struggle most with ChatGPT are often the ones who\u2019d benefit most. Workpal removes the skill gap entirely.",
     },
-    {
-      title: "Governed by default",
-      description:
-        "Every ChatGPT tab is ungoverned data flow. Workpal gives you a full audit trail \u2014 who forwarded what, what was produced, what got sent.",
-    },
-    {
-      title: "Knowledge stays when people leave",
-      description:
-        "When a team member moves on, their Workpal \u2014 trained on their role, frameworks, and deliverables \u2014 transfers to the new hire. Less ramp-up time, less institutional knowledge lost.",
-    },
   ],
-  enterpriseFeatures: [
-    "Zero ambient inbox access \u2014 agents only see what\u2019s forwarded",
-    "Private cloud deployment (AWS, Azure, GCP)",
-    "Full audit trail \u2014 every input, every output, every decision",
-    "SSO and role-based admin controls",
-    "Workpal transfer on employee offboarding \u2014 retain institutional knowledge",
-  ],
-  cta: { label: "Explore Workpal for Business \u2192", href: "/business" },
-  complianceBadges: ["SOC 2 Type II", "GDPR Compliant"],
 } as const;
 
 export const SECURITY = {
@@ -306,23 +318,7 @@ export const SECURITY = {
         "Full export or deletion at any time. We never use your data to train models or share with third parties.",
     },
   ],
-  certifications: [
-    {
-      title: "SOC 2 Type II",
-      description:
-        "Audited controls for security, availability, and confidentiality.",
-    },
-    {
-      title: "GDPR Compliant",
-      description:
-        "Full EU data protection compliance. DPA available on request.",
-    },
-    {
-      title: "Vertical ready",
-      description:
-        "HIPAA-ready for healthcare. FedRAMP pathway for government.",
-    },
-  ],
+  certNote: "Working toward SOC 2 Type II certification. Contact security@workpal.email for our current security posture.",
   contact: "security@workpal.email",
 } as const;
 
@@ -343,7 +339,7 @@ export const FAQ = {
     {
       question: "How does it know my writing style?",
       answer:
-        "It uses professional formatting by default. You can optionally connect your LinkedIn, upload a resume, or describe your role so Workpal matches your seniority, industry vocabulary, and tone.",
+        "Workpal learns automatically from every email you forward and every edit you make to its drafts. Within a week, it picks up your jargon and formality level. Within a month, most users send drafts with zero edits. You can accelerate this by connecting your LinkedIn or describing your role.",
     },
     {
       question: "Is my data secure?",
@@ -355,13 +351,30 @@ export const FAQ = {
       answer:
         "That\u2019s the beauty of the closed loop. The result comes back to you, not your client. Review it, edit it, or reply to Workpal with a quick correction and it\u2019ll redo it. Zero risk of an AI draft reaching the wrong person.",
     },
+    {
+      question: "How much does it cost?",
+      answer:
+        "Workpal is free for up to 10 forwards per month. Pro is $12/month for unlimited forwards with style learning and contact memory.",
+    },
+    {
+      question: "I manage multiple executives. Can Workpal match different writing styles?",
+      answer:
+        "Yes. Workpal learns each voice separately. When you forward a thread from Exec A, it drafts in Exec A\u2019s tone. Forward from Exec B, it shifts to match. The more you use it per exec, the sharper it gets.",
+    },
+    {
+      question: "Can I gift a Workpal to someone?",
+      answer:
+        "Yes. One click and they\u2019ll receive an email with their own Workpal address. No signup required. They just start forwarding.",
+    },
   ],
 } as const;
 
 export const FINAL_CTA = {
-  heading: "Ready to create your AI email?",
+  heading: "Ready to meet your AI colleague?",
   subtext:
     "60 seconds. No credit card. It only ever emails you.",
+  giftLink: "Know someone who\u2019d love this? Gift them a Workpal instead \u2192",
+  socialProofLine: "500+ professionals already using Workpal \u00b7 Priority access for executive assistants",
 } as const;
 
 export const FOOTER = {

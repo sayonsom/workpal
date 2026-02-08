@@ -7,7 +7,7 @@ import Button from "../ui/Button";
 import { SITE, SETTINGS, DASHBOARD } from "@/lib/constants";
 import { exportData, deleteAccount } from "@/lib/api";
 import { clearTokens } from "@/lib/auth";
-import BetaPill from "../ui/BetaPill";
+
 
 function LogOutIcon() {
   return (
@@ -76,7 +76,6 @@ export default function SettingsShell() {
             <span className="text-[17px] font-bold text-text-primary">
               {SITE.nameLower}
             </span>
-            <BetaPill />
           </a>
 
           <div className="flex items-center gap-4">

@@ -12,9 +12,9 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://workpal.email"),
-  title: "Workpal — Your Personal AI, In Your Inbox",
+  title: "Workpal — The AI Colleague Who Only Talks to You",
   description:
-    "Workpal learns how you think, write, and deliver. Forward any task — it produces your quality of work, in your voice. No chat history pollution.",
+    "Built for executive assistants & busy professionals. Forward any email, get the work done. Workpal reads context like a colleague, drafts in your voice, and learns how you work.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Workpal — Your Personal AI, In Your Inbox",
+    title: "Workpal — The AI Colleague Who Only Talks to You",
     description:
-      "An AI that works like you. Forward any task from your inbox. Get finished work back in your voice, your frameworks, your standards.",
+      "Built for executive assistants & busy professionals. Forward any email, get the work done. No apps, no prompts, no inbox access.",
     type: "website",
     images: [
       {
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Workpal — Your Personal AI, In Your Inbox",
+    title: "Workpal — The AI Colleague Who Only Talks to You",
     description:
-      "Forward any task from your inbox. Get finished work back, done. No prompts. No dashboards. Just email.",
+      "Forward any email. Get the work done. Workpal reads context like a colleague and drafts in your voice.",
     images: ["/logo.png"],
   },
 };

@@ -1,11 +1,11 @@
 import Card from "../ui/Card";
 import { SOCIAL_PROOF } from "@/lib/constants";
 
-function QuoteIcon() {
+function QuoteIcon({ size = 20 }: { size?: number }) {
   return (
     <svg
-      width="20"
-      height="20"
+      width={size}
+      height={size}
       viewBox="0 0 20 20"
       fill="none"
       aria-hidden="true"
@@ -49,13 +49,14 @@ function LinkedInIcon() {
   );
 }
 
-/** Circle placeholder for a user photo. Shows initials when no photo src is provided. */
 function PhotoCircle({
   name,
   photo,
+  size = "sm",
 }: {
   name: string;
   photo: string;
+  size?: "sm" | "lg";
 }) {
   const initials = name
     .split(" ")
@@ -63,19 +64,21 @@ function PhotoCircle({
     .join("")
     .toUpperCase();
 
+  const sizeClasses = size === "lg" ? "w-14 h-14" : "w-10 h-10";
+
   if (photo) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={photo}
         alt={name}
-        className="w-10 h-10 rounded-full object-cover border-2 border-[var(--color-border-light)]"
+        className={`${sizeClasses} rounded-full object-cover border-2 border-[var(--color-border-light)]`}
       />
     );
   }
 
   return (
-    <div className="w-10 h-10 rounded-full bg-surface-subtle border-2 border-dashed border-[var(--color-border-light)] flex items-center justify-center">
+    <div className={`${sizeClasses} rounded-full bg-surface-subtle border-2 border-dashed border-[var(--color-border-light)] flex items-center justify-center`}>
       <span className="text-[12px] font-bold text-[var(--color-text-muted)]">
         {initials}
       </span>
@@ -84,6 +87,12 @@ function PhotoCircle({
 }
 
 export default function SocialProof() {
+  const featured = SOCIAL_PROOF.testimonials.find((t) => "featured" in t && t.featured);
+  const leadership = SOCIAL_PROOF.testimonials.filter((t) => "section" in t && t.section === "leadership");
+  const regular = SOCIAL_PROOF.testimonials.filter(
+    (t) => !("featured" in t && t.featured) && !("section" in t && t.section === "leadership")
+  );
+
   return (
     <section className="py-12 md:py-16 bg-surface-subtle">
       <div className="mx-auto max-w-[1200px] px-4">
@@ -95,41 +104,122 @@ export default function SocialProof() {
           </span>
         </div>
 
-        {/* Testimonial cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[960px] mx-auto">
-          {SOCIAL_PROOF.testimonials.map((t, i) => (
-            <Card key={i} hoverable>
-              <QuoteIcon />
-              <p className="mt-3 text-[14px] text-text-primary leading-[1.5]">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div className="mt-4 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-3">
-                {/* Photo circle */}
-                <PhotoCircle name={t.name} photo={t.photo} />
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <p className="text-[13px] font-bold text-text-primary truncate">
-                      {t.name}
-                    </p>
-                    <a
-                      href={t.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 hover:opacity-80 transition-opacity"
-                      aria-label={`${t.name} on LinkedIn`}
-                    >
-                      <LinkedInIcon />
-                    </a>
-                  </div>
-                  <p className="text-[12px] text-[var(--color-text-muted)]">
-                    {t.role}, {t.company}
+        {/* Featured testimonial — full width, larger */}
+        {featured && (
+          <div className="max-w-[720px] mx-auto mb-8">
+            <Card hoverable>
+              <div className="flex flex-col md:flex-row items-start gap-5 p-2">
+                <PhotoCircle name={featured.name} photo={featured.photo} size="lg" />
+                <div className="flex-1">
+                  <QuoteIcon size={24} />
+                  <p className="mt-3 text-[18px] md:text-[20px] text-text-primary leading-[1.5] font-medium">
+                    &ldquo;{featured.quote}&rdquo;
                   </p>
+                  <div className="mt-4 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-[15px] font-bold text-text-primary">
+                          {featured.name}
+                        </p>
+                        <a
+                          href={featured.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 hover:opacity-80 transition-opacity"
+                          aria-label={`${featured.name} on LinkedIn`}
+                        >
+                          <LinkedInIcon />
+                        </a>
+                      </div>
+                      <p className="text-[13px] text-[var(--color-text-muted)]">
+                        {featured.role}, {featured.company}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Card>
-          ))}
-        </div>
+          </div>
+        )}
+
+        {/* Regular testimonials */}
+        {regular.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[720px] mx-auto mb-8">
+            {regular.map((t, i) => (
+              <Card key={i} hoverable>
+                <QuoteIcon />
+                <p className="mt-3 text-[14px] text-text-primary leading-[1.5]">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="mt-4 pt-3 border-t border-[var(--color-border-light)] flex items-center gap-3">
+                  <PhotoCircle name={t.name} photo={t.photo} />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-[13px] font-bold text-text-primary truncate">
+                        {t.name}
+                      </p>
+                      <a
+                        href={t.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 hover:opacity-80 transition-opacity"
+                        aria-label={`${t.name} on LinkedIn`}
+                      >
+                        <LinkedInIcon />
+                      </a>
+                    </div>
+                    <p className="text-[12px] text-[var(--color-text-muted)]">
+                      {t.role}, {t.company}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Leadership row */}
+        {leadership.length > 0 && (
+          <div className="max-w-[720px] mx-auto">
+            <p className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-3 text-center">
+              Trusted by leadership
+            </p>
+            <div className="grid grid-cols-1 gap-4">
+              {leadership.map((t, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-4 rounded-[8px] border border-[var(--color-border-light)] bg-white px-5 py-3 shadow-[var(--shadow-sm)]"
+                >
+                  <PhotoCircle name={t.name} photo={t.photo} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] text-[var(--color-text-subtle)] leading-[1.5] italic">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <div className="flex items-center gap-1.5 justify-end">
+                      <p className="text-[13px] font-bold text-text-primary">
+                        {t.name}
+                      </p>
+                      <a
+                        href={t.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 hover:opacity-80 transition-opacity"
+                        aria-label={`${t.name} on LinkedIn`}
+                      >
+                        <LinkedInIcon />
+                      </a>
+                    </div>
+                    <p className="text-[12px] text-[var(--color-text-muted)]">
+                      {t.role}, {t.company}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

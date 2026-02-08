@@ -34,43 +34,6 @@ function LockIcon() {
   );
 }
 
-function CertIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="8" r="5" stroke="#1D9BD1" strokeWidth="1.5" />
-      <path
-        d="M7.5 7.5l2 2 3-3.5"
-        stroke="#1D9BD1"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M7 13l-1 5 4-2 4 2-1-5" stroke="#1D9BD1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-/* ── Certification badge pill ── */
-function CertBadge({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-[8px] border border-[var(--color-border-light)] bg-white p-4 shadow-[var(--shadow-sm)]">
-      <div className="flex items-center gap-2 mb-2">
-        <CertIcon />
-        <h4 className="text-[14px] font-bold text-text-primary">{title}</h4>
-      </div>
-      <p className="text-[13px] text-[var(--color-text-subtle)] leading-[1.4]">
-        {description}
-      </p>
-    </div>
-  );
-}
-
 export default function Security() {
   return (
     <section id="security" className="py-16 md:py-24 bg-surface-subtle">
@@ -87,7 +50,7 @@ export default function Security() {
         </div>
 
         {/* Security principles — 2x2 grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto mb-10">
           {SECURITY.principles.map((principle, i) => (
             <div key={i} className="flex gap-3">
               <div className="mt-0.5 shrink-0">
@@ -105,25 +68,15 @@ export default function Security() {
           ))}
         </div>
 
-        {/* Divider */}
-        <div className="max-w-[900px] mx-auto mb-12">
-          <div className="h-px bg-[var(--color-border-light)]" />
-        </div>
-
-        {/* Certifications */}
-        <div className="max-w-[900px] mx-auto">
-          <h3 className="text-center text-[18px] font-bold text-text-primary mb-6">
-            Enterprise-grade certifications
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {SECURITY.certifications.map((cert, i) => (
-              <CertBadge key={i} title={cert.title} description={cert.description} />
-            ))}
-          </div>
+        {/* Cert note */}
+        <div className="max-w-[900px] mx-auto text-center">
+          <p className="text-[13px] text-[var(--color-text-muted)] italic leading-[1.5]">
+            {SECURITY.certNote}
+          </p>
         </div>
 
         {/* Contact */}
-        <div className="mt-10 text-center">
+        <div className="mt-6 text-center">
           <p className="text-[12px] text-[var(--color-text-muted)]">
             Questions? Reach out to{" "}
             <a

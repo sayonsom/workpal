@@ -6,7 +6,7 @@ import Image from "next/image";
 import Button from "../ui/Button";
 import { LOGIN, SITE } from "@/lib/constants";
 import { login } from "@/lib/api";
-import BetaPill from "../ui/BetaPill";
+
 
 export default function LoginForm() {
   const router = useRouter();
@@ -58,7 +58,6 @@ export default function LoginForm() {
             <span className="text-[20px] font-bold text-text-primary">
               {SITE.nameLower}
             </span>
-            <BetaPill />
           </a>
         </div>
 

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Button from "../ui/Button";
 import { SITE, NAV } from "@/lib/constants";
 import { isAuthenticated } from "@/lib/auth";
-import BetaPill from "../ui/BetaPill";
 
 export default function Navbar() {
   const [authed, setAuthed] = useState(false);
@@ -50,7 +49,6 @@ export default function Navbar() {
           <span className="text-[17px] font-bold text-text-primary">
             {SITE.nameLower}
           </span>
-          <BetaPill />
         </a>
 
         {/* Right side: links + CTA */}

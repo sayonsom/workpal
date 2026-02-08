@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SITE, DASHBOARD } from "@/lib/constants";
 import { clearTokens } from "@/lib/auth";
-import BetaPill from "../ui/BetaPill";
+
 
 type NavItem = "agents" | "usage";
 
@@ -58,7 +58,6 @@ export default function DashboardShell({
             <span className="text-[17px] font-bold text-text-primary">
               {SITE.nameLower}
             </span>
-            <BetaPill />
           </a>
 
           <div className="flex items-center gap-4">
