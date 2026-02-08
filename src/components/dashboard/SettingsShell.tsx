@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Button from "../ui/Button";
 import { SITE, SETTINGS, DASHBOARD } from "@/lib/constants";
-import { exportData, deleteAccount } from "@/lib/api";
+import { exportData, deleteAccount, changePassword } from "@/lib/api";
 import { clearTokens } from "@/lib/auth";
 
 
@@ -23,6 +23,13 @@ export default function SettingsShell() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
+
+  // Change password state
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   async function handleExport() {
     setExporting(true);
@@ -51,6 +58,36 @@ export default function SettingsShell() {
       router.push("/");
     } catch {
       setDeleting(false);
+    }
+  }
+
+  async function handleChangePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setPasswordMessage(null);
+
+    if (newPassword.length < 8) {
+      setPasswordMessage({ type: "error", text: "New password must be at least 8 characters." });
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordMessage({ type: "error", text: "New passwords do not match." });
+      return;
+    }
+
+    setChangingPassword(true);
+    try {
+      await changePassword(oldPassword, newPassword);
+      setPasswordMessage({ type: "success", text: "Password changed successfully." });
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      setPasswordMessage({
+        type: "error",
+        text: err instanceof Error ? err.message : "Failed to change password. Please try again.",
+      });
+    } finally {
+      setChangingPassword(false);
     }
   }
 
@@ -102,6 +139,77 @@ export default function SettingsShell() {
         <h1 className="text-[28px] font-bold text-text-primary mb-8">
           {SETTINGS.heading}
         </h1>
+
+        {/* Change password */}
+        <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-6 mb-6">
+          <h2 className="text-[18px] font-bold text-text-primary">
+            Change Password
+          </h2>
+          <p className="mt-2 text-[14px] text-[var(--color-text-subtle)] leading-[1.5]">
+            Update your account password. Must be at least 8 characters.
+          </p>
+
+          <form onSubmit={handleChangePassword} className="mt-4 space-y-3 max-w-[360px]">
+            <div>
+              <label className="block text-[13px] font-bold text-text-primary mb-1">
+                Current Password
+              </label>
+              <input
+                type="password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                required
+                className="w-full h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary focus:border-info focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[13px] font-bold text-text-primary mb-1">
+                New Password
+              </label>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+                minLength={8}
+                className="w-full h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary focus:border-info focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[13px] font-bold text-text-primary mb-1">
+                Confirm New Password
+              </label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                minLength={8}
+                className="w-full h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary focus:border-info focus:outline-none"
+              />
+            </div>
+
+            {passwordMessage && (
+              <p
+                className={`text-[13px] leading-[1.5] ${
+                  passwordMessage.type === "success"
+                    ? "text-[#2BAC76]"
+                    : "text-danger"
+                }`}
+              >
+                {passwordMessage.text}
+              </p>
+            )}
+
+            <Button
+              type="submit"
+              variant="primary"
+              disabled={changingPassword}
+            >
+              {changingPassword ? "Changing..." : "Change Password"}
+            </Button>
+          </form>
+        </div>
 
         {/* Export data */}
         <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-6 mb-6">

@@ -40,7 +40,7 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
     setLoading(true);
     try {
       const data = await getSamples(agentId);
-      setSamples(data);
+      setSamples(data ?? []);
     } catch {
       // ignore
     } finally {

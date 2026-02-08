@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Button from "../ui/Button";
 import { LOGIN, SITE } from "@/lib/constants";
-import { login } from "@/lib/api";
+import { login, forgotPassword } from "@/lib/api";
 
 
 export default function LoginForm() {
@@ -17,6 +17,13 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Forgot password flow
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [forgotMessage, setForgotMessage] = useState("");
+  const [forgotError, setForgotError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,6 +49,31 @@ export default function LoginForm() {
     }
   }
 
+  async function handleForgotPassword(e: React.FormEvent) {
+    e.preventDefault();
+    setForgotError("");
+    setForgotMessage("");
+
+    if (!forgotEmail) {
+      setForgotError("Please enter your email address.");
+      return;
+    }
+
+    setForgotLoading(true);
+    try {
+      await forgotPassword(forgotEmail);
+      setForgotMessage("If an account exists with that email, we've sent a reset link.");
+    } catch (err) {
+      setForgotError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setForgotLoading(false);
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-surface-subtle px-4">
       <div className="w-full max-w-[400px]">
@@ -63,63 +95,139 @@ export default function LoginForm() {
 
         {/* Card */}
         <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-md)] p-8">
-          <h1 className="text-[24px] font-bold text-text-primary text-center">
-            {LOGIN.heading}
-          </h1>
-          <p className="mt-2 text-[14px] text-[var(--color-text-subtle)] text-center">
-            {LOGIN.subtext}
-          </p>
+          {showForgot ? (
+            <>
+              <h1 className="text-[24px] font-bold text-text-primary text-center">
+                Forgot Password
+              </h1>
+              <p className="mt-2 text-[14px] text-[var(--color-text-subtle)] text-center">
+                Enter your email and we&apos;ll send you a reset link.
+              </p>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            <div>
-              <label
-                htmlFor="login-email"
-                className="block text-[13px] font-bold text-text-primary mb-1"
+              <form onSubmit={handleForgotPassword} className="mt-6 space-y-4">
+                <div>
+                  <label
+                    htmlFor="forgot-email"
+                    className="block text-[13px] font-bold text-text-primary mb-1"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="forgot-email"
+                    type="email"
+                    placeholder={LOGIN.emailPlaceholder}
+                    value={forgotEmail}
+                    onChange={(e) => setForgotEmail(e.target.value)}
+                    autoComplete="email"
+                    autoFocus
+                    className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
+
+                {forgotError && (
+                  <p className="text-[13px] text-danger font-bold">{forgotError}</p>
+                )}
+
+                {forgotMessage && (
+                  <div className="rounded-[6px] bg-[#dcfce7] border border-cta/20 px-3 py-2">
+                    <p className="text-[13px] text-cta font-bold">{forgotMessage}</p>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="w-full"
+                  disabled={forgotLoading}
+                >
+                  {forgotLoading ? "Sending..." : "Send Reset Link"}
+                </Button>
+              </form>
+
+              <button
+                onClick={() => {
+                  setShowForgot(false);
+                  setForgotError("");
+                  setForgotMessage("");
+                }}
+                className="mt-4 w-full text-center text-[13px] text-link font-bold hover:underline cursor-pointer"
               >
-                Email
-              </label>
-              <input
-                id="login-email"
-                type="email"
-                placeholder={LOGIN.emailPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="email"
-                className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-              />
-            </div>
+                Back to login
+              </button>
+            </>
+          ) : (
+            <>
+              <h1 className="text-[24px] font-bold text-text-primary text-center">
+                {LOGIN.heading}
+              </h1>
+              <p className="mt-2 text-[14px] text-[var(--color-text-subtle)] text-center">
+                {LOGIN.subtext}
+              </p>
 
-            <div>
-              <label
-                htmlFor="login-password"
-                className="block text-[13px] font-bold text-text-primary mb-1"
-              >
-                Password
-              </label>
-              <input
-                id="login-password"
-                type="password"
-                placeholder={LOGIN.passwordPlaceholder}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
-                className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
-              />
-            </div>
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                <div>
+                  <label
+                    htmlFor="login-email"
+                    className="block text-[13px] font-bold text-text-primary mb-1"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="login-email"
+                    type="email"
+                    placeholder={LOGIN.emailPlaceholder}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
 
-            {error && (
-              <p className="text-[13px] text-danger font-bold">{error}</p>
-            )}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label
+                      htmlFor="login-password"
+                      className="block text-[13px] font-bold text-text-primary"
+                    >
+                      Password
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowForgot(true);
+                        setForgotEmail(email);
+                      }}
+                      className="text-[12px] text-link font-bold hover:underline cursor-pointer"
+                    >
+                      {LOGIN.forgotPassword}
+                    </button>
+                  </div>
+                  <input
+                    id="login-password"
+                    type="password"
+                    placeholder={LOGIN.passwordPlaceholder}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]"
+                  />
+                </div>
 
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full"
-              disabled={loading}
-            >
-              {loading ? "Logging in..." : LOGIN.ctaLabel}
-            </Button>
-          </form>
+                {error && (
+                  <p className="text-[13px] text-danger font-bold">{error}</p>
+                )}
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="w-full"
+                  disabled={loading}
+                >
+                  {loading ? "Logging in..." : LOGIN.ctaLabel}
+                </Button>
+              </form>
+            </>
+          )}
         </div>
 
         {/* Bottom link */}

@@ -69,6 +69,11 @@ export interface Agent {
   domain_tags: string[];
   profile_summary: string;
   status: "active" | "paused" | "deleted";
+  skills: Skill[];
+  samples: Sample[];
+  allowed_senders: string[];
+  phone_number: string;
+  voice_enabled: boolean;
 }
 
 export interface AgentsListResponse {
@@ -175,6 +180,19 @@ export interface UpdateSampleRequest {
   name?: string;
   description?: string;
   content?: string;
+}
+
+// ── Voice / Phone ──
+
+export interface RegisterPhoneRequest {
+  phone_number: string;
+}
+
+export interface PhoneStatusResponse {
+  phone_number: string;
+  voice_enabled: boolean;
+  elevenlabs_agent_id: string;
+  twilio_number: string;
 }
 
 // ── Generic ──

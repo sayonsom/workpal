@@ -39,7 +39,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
     setLoading(true);
     try {
       const data = await getSkills(agentId);
-      setSkills(data);
+      setSkills(data ?? []);
     } catch {
       // ignore
     } finally {

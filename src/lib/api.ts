@@ -33,6 +33,8 @@ import type {
   Sample,
   CreateSampleRequest,
   UpdateSampleRequest,
+  RegisterPhoneRequest,
+  PhoneStatusResponse,
   ApiError,
 } from "./types";
 
@@ -363,4 +365,75 @@ export async function exportData(): Promise<Blob> {
 
 export async function deleteAccount(): Promise<void> {
   return apiFetch<void>("/account", { method: "DELETE" });
+}
+
+// ── Voice / Phone ──
+
+export async function registerPhone(
+  agentId: string,
+  data: RegisterPhoneRequest
+): Promise<PhoneStatusResponse> {
+  return apiFetch<PhoneStatusResponse>(`/agents/${agentId}/phone`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function getPhoneStatus(
+  agentId: string
+): Promise<PhoneStatusResponse> {
+  return apiFetch<PhoneStatusResponse>(`/agents/${agentId}/phone`);
+}
+
+// ── Email Verification (no auth) ──
+
+export async function verifyEmail(
+  token: string,
+  email: string
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(
+    `/verify-email?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`,
+    { method: "GET" },
+    false
+  );
+}
+
+// ── Password Management ──
+
+export async function forgotPassword(
+  email: string
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(
+    "/forgot-password",
+    {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    },
+    false
+  );
+}
+
+export async function confirmForgotPassword(
+  email: string,
+  code: string,
+  new_password: string
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(
+    "/confirm-forgot-password",
+    {
+      method: "POST",
+      body: JSON.stringify({ email, code, new_password }),
+    },
+    false
+  );
+}
+
+export async function changePassword(
+  old_password: string,
+  new_password: string
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>("/change-password", {
+    method: "POST",
+    body: JSON.stringify({ old_password, new_password }),
+  });
 }

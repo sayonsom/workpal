@@ -10,6 +10,7 @@ import SkillsPanel from "./SkillsPanel";
 import SamplesPanel from "./SamplesPanel";
 import PersonalizePanel from "./PersonalizePanel";
 import SharePanel from "./SharePanel";
+import VoicePanel from "./VoicePanel";
 
 function CopyIcon() {
   return (
@@ -36,7 +37,7 @@ function TrashIcon() {
   );
 }
 
-type Tab = "tasks" | "skills" | "samples" | "personalize" | "share";
+type Tab = "tasks" | "skills" | "samples" | "personalize" | "share" | "voice";
 
 interface AgentDetailProps {
   agent: Agent;
@@ -97,6 +98,7 @@ export default function AgentDetail({
     { key: "samples", label: DASHBOARD.agentDetail.tabs.samples },
     { key: "personalize", label: DASHBOARD.agentDetail.tabs.personalize },
     { key: "share", label: DASHBOARD.agentDetail.tabs.share },
+    { key: "voice", label: "Voice" },
   ];
 
   return (
@@ -220,6 +222,7 @@ export default function AgentDetail({
       {activeTab === "samples" && <SamplesPanel agentId={agent.agent_id} />}
       {activeTab === "personalize" && <PersonalizePanel agentId={agent.agent_id} />}
       {activeTab === "share" && <SharePanel agentId={agent.agent_id} />}
+      {activeTab === "voice" && <VoicePanel agent={agent} onAgentUpdated={onAgentUpdated} />}
     </div>
   );
 }
