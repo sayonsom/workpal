@@ -10,7 +10,7 @@ import SkillsPanel from "./SkillsPanel";
 import SamplesPanel from "./SamplesPanel";
 import PersonalizePanel from "./PersonalizePanel";
 import SharePanel from "./SharePanel";
-import VoicePanel from "./VoicePanel";
+
 
 function CopyIcon() {
   return (
@@ -222,7 +222,13 @@ export default function AgentDetail({
       {activeTab === "samples" && <SamplesPanel agentId={agent.agent_id} />}
       {activeTab === "personalize" && <PersonalizePanel agentId={agent.agent_id} />}
       {activeTab === "share" && <SharePanel agentId={agent.agent_id} />}
-      {activeTab === "voice" && <VoicePanel agent={agent} onAgentUpdated={onAgentUpdated} />}
+      {activeTab === "voice" && (
+        <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] p-12 text-center">
+          <p className="text-[18px] font-bold text-[var(--color-text-muted)]">
+            Feature Coming Soon
+          </p>
+        </div>
+      )}
     </div>
   );
 }
