@@ -62,20 +62,20 @@ export default function TaskDetail({ task, onBack }: TaskDetailProps) {
       {/* Back button */}
       <button
         onClick={onBack}
-        className="inline-flex items-center gap-1.5 text-[14px] text-cta hover:text-cta-hover font-medium transition-colors duration-[180ms] cursor-pointer mb-6"
+        className="inline-flex items-center gap-1.5 text-[13px] text-[var(--color-text-subtle)] hover:text-text-primary font-medium transition-colors duration-[180ms] cursor-pointer mb-5"
       >
         <ArrowLeftIcon />
         {INBOX.taskDetail.back}
       </button>
 
       {/* Subject */}
-      <h1 className="text-[22px] font-bold text-text-primary leading-tight mb-3">
+      <h1 className="text-[20px] font-bold text-text-primary leading-tight mb-3">
         {task.subject}
       </h1>
 
       {/* Metadata */}
-      <div className="flex items-center gap-3 flex-wrap mb-8">
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-bold ${status.bg} ${status.text}`}>
+      <div className="flex items-center gap-2.5 flex-wrap mb-6">
+        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${status.bg} ${status.text}`}>
           {status.label}
         </span>
         <span className="text-[13px] text-[var(--color-text-muted)]">
@@ -90,8 +90,8 @@ export default function TaskDetail({ task, onBack }: TaskDetailProps) {
       </div>
 
       {/* YOUR REQUEST */}
-      <div className="rounded-[10px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] p-6 mb-4">
-        <h3 className="text-[11px] font-bold tracking-[0.08em] text-[var(--color-text-muted)] uppercase mb-3">
+      <div className="rounded-[8px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] p-5 mb-3">
+        <h3 className="text-[11px] font-bold tracking-[0.08em] text-[var(--color-text-muted)] uppercase mb-2.5">
           {INBOX.taskDetail.yourRequest}
         </h3>
         <p className="text-[14px] text-text-primary leading-[1.6] whitespace-pre-wrap">
@@ -100,8 +100,8 @@ export default function TaskDetail({ task, onBack }: TaskDetailProps) {
       </div>
 
       {/* WORKPAL'S RESPONSE */}
-      <div className="rounded-[10px] bg-white border-2 border-cta/15 p-6 mb-4">
-        <h3 className="text-[11px] font-bold tracking-[0.08em] text-cta uppercase mb-3">
+      <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] border-l-[3px] border-l-cta p-5 mb-3">
+        <h3 className="text-[11px] font-bold tracking-[0.08em] text-cta uppercase mb-2.5">
           {INBOX.taskDetail.workpalResponse}
         </h3>
         <p className="text-[14px] text-text-primary leading-[1.6] whitespace-pre-wrap">
@@ -111,15 +111,15 @@ export default function TaskDetail({ task, onBack }: TaskDetailProps) {
 
       {/* ATTACHMENTS */}
       {attachmentNames.length > 0 && (
-        <div className="rounded-[10px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] p-5">
-          <h3 className="text-[11px] font-bold tracking-[0.08em] text-[var(--color-text-muted)] uppercase mb-3">
+        <div className="rounded-[8px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] p-4">
+          <h3 className="text-[11px] font-bold tracking-[0.08em] text-[var(--color-text-muted)] uppercase mb-2.5">
             {INBOX.taskDetail.attachments}
           </h3>
           <div className="flex flex-wrap gap-2">
             {attachmentNames.map((name) => (
               <span
                 key={name}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-white border border-[var(--color-border-light)] text-[13px] text-text-primary"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-white border border-[var(--color-border-light)] text-[13px] text-text-primary hover:border-[var(--color-border-strong)] transition-colors"
               >
                 <PaperclipIcon />
                 {name}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import Button from "../ui/Button";
 import { DASHBOARD } from "@/lib/constants";
 import { getSamples, createSample, deleteSample } from "@/lib/api";
 import type { Sample } from "@/lib/types";
@@ -18,6 +17,15 @@ function TrashIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M2 4h12M5 4V2.5A.5.5 0 015.5 2h5a.5.5 0 01.5.5V4M13 4v9.5a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 013 13.5V4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function DocIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="3" y="1" width="10" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -97,18 +105,17 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-[16px] font-bold text-text-primary">
+        <h3 className="text-[15px] font-bold text-text-primary">
           {DASHBOARD.samples.heading}
         </h3>
         {!showForm && (
-          <Button
-            variant="secondary"
-            className="!text-[13px] !h-8"
+          <button
             onClick={() => setShowForm(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border border-[var(--color-border-strong)] text-[13px] font-medium text-text-primary hover:bg-[var(--color-surface-subtle)] transition-colors cursor-pointer"
           >
             <PlusIcon />
-            <span className="ml-1">{DASHBOARD.samples.addCta}</span>
-          </Button>
+            {DASHBOARD.samples.addCta}
+          </button>
         )}
       </div>
 
@@ -116,7 +123,7 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
       {showForm && (
         <form
           onSubmit={handleCreate}
-          className="rounded-[8px] bg-white border border-cta/30 p-4 mb-4 space-y-3"
+          className="rounded-[8px] bg-white border border-[var(--color-border-light)] p-4 mb-4 space-y-3"
         >
           <input
             type="text"
@@ -124,35 +131,33 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoFocus
-            className="w-full h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none"
+            className="w-full h-9 px-3 rounded-[6px] border border-[var(--color-border-light)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none transition-colors"
           />
           <textarea
             placeholder={DASHBOARD.samples.descriptionPlaceholder}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={2}
-            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none"
+            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-light)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none transition-colors"
           />
           <textarea
             placeholder={DASHBOARD.samples.contentPlaceholder}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             rows={6}
-            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none"
+            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-light)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none transition-colors"
           />
           <div className="flex gap-2">
-            <Button
+            <button
               type="submit"
-              variant="primary"
-              className="!text-[13px] !h-8"
               disabled={saving}
+              className="px-4 py-1.5 rounded-[6px] bg-text-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save"}
-            </Button>
-            <Button
+            </button>
+            <button
               type="button"
-              variant="ghost"
-              className="!text-[13px] !h-8"
+              className="px-4 py-1.5 rounded-[6px] text-[13px] font-medium text-[var(--color-text-subtle)] hover:bg-[var(--color-surface-subtle)] transition-colors cursor-pointer"
               onClick={() => {
                 setShowForm(false);
                 setName("");
@@ -161,7 +166,7 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
               }}
             >
               Cancel
-            </Button>
+            </button>
           </div>
         </form>
       )}
@@ -169,19 +174,22 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
       {/* List */}
       {samples.length === 0 && !showForm ? (
         <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] p-8 text-center">
+          <div className="w-10 h-10 rounded-full bg-[var(--color-surface-subtle)] flex items-center justify-center mx-auto mb-3">
+            <span className="text-[var(--color-text-muted)]"><DocIcon /></span>
+          </div>
           <p className="text-[14px] text-[var(--color-text-muted)]">
             {DASHBOARD.samples.emptyState}
           </p>
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] overflow-hidden divide-y divide-[var(--color-border-light)]">
           {(Array.isArray(samples) ? samples : []).map((sample) => (
             <div
               key={sample.name}
-              className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-4 flex items-start justify-between gap-3"
+              className="px-4 py-3 flex items-start justify-between gap-3 hover:bg-[var(--color-surface-subtle)] transition-colors"
             >
               <div className="min-w-0 flex-1">
-                <p className="text-[14px] font-bold text-text-primary">
+                <p className="text-[14px] font-semibold text-text-primary">
                   {sample.name}
                 </p>
                 {sample.description && (
@@ -189,14 +197,14 @@ export default function SamplesPanel({ agentId }: SamplesPanelProps) {
                     {sample.description}
                   </p>
                 )}
-                <p className="mt-1 text-[13px] text-[var(--color-text-subtle)] line-clamp-3">
+                <p className="mt-1 text-[13px] text-[var(--color-text-subtle)] line-clamp-2">
                   {sample.content}
                 </p>
               </div>
               <button
                 onClick={() => handleDelete(sample.name)}
                 disabled={deletingName === sample.name}
-                className="shrink-0 text-[var(--color-text-muted)] hover:text-danger transition-colors cursor-pointer"
+                className="shrink-0 p-1 rounded hover:bg-danger/5 text-[var(--color-text-muted)] hover:text-danger transition-colors cursor-pointer"
               >
                 <TrashIcon />
               </button>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import Button from "../ui/Button";
 import { DASHBOARD } from "@/lib/constants";
 import {
   getSkillsCatalog,
@@ -66,8 +65,17 @@ function CheckIcon() {
   );
 }
 
-function Spinner() {
-  return <div className="w-4 h-4 border-2 border-cta border-t-transparent rounded-full animate-spin" />;
+function Spinner({ className = "" }: { className?: string }) {
+  return <div className={`w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin ${className}`} />;
+}
+
+function YouTubeIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1" y="3" width="14" height="10" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M6.5 6v4l3.5-2-3.5-2z" fill="currentColor" />
+    </svg>
+  );
 }
 
 /* ── Props ── */
@@ -200,35 +208,28 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
     setYoutubeResult(null);
     setYoutubeError(null);
     try {
-      // Use manual transcript if user pasted one, otherwise try automated fetch
       let transcript: string | null = manualTranscript.trim() || null;
-
       if (!transcript) {
-        // Try to fetch transcript client-side via our Vercel API route
         const videoId = extractYouTubeVideoId(youtubeUrl.trim());
         if (videoId) {
           transcript = await fetchYouTubeTranscript(videoId);
         }
       }
-
-      // Send URL + transcript to backend for classification
       const res = await createSkillFromYouTube(
         agentId,
         youtubeUrl.trim(),
         transcript || undefined
       );
       setYoutubeResult(
-        `✅ "${res.sub_skill.name}" added under ${res.skill_name}. ${res.classification.summary}`
+        `"${res.sub_skill.name}" added under ${res.skill_name}. ${res.classification.summary}`
       );
       setYoutubeUrl("");
       setManualTranscript("");
       setShowTranscriptPaste(false);
-      // Refresh data to show the new skill/sub-skill
       await fetchData();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed to process video";
       setYoutubeError(msg);
-      // If it failed and no manual transcript was provided, suggest pasting one
       if (!manualTranscript.trim()) {
         setShowTranscriptPaste(true);
       }
@@ -262,17 +263,19 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
   }
 
   return (
-    <div>
+    <div className="space-y-8">
       {/* ═══════ SECTION 1: Active Skills ═══════ */}
-      <div className="mb-8">
-        <h3 className="text-[16px] font-bold text-text-primary mb-4">
-          {DASHBOARD.skills.activeHeading}
-          {activeSkillDetails.length > 0 && (
-            <span className="ml-2 text-[13px] font-normal text-[var(--color-text-muted)]">
-              ({activeSkillDetails.length})
-            </span>
-          )}
-        </h3>
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-[15px] font-bold text-text-primary">
+            {DASHBOARD.skills.activeHeading}
+            {activeSkillDetails.length > 0 && (
+              <span className="ml-2 text-[12px] font-normal text-[var(--color-text-muted)]">
+                ({activeSkillDetails.length})
+              </span>
+            )}
+          </h3>
+        </div>
 
         {activeSkillDetails.length === 0 ? (
           <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] p-8 text-center">
@@ -281,7 +284,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
             </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {activeSkillDetails.map((skill) => {
               const isExpanded = expandedSkillId === skill.skill_id;
               const relatedSubs = subSkills.filter(
@@ -292,70 +295,66 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
               return (
                 <div
                   key={skill.skill_id}
-                  className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] border-l-[3px] border-l-cta overflow-hidden"
+                  className="rounded-[8px] bg-white border border-[var(--color-border-light)] overflow-hidden transition-shadow duration-[180ms] hover:shadow-[var(--shadow-sm)]"
                 >
                   {/* Skill header */}
-                  <div className="p-4 flex items-start justify-between gap-3">
+                  <div className="px-4 py-3 flex items-center justify-between gap-3">
                     <button
                       onClick={() =>
                         setExpandedSkillId(isExpanded ? null : skill.skill_id)
                       }
-                      className="flex items-start gap-3 flex-1 text-left cursor-pointer"
+                      className="flex items-center gap-3 flex-1 text-left cursor-pointer min-w-0"
                     >
-                      <span className="text-[24px] leading-none mt-0.5 shrink-0">
+                      <span className="text-[20px] leading-none shrink-0">
                         {skill.icon}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-bold text-text-primary">
+                        <p className="text-[14px] font-semibold text-text-primary truncate">
                           {skill.name}
                         </p>
-                        <p className="mt-0.5 text-[13px] text-[var(--color-text-subtle)]">
+                        <p className="text-[12px] text-[var(--color-text-muted)] truncate">
                           {skill.description}
                         </p>
-                        {relatedSubs.length > 0 && (
-                          <div className="mt-2 flex items-center gap-1 text-[12px] text-[var(--color-text-muted)]">
-                            <ChevronIcon open={isExpanded} />
-                            <span>
-                              {relatedSubs.length} customization
-                              {relatedSubs.length !== 1 ? "s" : ""}
-                            </span>
-                          </div>
-                        )}
                       </div>
+                      {relatedSubs.length > 0 && (
+                        <span className="flex items-center gap-1 text-[12px] text-[var(--color-text-muted)] shrink-0">
+                          <ChevronIcon open={isExpanded} />
+                          {relatedSubs.length}
+                        </span>
+                      )}
                     </button>
-                    <Button
-                      variant="ghost"
-                      className="!text-[12px] !h-7 !text-danger shrink-0"
+                    <button
                       onClick={() => handleDeactivate(skill.skill_id)}
                       disabled={togglingSkillId === skill.skill_id}
+                      className="shrink-0 text-[12px] font-medium text-[var(--color-text-muted)] hover:text-danger transition-colors cursor-pointer px-2 py-1 rounded-[4px] hover:bg-danger/5"
                     >
                       {togglingSkillId === skill.skill_id ? (
                         <Spinner />
                       ) : (
                         DASHBOARD.skills.deactivateCta
                       )}
-                    </Button>
+                    </button>
                   </div>
 
                   {/* Expanded: Sub-skills + form */}
                   {isExpanded && (
-                    <div className="border-t border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] p-4">
+                    <div className="border-t border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] px-4 py-3">
                       {/* Sub-skills list */}
                       {relatedSubs.length > 0 ? (
-                        <div className="space-y-2 mb-3">
+                        <div className="space-y-1.5 mb-3">
                           {relatedSubs.map((sub) => (
                             <div
                               key={sub.name}
-                              className="flex items-start justify-between gap-2 rounded-[6px] bg-white border border-[var(--color-border-light)] p-3"
+                              className="flex items-start justify-between gap-2 rounded-[6px] bg-white border border-[var(--color-border-light)] px-3 py-2.5"
                             >
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <p className="text-[13px] font-bold text-text-primary">
+                                  <p className="text-[13px] font-semibold text-text-primary">
                                     {sub.name}
                                   </p>
                                   {sub.source === "youtube" && (
-                                    <span title="Created from YouTube video" className="text-[12px]">
-                                      🎥
+                                    <span title="Created from YouTube video" className="text-[11px] text-[var(--color-text-muted)]">
+                                      YT
                                     </span>
                                   )}
                                 </div>
@@ -368,7 +367,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
                                   handleDeleteSubSkill(skill.skill_id, sub.name)
                                 }
                                 disabled={deletingSubSkill === sub.name}
-                                className="shrink-0 text-[var(--color-text-muted)] hover:text-danger transition-colors cursor-pointer mt-0.5"
+                                className="shrink-0 text-[var(--color-text-muted)] hover:text-danger transition-colors cursor-pointer mt-0.5 p-0.5 rounded hover:bg-danger/5"
                               >
                                 <TrashIcon />
                               </button>
@@ -383,34 +382,32 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
 
                       {/* Add sub-skill form */}
                       {isShowingForm ? (
-                        <div className="rounded-[6px] bg-white border border-cta/30 p-3 space-y-2">
+                        <div className="rounded-[6px] bg-white border border-[var(--color-border-light)] p-3 space-y-2">
                           <input
                             type="text"
                             placeholder={DASHBOARD.skills.subSkillNamePlaceholder}
                             value={subSkillName}
                             onChange={(e) => setSubSkillName(e.target.value)}
                             autoFocus
-                            className="w-full h-8 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none"
+                            className="w-full h-8 px-3 rounded-[6px] border border-[var(--color-border-light)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none transition-colors"
                           />
                           <textarea
                             placeholder={DASHBOARD.skills.subSkillContentPlaceholder}
                             value={subSkillContent}
                             onChange={(e) => setSubSkillContent(e.target.value)}
                             rows={3}
-                            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-strong)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none"
+                            className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-light)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-none transition-colors"
                           />
                           <div className="flex gap-2">
-                            <Button
-                              variant="primary"
-                              className="!text-[12px] !h-7"
+                            <button
+                              className="px-3 py-1.5 rounded-[6px] bg-text-primary text-white text-[12px] font-semibold hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
                               disabled={savingSubSkill}
                               onClick={() => handleAddSubSkill(skill.skill_id)}
                             >
                               {savingSubSkill ? "Saving..." : "Save"}
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              className="!text-[12px] !h-7"
+                            </button>
+                            <button
+                              className="px-3 py-1.5 rounded-[6px] text-[12px] font-medium text-[var(--color-text-subtle)] hover:bg-[var(--color-border-light)] transition-colors cursor-pointer"
                               onClick={() => {
                                 setShowSubSkillForm(null);
                                 setSubSkillName("");
@@ -418,7 +415,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
                               }}
                             >
                               Cancel
-                            </Button>
+                            </button>
                           </div>
                         </div>
                       ) : (
@@ -427,7 +424,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
                             setShowSubSkillForm(skill.skill_id);
                             setExpandedSkillId(skill.skill_id);
                           }}
-                          className="inline-flex items-center gap-1.5 text-[13px] text-cta hover:text-cta-hover transition-colors cursor-pointer font-medium"
+                          className="inline-flex items-center gap-1.5 text-[13px] text-[var(--color-text-subtle)] hover:text-text-primary transition-colors cursor-pointer font-medium"
                         >
                           <PlusIcon />
                           {DASHBOARD.skills.addSubSkill}
@@ -440,14 +437,17 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
             })}
           </div>
         )}
-      </div>
+      </section>
 
       {/* ═══════ SECTION: Learn from YouTube ═══════ */}
-      <div className="mb-8">
-        <h3 className="text-[16px] font-bold text-text-primary mb-3">
-          Learn from YouTube
-        </h3>
-        <p className="text-[13px] text-[var(--color-text-subtle)] mb-3">
+      <section className="rounded-[8px] bg-white border border-[var(--color-border-light)] p-5">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-[var(--color-text-subtle)]"><YouTubeIcon /></span>
+          <h3 className="text-[15px] font-bold text-text-primary">
+            Learn from YouTube
+          </h3>
+        </div>
+        <p className="text-[13px] text-[var(--color-text-muted)] mb-4">
           Paste a tutorial video URL. Your Workpal will extract the knowledge and add it as a skill.
         </p>
         <div className="flex gap-2">
@@ -459,35 +459,34 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
             onKeyDown={(e) => {
               if (e.key === "Enter" && !youtubeLoading) handleYouTubeSkill();
             }}
-            className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none"
+            className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-light)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none transition-colors"
           />
-          <Button
-            variant="primary"
-            className="!text-[13px] !h-9 shrink-0"
+          <button
             onClick={handleYouTubeSkill}
             disabled={youtubeLoading || !youtubeUrl.trim()}
+            className="shrink-0 px-4 h-9 rounded-[6px] bg-text-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-40 disabled:cursor-default"
           >
             {youtubeLoading ? (
-              <span className="flex items-center gap-2"><Spinner /> Processing...</span>
+              <span className="flex items-center gap-2"><Spinner className="border-white border-t-transparent" /> Processing...</span>
             ) : (
               "Add Skill"
             )}
-          </Button>
+          </button>
         </div>
         {youtubeResult && (
-          <p className="mt-2 text-[13px] text-cta bg-cta/5 border border-cta/15 rounded-[6px] p-3">
+          <p className="mt-3 text-[13px] text-success bg-success/5 border border-success/15 rounded-[6px] p-3">
             {youtubeResult}
           </p>
         )}
         {youtubeError && (
-          <p className="mt-2 text-[13px] text-danger bg-danger/5 border border-danger/15 rounded-[6px] p-3">
+          <p className="mt-3 text-[13px] text-danger bg-danger/5 border border-danger/15 rounded-[6px] p-3">
             {youtubeError}
           </p>
         )}
-        {/* Transcript paste area — shown on error or user toggle */}
+        {/* Transcript paste area */}
         {showTranscriptPaste && (
           <div className="mt-3 space-y-2">
-            <p className="text-[12px] text-[var(--color-text-subtle)]">
+            <p className="text-[12px] text-[var(--color-text-muted)]">
               Paste the video transcript below. On YouTube, click &quot;...more&quot; under the video, then &quot;Show transcript&quot;, select all text, and paste here.
             </p>
             <textarea
@@ -495,40 +494,36 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
               onChange={(e) => setManualTranscript(e.target.value)}
               placeholder="Paste transcript text here..."
               rows={4}
-              className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-strong)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-y"
+              className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-light)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-y transition-colors"
             />
             {manualTranscript.trim() && (
-              <Button
-                variant="primary"
-                className="!text-[13px] !h-8"
+              <button
                 onClick={handleYouTubeSkill}
                 disabled={youtubeLoading || !youtubeUrl.trim()}
+                className="px-4 h-8 rounded-[6px] bg-text-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-40"
               >
                 {youtubeLoading ? (
-                  <span className="flex items-center gap-2"><Spinner /> Processing...</span>
+                  <span className="flex items-center gap-2"><Spinner className="border-white border-t-transparent" /> Processing...</span>
                 ) : (
                   "Add Skill with Transcript"
                 )}
-              </Button>
+              </button>
             )}
           </div>
         )}
         {!showTranscriptPaste && youtubeUrl.trim() && (
           <button
             onClick={() => setShowTranscriptPaste(true)}
-            className="mt-2 text-[12px] text-[var(--color-text-subtle)] hover:text-text-secondary underline cursor-pointer"
+            className="mt-2 text-[12px] text-[var(--color-text-muted)] hover:text-text-primary underline cursor-pointer transition-colors"
           >
             Have the transcript? Paste it manually
           </button>
         )}
-      </div>
-
-      {/* ═══════ DIVIDER ═══════ */}
-      <div className="border-t border-[var(--color-border-light)] mb-8" />
+      </section>
 
       {/* ═══════ SECTION 2: Skills Catalog ═══════ */}
-      <div>
-        <h3 className="text-[16px] font-bold text-text-primary mb-4">
+      <section>
+        <h3 className="text-[15px] font-bold text-text-primary mb-4">
           {DASHBOARD.skills.catalogHeading}
         </h3>
 
@@ -542,7 +537,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
             placeholder={DASHBOARD.skills.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-9 pl-9 pr-8 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none"
+            className="w-full h-9 pl-9 pr-8 rounded-full border border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-border-strong)] focus:bg-white focus:outline-none transition-all duration-[180ms]"
           />
           {searchQuery && (
             <button
@@ -557,13 +552,13 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
         </div>
 
         {/* Category chips */}
-        <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-1 px-1">
+        <div className="flex gap-1.5 mb-5 overflow-x-auto pb-1 -mx-1 px-1">
           <button
             onClick={() => setSelectedCategory(null)}
-            className={`shrink-0 px-3 py-1.5 rounded-full text-[13px] font-medium transition-colors cursor-pointer ${
+            className={`shrink-0 px-3 py-1 rounded-full text-[12px] font-medium transition-all duration-[180ms] cursor-pointer border ${
               selectedCategory === null
-                ? "bg-cta text-white"
-                : "bg-[var(--color-surface-subtle)] text-[var(--color-text-subtle)] hover:text-text-primary"
+                ? "border-text-primary bg-text-primary text-white"
+                : "border-[var(--color-border-light)] bg-white text-[var(--color-text-subtle)] hover:border-[var(--color-border-strong)] hover:text-text-primary"
             }`}
           >
             All
@@ -574,10 +569,10 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
               onClick={() =>
                 setSelectedCategory(selectedCategory === cat ? null : cat)
               }
-              className={`shrink-0 px-3 py-1.5 rounded-full text-[13px] font-medium transition-colors cursor-pointer ${
+              className={`shrink-0 px-3 py-1 rounded-full text-[12px] font-medium transition-all duration-[180ms] cursor-pointer border ${
                 selectedCategory === cat
-                  ? "bg-cta text-white"
-                  : "bg-[var(--color-surface-subtle)] text-[var(--color-text-subtle)] hover:text-text-primary"
+                  ? "border-text-primary bg-text-primary text-white"
+                  : "border-[var(--color-border-light)] bg-white text-[var(--color-text-subtle)] hover:border-[var(--color-border-strong)] hover:text-text-primary"
               }`}
             >
               {cat}
@@ -593,7 +588,7 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredCatalog.map((skill) => {
               const isActive = activeSkillIds.has(skill.skill_id);
               const isToggling = togglingSkillId === skill.skill_id;
@@ -601,44 +596,50 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
               return (
                 <div
                   key={skill.skill_id}
-                  className="rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-4 flex flex-col justify-between"
+                  className={`rounded-[8px] bg-white border p-4 flex flex-col justify-between transition-all duration-[180ms] ${
+                    isActive
+                      ? "border-cta/30 shadow-[inset_0_0_0_1px_rgba(0,122,90,0.08)]"
+                      : "border-[var(--color-border-light)] hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-sm)]"
+                  }`}
                 >
                   <div>
-                    <span className="text-[24px] leading-none">{skill.icon}</span>
-                    <p className="mt-2 text-[14px] font-bold text-text-primary">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="text-[20px] leading-none">{skill.icon}</span>
+                      {isActive && (
+                        <span className="inline-flex items-center gap-1 text-[11px] text-cta font-medium bg-cta/8 px-2 py-0.5 rounded-full">
+                          <CheckIcon />
+                          Active
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 text-[14px] font-semibold text-text-primary">
                       {skill.name}
                     </p>
-                    <p className="mt-1 text-[13px] text-[var(--color-text-subtle)] line-clamp-2">
+                    <p className="mt-0.5 text-[12px] text-[var(--color-text-muted)] line-clamp-2 leading-[1.5]">
                       {skill.description}
                     </p>
                   </div>
-                  <div className="mt-3">
-                    {isActive ? (
-                      <span className="inline-flex items-center gap-1 text-[13px] text-cta font-medium">
-                        <CheckIcon />
-                        Active
-                      </span>
-                    ) : (
-                      <Button
-                        variant="primary"
-                        className="!text-[13px] !h-8 w-full"
+                  {!isActive && (
+                    <div className="mt-3">
+                      <button
                         onClick={() => handleActivate(skill)}
                         disabled={isToggling}
+                        className="w-full h-8 rounded-[6px] border border-[var(--color-border-strong)] text-[13px] font-medium text-text-primary hover:bg-[var(--color-surface-subtle)] hover:border-text-primary transition-all duration-[180ms] cursor-pointer disabled:opacity-50 disabled:cursor-default"
                       >
                         {isToggling ? (
                           <Spinner />
                         ) : (
                           DASHBOARD.skills.activateCta
                         )}
-                      </Button>
-                    )}
-                  </div>
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }

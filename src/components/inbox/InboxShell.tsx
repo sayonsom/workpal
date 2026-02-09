@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { SITE } from "@/lib/constants";
 
 function GearIcon() {
@@ -12,29 +13,48 @@ function GearIcon() {
   );
 }
 
+function MenuIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 interface InboxShellProps {
   sidebar: React.ReactNode;
   children: React.ReactNode;
 }
 
 export default function InboxShell({ sidebar, children }: InboxShellProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-surface-subtle flex flex-col">
+    <div className="min-h-screen bg-[#F6F6F6] flex flex-col">
       {/* Top bar */}
       <header className="sticky top-0 z-40 h-12 bg-white border-b border-[var(--color-border-light)] shrink-0">
         <div className="h-full flex items-center justify-between px-4">
-          <a href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="Workpal logo"
-              width={24}
-              height={24}
-              className="w-6 h-6"
-            />
-            <span className="text-[17px] font-bold text-text-primary">
-              {SITE.nameLower}
-            </span>
-          </a>
+          <div className="flex items-center gap-3">
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-[var(--color-text-subtle)] hover:text-text-primary transition-colors cursor-pointer"
+            >
+              <MenuIcon />
+            </button>
+            <a href="/" className="flex items-center gap-2">
+              <Image
+                src="/logo.png"
+                alt="Workpal logo"
+                width={24}
+                height={24}
+                className="w-6 h-6"
+              />
+              <span className="text-[17px] font-bold text-text-primary hidden sm:inline">
+                {SITE.nameLower}
+              </span>
+            </a>
+          </div>
 
           <a
             href="/settings"
@@ -48,14 +68,30 @@ export default function InboxShell({ sidebar, children }: InboxShellProps) {
 
       {/* Body: sidebar + content */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside className="w-[220px] shrink-0 bg-white border-r border-[var(--color-border-light)] hidden lg:flex flex-col">
+        {/* Mobile overlay */}
+        {mobileMenuOpen && (
+          <div
+            className="fixed inset-0 z-30 bg-black/30 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Sidebar — desktop: always visible; mobile: slide-in */}
+        <aside
+          className={`
+            fixed lg:relative z-30 lg:z-auto
+            w-[240px] shrink-0 bg-white border-r border-[var(--color-border-light)]
+            flex flex-col h-[calc(100vh-48px)]
+            transition-transform duration-[240ms] ease-[var(--ease-default)]
+            ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          `}
+        >
           {sidebar}
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="px-6 py-6">
+        <main className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-5">
             {children}
           </div>
         </main>

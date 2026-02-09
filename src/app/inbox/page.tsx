@@ -155,8 +155,8 @@ function InboxContent() {
       {/* Search bar */}
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-      {/* Tab bar */}
-      <div className="flex gap-0 border-b border-[var(--color-border-light)] mt-4 mb-6">
+      {/* Tab bar — clean, subtle underline style */}
+      <div className="flex gap-0 border-b border-[var(--color-border-light)] mt-4 mb-5">
         {tabs.map((tab) => (
           <button
             key={tab.key}
@@ -164,13 +164,16 @@ function InboxContent() {
               setActiveTab(tab.key);
               setSelectedTask(null);
             }}
-            className={`px-5 py-2.5 text-[14px] font-bold border-b-2 transition-colors duration-[180ms] cursor-pointer ${
+            className={`relative px-4 py-2 text-[13px] font-semibold transition-colors duration-[180ms] cursor-pointer ${
               activeTab === tab.key
-                ? "border-cta text-cta"
-                : "border-transparent text-[var(--color-text-subtle)] hover:text-text-primary"
+                ? "text-text-primary"
+                : "text-[var(--color-text-muted)] hover:text-[var(--color-text-subtle)]"
             }`}
           >
             {tab.label}
+            {activeTab === tab.key && (
+              <span className="absolute bottom-0 left-1 right-1 h-[2px] bg-text-primary rounded-full" />
+            )}
           </button>
         ))}
       </div>

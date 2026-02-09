@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "../ui/Button";
 import { INBOX } from "@/lib/constants";
 import type { Task } from "@/lib/types";
 
@@ -10,6 +9,23 @@ function PaperclipIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M14 7.5l-5.5 5.5a3.5 3.5 0 01-5-5L9 2.5a2 2 0 013 3L6.5 11a.5.5 0 01-1-1L11 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ArchiveIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1" y="2" width="14" height="4" rx="1" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M2 6v7a1 1 0 001 1h10a1 1 0 001-1V6M6.5 9h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function DeleteIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 4h12M5 4V2.5A.5.5 0 015.5 2h5a.5.5 0 01.5.5V4M13 4v9.5a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 013 13.5V4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -29,16 +45,23 @@ function relativeTime(timestamp: number): string {
   });
 }
 
-function statusStyle(status: string): string {
+function shortDate(timestamp: number): string {
+  return new Date(timestamp * 1000).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function statusDot(status: string): string {
   switch (status) {
     case "completed":
-      return "bg-success/10 text-success";
+      return "bg-success";
     case "processing":
-      return "bg-info/10 text-info";
+      return "bg-info";
     case "failed":
-      return "bg-danger/10 text-danger";
+      return "bg-danger";
     default:
-      return "bg-surface-subtle text-[var(--color-text-muted)]";
+      return "bg-[var(--color-text-muted)]";
   }
 }
 
@@ -74,10 +97,10 @@ export default function TaskList({
   if (tasks.length === 0) {
     return (
       <div className="rounded-[12px] bg-white border border-[var(--color-border-light)] p-12 text-center">
-        <div className="w-12 h-12 rounded-full bg-cta/10 flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 rounded-full bg-[var(--color-surface-subtle)] flex items-center justify-center mx-auto mb-4">
           <svg width="24" height="24" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 8h3.5a1 1 0 011 1v.5a1.5 1.5 0 003 0V9a1 1 0 011-1H14" stroke="var(--color-cta)" strokeWidth="1.5" strokeLinecap="round" />
-            <rect x="2" y="2" width="12" height="12" rx="2" stroke="var(--color-cta)" strokeWidth="1.5" />
+            <path d="M2 8h3.5a1 1 0 011 1v.5a1.5 1.5 0 003 0V9a1 1 0 011-1H14" stroke="var(--color-text-muted)" strokeWidth="1.5" strokeLinecap="round" />
+            <rect x="2" y="2" width="12" height="12" rx="2" stroke="var(--color-text-muted)" strokeWidth="1.5" />
           </svg>
         </div>
         <h3 className="text-[16px] font-bold text-text-primary mb-1">
@@ -86,67 +109,88 @@ export default function TaskList({
         <p className="text-[14px] text-[var(--color-text-subtle)] mb-4">
           {INBOX.taskList.emptyText}
         </p>
-        <p className="text-[14px] font-bold text-cta">{agentEmail}</p>
+        <p className="text-[14px] font-medium text-cta">{agentEmail}</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-2">
-      {tasks.map((task, index) => (
-        <button
-          key={task.task_id}
-          onClick={() => onSelectTask(task)}
-          className="w-full text-left rounded-[8px] bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] p-4 hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5 transition-all duration-[180ms] ease-[var(--ease-default)] cursor-pointer task-card-enter"
-          style={{ animationDelay: `${index * 30}ms` }}
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div className="min-w-0 flex-1">
-              {/* Subject + attachments */}
-              <div className="flex items-center gap-2">
-                <p className="text-[14px] font-bold text-text-primary truncate">
-                  {task.subject}
-                </p>
-                {task.has_attachments && (
-                  <span className="shrink-0 inline-flex items-center gap-0.5 text-[var(--color-text-muted)]">
-                    <PaperclipIcon />
-                    {task.attachment_names && task.attachment_names.length > 0 && (
-                      <span className="text-[11px]">{task.attachment_names.length}</span>
-                    )}
-                  </span>
-                )}
-              </div>
+    <div>
+      {/* Gmail-style dense row list */}
+      <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] overflow-hidden divide-y divide-[var(--color-border-light)]">
+        {tasks.map((task) => (
+          <button
+            key={task.task_id}
+            onClick={() => onSelectTask(task)}
+            className="task-row w-full text-left flex items-center gap-3 px-4 py-2.5 hover:bg-[var(--color-surface-subtle)] hover:shadow-[inset_2px_0_0_var(--color-cta)] transition-all duration-[120ms] cursor-pointer group"
+          >
+            {/* Status dot */}
+            <span className={`shrink-0 w-2 h-2 rounded-full ${statusDot(task.status)}`} />
 
-              {/* Output summary preview */}
-              {task.output_summary && (
-                <p className="mt-1 text-[13px] text-[var(--color-text-subtle)] line-clamp-2">
-                  {task.output_summary}
-                </p>
-              )}
-
-              {/* Timestamp */}
-              <p className="mt-2 text-[12px] text-[var(--color-text-muted)]">
-                {relativeTime(task.created_at)}
-              </p>
-            </div>
-
-            {/* Status badge */}
-            <span
-              className={`shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold ${statusStyle(task.status)}`}
-            >
-              {task.status}
+            {/* Subject — bold, truncated */}
+            <span className="shrink-0 w-[180px] sm:w-[220px] text-[14px] font-semibold text-text-primary truncate">
+              {task.subject}
             </span>
-          </div>
-        </button>
-      ))}
 
-      {hasMore && (
-        <div className="text-center pt-3">
-          <Button variant="secondary" onClick={onLoadMore} disabled={loadingMore}>
+            {/* Separator dash */}
+            <span className="shrink-0 text-[var(--color-text-muted)] text-[13px]">&mdash;</span>
+
+            {/* Summary preview — muted, fills remaining space */}
+            <span className="flex-1 min-w-0 text-[13px] text-[var(--color-text-subtle)] truncate">
+              {task.output_summary || task.input_summary || "No preview"}
+            </span>
+
+            {/* Attachment indicator */}
+            {task.has_attachments && (
+              <span className="shrink-0 text-[var(--color-text-muted)]">
+                <PaperclipIcon />
+              </span>
+            )}
+
+            {/* Date — hidden on hover, replaced by actions */}
+            <span className="task-row-date shrink-0 text-[12px] text-[var(--color-text-muted)] tabular-nums w-[60px] text-right">
+              {shortDate(task.created_at)}
+            </span>
+
+            {/* Hover actions (Gmail-style) */}
+            <span className="task-row-actions shrink-0 flex items-center gap-1 w-[60px] justify-end">
+              <span
+                className="p-1 rounded-full hover:bg-[var(--color-border-light)] text-[var(--color-text-muted)] hover:text-text-primary transition-colors"
+                title="Archive"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ArchiveIcon />
+              </span>
+              <span
+                className="p-1 rounded-full hover:bg-[var(--color-border-light)] text-[var(--color-text-muted)] hover:text-danger transition-colors"
+                title="Delete"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <DeleteIcon />
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Relative time + count footer */}
+      <div className="flex items-center justify-between mt-3 px-1">
+        <p className="text-[12px] text-[var(--color-text-muted)]">
+          {tasks.length} task{tasks.length !== 1 ? "s" : ""}
+          {tasks.length > 0 && (
+            <> &middot; latest {relativeTime(tasks[0].created_at)}</>
+          )}
+        </p>
+        {hasMore && (
+          <button
+            onClick={onLoadMore}
+            disabled={loadingMore}
+            className="text-[13px] font-medium text-cta hover:text-cta-hover transition-colors cursor-pointer disabled:opacity-50"
+          >
             {loadingMore ? "Loading..." : INBOX.taskList.loadMore}
-          </Button>
-        </div>
-      )}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

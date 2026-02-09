@@ -103,9 +103,9 @@ export default function Sidebar({
         {/* Compose button */}
         <button
           onClick={() => setShowCompose(true)}
-          className="w-full h-10 rounded-[8px] bg-cta hover:bg-cta-hover text-white text-[14px] font-bold flex items-center justify-center gap-2 transition-colors duration-[180ms] cursor-pointer mb-4"
+          className="w-full h-10 rounded-full bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] text-[14px] font-medium text-text-primary flex items-center justify-center gap-2 hover:shadow-[var(--shadow-md)] hover:bg-[var(--color-surface-subtle)] transition-all duration-[180ms] cursor-pointer mb-5"
         >
-          <PencilIcon />
+          <span className="text-cta"><PencilIcon /></span>
           {INBOX.sidebar.compose}
         </button>
 
@@ -116,18 +116,18 @@ export default function Sidebar({
               key={item.key}
               onClick={() => !item.disabled && onItemChange(item.key)}
               disabled={item.disabled}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[8px] text-[14px] font-bold transition-colors duration-[180ms] cursor-pointer ${
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-full text-[14px] transition-colors duration-[180ms] cursor-pointer ${
                 activeItem === item.key && !item.disabled
-                  ? "bg-cta/10 text-cta"
+                  ? "bg-cta/10 text-cta font-semibold"
                   : item.disabled
                   ? "text-[var(--color-text-muted)] opacity-50 cursor-default"
-                  : "text-[var(--color-text-subtle)] hover:bg-[var(--color-surface-subtle)] hover:text-text-primary"
+                  : "text-[var(--color-text-subtle)] hover:bg-[var(--color-surface-subtle)] hover:text-text-primary font-medium"
               }`}
             >
               {item.icon}
               <span className="flex-1 text-left">{item.label}</span>
               {item.key === "inbox" && inboxCount !== undefined && inboxCount > 0 && (
-                <span className="bg-cta text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+                <span className="text-[12px] font-semibold tabular-nums">
                   {inboxCount}
                 </span>
               )}
@@ -146,7 +146,7 @@ export default function Sidebar({
         {/* Log out */}
         <button
           onClick={onLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-[8px] text-[13px] text-[var(--color-text-muted)] hover:text-danger transition-colors duration-[180ms] cursor-pointer"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-danger transition-colors duration-[180ms] cursor-pointer"
         >
           <LogOutIcon />
           {INBOX.sidebar.logout}
@@ -164,7 +164,7 @@ export default function Sidebar({
           </p>
 
           {/* Agent email card */}
-          <div className="rounded-[8px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] p-4 flex items-center justify-between gap-3">
+          <div className="rounded-[10px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] p-4 flex items-center justify-between gap-3">
             <p className="text-[16px] font-bold text-cta truncate">
               {agentEmail}
             </p>
