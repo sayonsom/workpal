@@ -24,8 +24,12 @@ export default function BusinessHero() {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button variant="primary">{BUSINESS_HERO.cta} &rarr;</Button>
-            <Button variant="secondary">{BUSINESS_HERO.ctaSecondary}</Button>
+            <a href="/contact">
+              <Button variant="primary">{BUSINESS_HERO.cta} &rarr;</Button>
+            </a>
+            <a href="/contact">
+              <Button variant="secondary">{BUSINESS_HERO.ctaSecondary}</Button>
+            </a>
           </div>
         </div>
 
@@ -33,6 +37,8 @@ export default function BusinessHero() {
         <div className="flex justify-center lg:justify-end">
           <ImagePlaceholder
             label={BUSINESS_HERO.placeholderLabel}
+            src="/images/business/hero-admin-dashboard.webp"
+            alt="Enterprise admin dashboard"
             aspectRatio="16/10"
             className="w-full max-w-[520px]"
           />

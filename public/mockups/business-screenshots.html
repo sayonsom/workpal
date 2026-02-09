@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workpal Business Page — Screenshot Mockups</title>
+  <style>
+    /* ═══ Design Tokens (from globals.css) ═══ */
+    :root {
+      --color-brand: #3F0E40;
+      --color-cta: #007A5A;
+      --color-cta-hover: #006B4F;
+      --color-danger: #E01E5A;
+      --color-warning: #ECB22E;
+      --color-info: #1D9BD1;
+      --color-success: #2BAC76;
+      --color-surface-subtle: #F8F8F8;
+      --color-text-primary: #1D1C1D;
+      --color-text-subtle: rgba(29, 28, 29, 0.70);
+      --color-text-muted: rgba(29, 28, 29, 0.55);
+      --color-border-light: rgba(29, 28, 29, 0.13);
+      --color-border-strong: rgba(29, 28, 29, 0.20);
+      --color-link: #1264A3;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.12);
+      --color-bg: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #F0F0F0;
+      color: var(--color-text-primary);
+      font-size: 15px;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══ Page layout ═══ */
+    .page-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--color-text-subtle);
+      margin-bottom: 40px;
+    }
+
+    .mockup-section {
+      margin-bottom: 60px;
+    }
+
+    .mockup-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-cta);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .mockup-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .mockup-desc {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* ═══ Mockup frame (browser chrome) ═══ */
+    .browser-frame {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md), 0 0 0 1px var(--color-border-light);
+      background: var(--color-bg);
+    }
+
+    .browser-chrome {
+      height: 36px;
+      background: #F0F0F0;
+      border-bottom: 1px solid var(--color-border-light);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+    }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+    .browser-dot.red { background: #FF605C; }
+    .browser-dot.yellow { background: #FFBD44; }
+    .browser-dot.green { background: #00CA4E; }
+
+    .browser-url {
+      flex: 1;
+      height: 22px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid var(--color-border-light);
+      margin-left: 12px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    .browser-url .lock {
+      color: var(--color-cta);
+      margin-right: 4px;
+      font-size: 10px;
+    }
+
+    .browser-body {
+      padding: 0;
+    }
+
+    /* ═══ Shared dashboard pieces ═══ */
+    .dash-nav {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 52px;
+      border-bottom: 1px solid var(--color-border-light);
+      background: #fff;
+    }
+
+    .dash-nav .logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dash-nav .logo-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--color-brand);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* ═══ Logo combo (Workpal + Nike) ═══ */
+    .logo-combo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo-combo img {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-combo .logo-plus {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      line-height: 1;
+    }
+
+    .dash-nav .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--color-text-subtle);
+    }
+
+    .dash-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--color-border-light);
+      padding: 0 24px;
+      background: #fff;
+    }
+
+    .dash-tab {
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-subtle);
+      border-bottom: 2px solid transparent;
+      cursor: default;
+    }
+
+    .dash-tab.active {
+      color: var(--color-cta);
+      border-bottom-color: var(--color-cta);
+    }
+
+    .dash-content {
+      padding: 24px;
+      background: var(--color-surface-subtle);
+      min-height: 300px;
+    }
+
+    /* ═══ Table ═══ */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border-light);
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--color-surface-subtle);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .data-table td {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--color-text-primary);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* ═══ Status pills ═══ */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .pill-active { background: #dcfce7; color: var(--color-cta); }
+    .pill-pending { background: #FFF8E1; color: #92700C; }
+    .pill-disabled { background: #f3f4f6; color: var(--color-text-muted); }
+
+    /* ═══ Buttons ═══ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: default;
+    }
+
+    .btn-primary { background: var(--color-cta); color: #fff; }
+    .btn-secondary {
+      background: #fff;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-strong);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-text-subtle);
+    }
+    .btn-sm { padding: 5px 12px; font-size: 13px; }
+    .btn-danger { background: #fff; color: var(--color-danger); border: 1px solid var(--color-danger); }
+
+    /* ═══ Cards ═══ */
+    .card {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+    }
+
+    /* ═══ Stat widget ═══ */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-top: 4px;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--color-cta);
+      margin-top: 2px;
+    }
+
+    /* ═══ Email-style mockup ═══ */
+    .email-mock {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--color-border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .email-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .email-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .email-meta { flex: 1; }
+    .email-from { font-size: 14px; font-weight: 700; color: var(--color-text-primary); }
+    .email-subject { font-size: 13px; color: var(--color-text-subtle); }
+    .email-time { font-size: 11px; color: var(--color-text-muted); }
+    .email-body { padding: 16px; font-size: 14px; color: var(--color-text-subtle); line-height: 1.6; }
+
+    /* ═══ Contact list ═══ */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .contact-row:last-child { border-bottom: none; }
+
+    .contact-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .contact-name { font-size: 14px; font-weight: 700; color: var(--color-text-primary); }
+    .contact-email { font-size: 12px; color: var(--color-text-muted); }
+
+    .contact-highlight {
+      background: rgba(0, 122, 90, 0.06);
+      border-left: 3px solid var(--color-cta);
+    }
+
+    /* ═══ Forward button overlay ═══ */
+    .forward-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--color-surface-subtle);
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .forward-input {
+      flex: 1;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--color-border-strong);
+      padding: 0 10px;
+      font-size: 13px;
+      color: var(--color-text-primary);
+      background: #fff;
+    }
+
+    /* ═══ Progress bar ═══ */
+    .progress-bar {
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--color-cta);
+    }
+
+    /* ═══ Transfer flow ═══ */
+    .transfer-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .transfer-box {
+      background: #fff;
+      border: 1px solid var(--color-border-light);
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      width: 180px;
+    }
+
+    .transfer-arrow {
+      font-size: 24px;
+      color: var(--color-cta);
+    }
+
+    .transfer-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-top: 8px;
+    }
+
+    .transfer-role {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .transfer-avatar-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ═══ Search bar ═══ */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      height: 36px;
+      border-radius: 6px;
+      border: 1px solid var(--color-border-strong);
+      padding: 0 12px 0 32px;
+      font-size: 14px;
+      color: var(--color-text-primary);
+      background: #fff url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7' cy='7' r='4.5' stroke='%23999' stroke-width='1.5'/%3E%3Cpath d='M10.5 10.5L14 14' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 10px center;
+    }
+
+    /* ═══ Agent card in sidebar ═══ */
+    .agent-sidebar {
+      width: 260px;
+      border-right: 1px solid var(--color-border-light);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .agent-card-mini {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: default;
+    }
+
+    .agent-card-mini.selected {
+      background: rgba(0, 122, 90, 0.06);
+      border-left: 3px solid var(--color-cta);
+    }
+
+    .agent-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .agent-card-email {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    .agent-skills {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: var(--color-surface-subtle);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border-light);
+    }
+
+    /* ═══ Audit log rows ═══ */
+    .audit-row {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--color-border-light);
+      font-size: 13px;
+      gap: 12px;
+    }
+    .audit-row:last-child { border-bottom: none; }
+
+    .audit-time { width: 130px; color: var(--color-text-muted); font-size: 12px; font-family: ui-monospace, monospace; }
+    .audit-user { width: 140px; font-weight: 700; color: var(--color-text-primary); }
+    .audit-action { flex: 1; color: var(--color-text-subtle); }
+    .audit-risk {
+      width: 70px;
+      text-align: center;
+    }
+
+    .risk-low { color: var(--color-cta); }
+    .risk-medium { color: var(--color-warning); }
+    .risk-high { color: var(--color-danger); font-weight: 700; }
+
+    /* ═══ Checkbox ═══ */
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      border: 2px solid var(--color-border-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checkbox.checked {
+      background: var(--color-cta);
+      border-color: var(--color-cta);
+      color: #fff;
+      font-size: 10px;
+    }
+
+    /* ═══ Two-pane layout ═══ */
+    .pane-layout {
+      display: flex;
+      min-height: 350px;
+    }
+
+    .pane-main {
+      flex: 1;
+      padding: 24px;
+      background: var(--color-surface-subtle);
+    }
+
+    /* Divider */
+    hr.sep {
+      border: none;
+      border-top: 1px solid var(--color-border-light);
+      margin: 20px 0;
+    }
+
+    /* ═══ Retention badge ═══ */
+    .retention-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: #FFF8E1;
+      color: #92700C;
+      border: 1px solid rgba(236, 178, 46, 0.3);
+    }
+
+    .check-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+    }
+
+    .check-green { background: #dcfce7; color: var(--color-cta); }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <h1 class="page-title">Workpal Business Page — Screenshot Mockups</h1>
+  <p class="page-subtitle">Take screenshots of each mockup below to replace the placeholder images on workpal.email/business</p>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- MOCKUP 1: Enterprise Admin Dashboard (Hero) -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="mockup-section">
+    <div class="mockup-label">Hero Image</div>
+    <div class="mockup-title">Enterprise Admin Dashboard</div>
+    <div class="mockup-desc">Replaces: "Image: Enterprise admin dashboard mockup" &mdash; used in the hero section</div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+        <div class="browser-url"><span class="lock">&#x1F512;</span> admin.nike.workpal.email/dashboard</div>
+      </div>
+      <div class="browser-body">
+        <div class="dash-nav">
+          <div class="logo">
+            <div class="logo-combo">
+              <img src="../logo.png" alt="Workpal" />
+              <span class="logo-plus">+</span>
+              <img src="../nike.png" alt="Nike" />
+            </div>
+            <span style="font-weight: 400; font-size: 13px; color: var(--color-text-muted); margin-left: 4px;">admin</span>
+          </div>
+          <div class="nav-right">
+            <span>Team</span>
+            <span>Policies</span>
+            <span>Audit Log</span>
+            <span style="font-weight: 700;">Sarah Chen</span>
+          </div>
+        </div>
+        <div class="dash-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h2 style="font-size: 22px; font-weight: 700;">Team Overview</h2>
+              <p style="font-size: 13px; color: var(--color-text-muted); margin-top: 2px;">Nike &mdash; 24 active agents</p>
+            </div>
+            <div class="btn btn-primary btn-sm">+ Provision Agent</div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-card">
+              <div class="stat-label">Active Agents</div>
+              <div class="stat-value">24</div>
+              <div class="stat-sub">&uarr; 3 this month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Tasks This Week</div>
+              <div class="stat-value">847</div>
+              <div class="stat-sub">&uarr; 12% vs last week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Data Processed</div>
+              <div class="stat-value">2.4 GB</div>
+              <div class="stat-sub">All encrypted at rest</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Risk Flags</div>
+              <div class="stat-value" style="color: var(--color-cta);">0</div>
+              <div class="stat-sub">No issues detected</div>
+            </div>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Team Member</th>
+                <th>Agent Email</th>
+                <th>Status</th>
+                <th>Tasks (7d)</th>
+                <th>Last Active</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">Emily Rodriguez</td>
+                <td style="color: var(--color-cta); font-size: 13px;">emily.r@nike.workpal.email</td>
+                <td><span class="pill pill-active">Active</span></td>
+                <td>142</td>
+                <td style="font-size: 13px; color: var(--color-text-muted);">2 min ago</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">James Park</td>
+                <td style="color: var(--color-cta); font-size: 13px;">james.p@nike.workpal.email</td>
+                <td><span class="pill pill-active">Active</span></td>
+                <td>98</td>
+                <td style="font-size: 13px; color: var(--color-text-muted);">15 min ago</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Maria Santos</td>
+                <td style="color: var(--color-cta); font-size: 13px;">maria.s@nike.workpal.email</td>
+                <td><span class="pill pill-active">Active</span></td>
+                <td>76</td>
+                <td style="font-size: 13px; color: var(--color-text-muted);">1 hr ago</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">David Kim</td>
+                <td style="color: var(--color-cta); font-size: 13px;">david.k@nike.workpal.email</td>
+                <td><span class="pill pill-pending">Pending Setup</span></td>
+                <td>0</td>
+                <td style="font-size: 13px; color: var(--color-text-muted);">Invited today</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- MOCKUP 2: Admin Provisioning Dashboard  -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="mockup-section">
+    <div class="mockup-label">Step 1</div>
+    <div class="mockup-title">Admin Provisioning Dashboard</div>
+    <div class="mockup-desc">Replaces: "Image: Admin provisioning dashboard" &mdash; IT creates agents for team members</div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+        <div class="browser-url"><span class="lock">&#x1F512;</span> admin.nike.workpal.email/team/provision</div>
+      </div>
+      <div class="browser-body">
+        <div class="dash-nav">
+          <div class="logo">
+            <div class="logo-combo">
+              <img src="../logo.png" alt="Workpal" />
+              <span class="logo-plus">+</span>
+              <img src="../nike.png" alt="Nike" />
+            </div>
+            <span style="font-weight: 400; font-size: 13px; color: var(--color-text-muted); margin-left: 4px;">admin</span>
+          </div>
+          <div class="nav-right">
+            <span style="font-weight: 700;">Provision New Agent</span>
+          </div>
+        </div>
+        <div class="dash-content">
+          <div class="card" style="max-width: 560px; margin: 0 auto;">
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Provision New Agent</h3>
+            <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 20px;">Create a Workpal agent for a team member. They'll receive their @nike.workpal.email address immediately.</p>
+
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px;">Employee Name</label>
+              <div class="forward-input" style="height: 36px; display: flex; align-items: center; font-size: 14px;">Emily Rodriguez</div>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px;">Employee Email</label>
+              <div class="forward-input" style="height: 36px; display: flex; align-items: center; font-size: 14px;">emily.rodriguez@nike.com</div>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px;">Agent Handle</label>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="forward-input" style="height: 36px; display: flex; align-items: center; font-size: 14px;">emily.r</div>
+                <span style="font-size: 13px; color: var(--color-text-muted);">@nike.workpal.email</span>
+              </div>
+              <p style="font-size: 12px; color: var(--color-cta); margin-top: 4px;">&#10003; Available</p>
+            </div>
+
+            <hr class="sep" />
+
+            <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">Data Policies</h4>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <div class="checkbox checked">&#10003;</div>
+                Enable audit logging
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <div class="checkbox checked">&#10003;</div>
+                30-day data retention
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <div class="checkbox checked">&#10003;</div>
+                Restrict PII detection
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <div class="checkbox"></div>
+                Allow attachment processing
+              </label>
+            </div>
+
+            <div class="btn btn-primary" style="width: 100%; justify-content: center;">Create Agent &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- MOCKUP 3: Agent Email in Contact List   -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="mockup-section">
+    <div class="mockup-label">Step 2</div>
+    <div class="mockup-title">Agent Email in Contact List</div>
+    <div class="mockup-desc">Replaces: "Image: Agent email in contact list" &mdash; shows agent as a regular contact</div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+        <div class="browser-url"><span class="lock">&#x1F512;</span> mail.google.com &mdash; Contacts</div>
+      </div>
+      <div class="browser-body">
+        <!-- Simplified email client header -->
+        <div style="padding: 12px 20px; border-bottom: 1px solid var(--color-border-light); background: #fff; display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 20px; font-weight: 700; color: #4285f4;">&#9993;</span>
+          <span style="font-size: 16px; font-weight: 700; color: var(--color-text-primary);">Contacts</span>
+          <div style="flex: 1;"></div>
+          <input type="text" placeholder="Search contacts..." style="width: 260px; height: 32px; border-radius: 20px; border: 1px solid var(--color-border-light); padding: 0 16px; font-size: 13px; background: var(--color-surface-subtle);" />
+        </div>
+        <div style="padding: 8px 0;">
+          <div class="contact-row">
+            <div class="contact-avatar" style="background: #7c3aed;">AC</div>
+            <div style="flex: 1;">
+              <div class="contact-name">Alice Cooper</div>
+              <div class="contact-email">alice.cooper@nike.com</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-avatar" style="background: #2563eb;">BT</div>
+            <div style="flex: 1;">
+              <div class="contact-name">Bob Thompson</div>
+              <div class="contact-email">bob.t@external-vendor.com</div>
+            </div>
+          </div>
+          <div class="contact-row contact-highlight" style="background: rgba(0,122,90,0.06); border-left: 3px solid var(--color-cta);">
+            <div class="contact-avatar" style="background: #fff; border: 1px solid var(--color-border-light); padding: 4px;">
+              <img src="../logo.png" alt="Workpal" style="width: 100%; height: 100%; object-fit: contain;" />
+            </div>
+            <div style="flex: 1;">
+              <div class="contact-name" style="color: var(--color-cta);">My Workpal</div>
+              <div class="contact-email">emily.r@nike.workpal.email</div>
+            </div>
+            <span class="pill pill-active" style="font-size: 11px;">AI Agent</span>
+          </div>
+          <div class="contact-row">
+            <div class="contact-avatar" style="background: #dc2626;">DM</div>
+            <div style="flex: 1;">
+              <div class="contact-name">Diana Martinez</div>
+              <div class="contact-email">d.martinez@nike.com</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-avatar" style="background: #ea580c;">FK</div>
+            <div style="flex: 1;">
+              <div class="contact-name">Frank Kim</div>
+              <div class="contact-email">frank.kim@partner.co</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- MOCKUP 4: Email Forward Action          -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="mockup-section">
+    <div class="mockup-label">Step 3</div>
+    <div class="mockup-title">Email Forward Action</div>
+    <div class="mockup-desc">Replaces: "Image: Email forward action" &mdash; forwarding an email to the Workpal agent</div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+        <div class="browser-url"><span class="lock">&#x1F512;</span> mail.google.com &mdash; Inbox</div>
+      </div>
+      <div class="browser-body">
+        <div class="email-mock" style="border: none; border-radius: 0;">
+          <div class="email-header">
+            <div class="email-avatar" style="background: #6366f1;">JR</div>
+            <div class="email-meta">
+              <div class="email-from">Jennifer Reynolds <span style="font-weight: 400; color: var(--color-text-muted);">&lt;j.reynolds@client.com&gt;</span></div>
+              <div class="email-subject" style="font-weight: 700; color: var(--color-text-primary);">Q4 Partnership Proposal &mdash; Review Needed</div>
+            </div>
+            <div class="email-time">10:32 AM</div>
+          </div>
+          <div class="email-body">
+            <p>Hi Emily,</p>
+            <p style="margin-top: 8px;">Please find attached our Q4 partnership proposal with updated pricing tiers. We've incorporated the feedback from last month's review meeting.</p>
+            <p style="margin-top: 8px;">Key changes include revised SLA terms in Section 3.2 and the new volume discount structure in Appendix B. Could you review and get back to us by Thursday?</p>
+            <p style="margin-top: 12px; font-size: 13px; color: var(--color-text-muted);">&#128206; Q4_Partnership_Proposal_v3.pdf (2.4 MB)</p>
+          </div>
+          <div class="forward-bar" style="background: rgba(0,122,90,0.04); border-top: 2px solid var(--color-cta);">
+            <span style="font-size: 14px; color: var(--color-cta); font-weight: 700;">&#8618; Forward to:</span>
+            <div style="flex: 1; height: 32px; border-radius: 6px; border: 1px solid var(--color-cta); padding: 0 10px; font-size: 13px; background: #fff; display: flex; align-items: center; color: var(--color-cta); font-weight: 700;">
+              emily.r@nike.workpal.email
+            </div>
+            <div class="btn btn-primary btn-sm">Send &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- MOCKUP 5: Audit Trail Dashboard         -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="mockup-section">
+    <div class="mockup-label">Step 4</div>
+    <div class="mockup-title">Audit Trail Dashboard</div>
+    <div class="mockup-desc">Replaces: "Image: Audit trail dashboard" &mdash; IT sees all activity logs</div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+        <div class="browser-url"><span class="lock">&#x1F512;</span> admin.nike.workpal.email/audit-log</div>
+      </div>
+      <div class="browser-body">
+        <div class="dash-nav">
+          <div class="logo">
+            <div class="logo-combo">
+              <img src="../logo.png" alt="Workpal" />
+              <span class="logo-plus">+</span>
+              <img src="../nike.png" alt="Nike" />
+            </div>
+            <span style="font-weight: 400; font-size: 13px; color: var(--color-text-muted); margin-left: 4px;">admin</span>
+          </div>
+          <div class="nav-right">
+            <span>Team</span>
+            <span>Policies</span>
+            <span style="font-weight: 700; color: var(--color-cta);">Audit Log</span>
+          </div>
+        </div>
+        <div class="dash-tabs">
+          <div class="dash-tab active">All Activity</div>
+          <div class="dash-tab">By User</div>
+          <div class="dash-tab">Risk Flags</div>
+          <div class="dash-tab">Exports</div>
+        </div>
+        <div class="dash-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="font-size: 16px; font-weight: 700;">Activity Log</h3>
+            <div style="display: flex; gap: 8px;">
+              <div class="btn btn-secondary btn-sm">&#8681; Export CSV</div>
+              <div class="btn btn-secondary btn-sm">Filter: All Time &#9662;</div>
+            </div>
+          </div>
+
+          <div style="background: #fff; border-radius: 8px; border: 1px solid var(--color-border-light); box-shadow: var(--shadow-sm); overflow: hidden;">
+            <!-- Header -->
+            <div class="audit-row" style="background: var(--color-surface-subtle); font-size: 12px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+              <div class="audit-time">Timestamp</div>
+              <div class="audit-user">User</div>
+              <div class="audit-action">Action</div>
+              <div class="audit-risk">Risk</div>
+            </div>
+            <div class="audit-row">
+              <div class="audit-time">Feb 9, 14:32:01</div>
+              <div class="audit-user">Emily Rodriguez</div>
+              <div class="audit-action">Forwarded email &mdash; "Q4 Partnership Proposal" (2.4 MB attachment)</div>
+              <div class="audit-risk risk-low">&#9679; Low</div>
+            </div>
+            <div class="audit-row">
+              <div class="audit-time">Feb 9, 14:28:15</div>
+              <div class="audit-user">James Park</div>
+              <div class="audit-action">Generated analysis &mdash; "Competitor Pricing Matrix" (1,847 tokens out)</div>
+              <div class="audit-risk risk-low">&#9679; Low</div>
+            </div>
+            <div class="audit-row">
+              <div class="audit-time">Feb 9, 13:45:22</div>
+              <div class="audit-user">Maria Santos</div>
+              <div class="audit-action">Forwarded email &mdash; "NDA Draft v2" (PII detected, redacted)</div>
+              <div class="audit-risk risk-medium">&#9679; Medium</div>
+            </div>
+            <div class="audit-row">
+              <div class="audit-time">Feb 9, 12:10:44</div>
+              <div class="audit-user">Emily Rodriguez</div>
+              <div class="audit-action">Received draft reply &mdash; "Re: Q4 Partnership Proposal"</div>
+              <div class="audit-risk risk-low">&#9679; Low</div>
+            </div>
+            <div class="audit-row">
+              <div class="audit-time">Feb 9, 11:55:08</div>
+              <div class="audit-user">James Park</div>
+              <div class="audit-action">Forwarded spreadsheet &mdash; "Revenue Forecast FY26.xlsx" (financial data)</div>
+              <div class="audit-risk risk-medium">&#9679; Medium</div>
+            </div>
+            <div class="audit-row">
+              <div class="audit-time">Feb 9, 10:22:17</div>
+              <div class="audit-user">Maria Santos</div>
+              <div class="audit-action">Generated summary &mdash; "Board Meeting Notes Feb 2026"</div>
+              <div class="audit-risk risk-low">&#9679; Low</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- MOCKUP 6: Workpal Transfer / Reassignment   -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="mockup-section">
+    <div class="mockup-label">Step 5</div>
+    <div class="mockup-title">Workpal Transfer / Reassignment Flow</div>
+    <div class="mockup-desc">Replaces: "Image: Workpal transfer / reassignment flow" &mdash; admin transfers an agent when someone leaves</div>
+
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dot red"></div>
+        <div class="browser-dot yellow"></div>
+        <div class="browser-dot green"></div>
+        <div class="browser-url"><span class="lock">&#x1F512;</span> admin.nike.workpal.email/team/transfer</div>
+      </div>
+      <div class="browser-body">
+        <div class="dash-nav">
+          <div class="logo">
+            <div class="logo-combo">
+              <img src="../logo.png" alt="Workpal" />
+              <span class="logo-plus">+</span>
+              <img src="../nike.png" alt="Nike" />
+            </div>
+            <span style="font-weight: 400; font-size: 13px; color: var(--color-text-muted); margin-left: 4px;">admin</span>
+          </div>
+          <div class="nav-right">
+            <span style="font-weight: 700;">Transfer Agent</span>
+          </div>
+        </div>
+        <div class="dash-content">
+          <div class="card" style="max-width: 640px; margin: 0 auto;">
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Transfer Agent Ownership</h3>
+            <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 24px;">Reassign an agent to a new team member. All knowledge, skills, and writing style will carry over.</p>
+
+            <div class="transfer-flow">
+              <div class="transfer-box">
+                <div class="transfer-avatar-box" style="background: #ef4444;">LJ</div>
+                <div class="transfer-name">Lisa Johnson</div>
+                <div class="transfer-role">Departing &mdash; Feb 14</div>
+                <div style="margin-top: 8px;"><span class="pill pill-disabled">Deactivating</span></div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                <div class="transfer-arrow">&rarr;</div>
+                <div style="font-size: 11px; color: var(--color-text-muted); text-align: center; max-width: 100px;">Knowledge transfers automatically</div>
+              </div>
+
+              <div class="transfer-box" style="border-color: var(--color-cta);">
+                <div class="transfer-avatar-box" style="background: var(--color-cta);">RA</div>
+                <div class="transfer-name">Ryan Adams</div>
+                <div class="transfer-role">New hire &mdash; Same role</div>
+                <div style="margin-top: 8px;"><span class="pill pill-active">Receiving</span></div>
+              </div>
+            </div>
+
+            <hr class="sep" />
+
+            <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">What transfers:</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px;">
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <span class="check-circle check-green">&#10003;</span>
+                Writing style & tone
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <span class="check-circle check-green">&#10003;</span>
+                Active skills (8)
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <span class="check-circle check-green">&#10003;</span>
+                Custom templates (12)
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <span class="check-circle check-green">&#10003;</span>
+                Role-specific knowledge
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <span class="check-circle check-green">&#10003;</span>
+                Framework preferences
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <span class="check-circle check-green">&#10003;</span>
+                Authorized senders list
+              </div>
+            </div>
+
+            <div style="background: #FFF8E1; border-radius: 6px; padding: 12px 16px; font-size: 13px; color: #92700C; margin-bottom: 20px; display: flex; align-items: start; gap: 8px;">
+              <span style="font-size: 16px;">&#9888;</span>
+              <span>Email history from Lisa's interactions will <strong>not</strong> transfer. Only learned preferences and configuration carry over.</span>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <div class="btn btn-primary" style="flex: 1; justify-content: center;">Confirm Transfer &rarr;</div>
+              <div class="btn btn-secondary">Cancel</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

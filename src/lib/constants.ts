@@ -353,6 +353,7 @@ export const FINAL_CTA = {
 
 export const FOOTER = {
   links: [
+    { label: "For Business", href: "/business" },
     { label: "Privacy", href: "/privacy" },
     { label: "Security", href: "/security" },
     { label: "Terms", href: "/terms" },
