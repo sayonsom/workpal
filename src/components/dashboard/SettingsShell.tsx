@@ -117,10 +117,10 @@ export default function SettingsShell() {
 
           <div className="flex items-center gap-4">
             <a
-              href="/dashboard"
+              href="/inbox"
               className="text-[14px] text-[var(--color-text-subtle)] hover:text-text-primary transition-colors duration-[180ms]"
             >
-              Dashboard
+              Inbox
             </a>
             <button
               onClick={handleLogout}

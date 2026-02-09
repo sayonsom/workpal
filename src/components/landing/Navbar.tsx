@@ -15,7 +15,7 @@ export default function Navbar() {
 
   function handleCtaClick() {
     if (authed) {
-      window.location.href = "/dashboard";
+      window.location.href = "/inbox";
     } else {
       const el = document.getElementById("hero-signup");
       if (el) {

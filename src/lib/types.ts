@@ -13,25 +13,23 @@ export interface SignupRequest {
   name?: string;
 }
 
-export interface SignupTokens {
-  id_token: string;
-  refresh_token: string;
-  user_id: string;
-}
-
-export interface SignupAgent {
-  agent_id: string;
-  agent_email: string;
-  display_name: string;
-  domain_tags: string[];
-  profile_summary: string;
-  message?: string;
-}
-
 export interface SignupResponse {
-  tokens: SignupTokens;
-  agent: SignupAgent;
-  message?: string;
+  agent_email: string;
+  agent_id: string;
+  display_name: string;
+  message: string;
+  pending_verification: boolean;
+}
+
+export interface VerifyCodeRequest {
+  email: string;
+  code: string;
+}
+
+export interface VerifyCodeResponse {
+  verified: boolean;
+  agent_email: string;
+  message: string;
 }
 
 export interface LoginRequest {

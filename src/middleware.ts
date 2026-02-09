@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /** Routes that require authentication */
-const PROTECTED = ["/dashboard", "/settings"];
+const PROTECTED = ["/inbox", "/settings"];
 
-/** Routes that authenticated users should skip (redirect to dashboard) */
+/** Routes that authenticated users should skip (redirect to inbox) */
 const AUTH_PAGES = ["/login"];
 
 export function middleware(request: NextRequest) {
@@ -20,10 +20,10 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Auth pages — redirect to dashboard if already authenticated
+  // Auth pages — redirect to inbox if already authenticated
   if (AUTH_PAGES.some((p) => pathname.startsWith(p))) {
     if (hasAuth) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(new URL("/inbox", request.url));
     }
   }
 
@@ -31,5 +31,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/settings/:path*", "/login"],
+  matcher: ["/inbox/:path*", "/settings/:path*", "/login"],
 };

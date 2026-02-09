@@ -54,7 +54,7 @@ export default function SuccessModal({
 
   function handlePersonalize() {
     onClose();
-    router.push("/dashboard");
+    router.push("/inbox");
   }
 
   return (

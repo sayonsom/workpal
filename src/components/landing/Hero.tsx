@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import { HERO } from "@/lib/constants";
-import { signup, checkHandle, ApiException } from "@/lib/api";
-import SuccessModal from "./SuccessModal";
+import { signup, checkHandle, verifyCode, resendVerificationCode, ApiException } from "@/lib/api";
 import Toast from "../ui/Toast";
 
 /* ── Inline SVG icons ── */
@@ -58,6 +57,15 @@ function CheckCircleIcon({ className = "" }: { className?: string }) {
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className={className}>
       <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5" />
       <path d="M5.5 9.5l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MailIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true" className={className}>
+      <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2" />
+      <path d="M4 12l16 10 16-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -197,9 +205,18 @@ export default function Hero() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Success modal + error toast
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [successAgentEmail, setSuccessAgentEmail] = useState("");
+  // Verification code state
+  const [showCodeEntry, setShowCodeEntry] = useState(false);
+  const [codeDigits, setCodeDigits] = useState(["", "", "", "", "", ""]);
+  const [verifyingCode, setVerifyingCode] = useState(false);
+  const [codeError, setCodeError] = useState("");
+  const [verified, setVerified] = useState(false);
+  const [verifiedAgentEmail, setVerifiedAgentEmail] = useState("");
+  const [resending, setResending] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
+  const codeInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // Error toast
   const [toastError, setToastError] = useState("");
   const [showToast, setShowToast] = useState(false);
 
@@ -259,6 +276,72 @@ export default function Hero() {
     setWorkpalPrefix(derivedPrefix);
   }, [derivedPrefix]);
 
+  // Handle code digit input
+  function handleCodeChange(index: number, value: string) {
+    if (!/^\d*$/.test(value)) return; // digits only
+    const newDigits = [...codeDigits];
+    newDigits[index] = value.slice(-1); // take last digit
+    setCodeDigits(newDigits);
+    setCodeError("");
+
+    // Auto-advance to next input
+    if (value && index < 5) {
+      codeInputRefs.current[index + 1]?.focus();
+    }
+  }
+
+  function handleCodeKeyDown(index: number, e: React.KeyboardEvent) {
+    if (e.key === "Backspace" && !codeDigits[index] && index > 0) {
+      codeInputRefs.current[index - 1]?.focus();
+    }
+  }
+
+  function handleCodePaste(e: React.ClipboardEvent) {
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (pasted.length === 6) {
+      e.preventDefault();
+      setCodeDigits(pasted.split(""));
+      codeInputRefs.current[5]?.focus();
+    }
+  }
+
+  async function handleVerifyCode() {
+    const code = codeDigits.join("");
+    if (code.length !== 6) {
+      setCodeError("Please enter all 6 digits.");
+      return;
+    }
+
+    setVerifyingCode(true);
+    setCodeError("");
+    try {
+      const result = await verifyCode(email, code);
+      setVerified(true);
+      setVerifiedAgentEmail(result.agent_email);
+    } catch (err) {
+      setCodeError(
+        err instanceof Error ? err.message : "Invalid code. Please try again."
+      );
+    } finally {
+      setVerifyingCode(false);
+    }
+  }
+
+  async function handleResendCode() {
+    setResending(true);
+    setResendMessage("");
+    try {
+      await resendVerificationCode(email);
+      setResendMessage("A new code has been sent to your email.");
+      setCodeDigits(["", "", "", "", "", ""]);
+      codeInputRefs.current[0]?.focus();
+    } catch {
+      setResendMessage("Failed to resend. Please try again.");
+    } finally {
+      setResending(false);
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -269,7 +352,7 @@ export default function Hero() {
     setLoading(true);
     setShowToast(false);
     try {
-      const result = await signup({ email, password: "", workpal_handle: activePrefix });
+      await signup({ email, password: "", workpal_handle: activePrefix });
       // Update beta counter (non-critical)
       try {
         const counterRes = await fetch("/api/beta-count", { method: "POST" });
@@ -278,15 +361,13 @@ export default function Hero() {
           setBetaRemaining(data.remaining);
         }
       } catch { /* non-critical */ }
-      // Show success modal instead of redirect
-      setSuccessAgentEmail(result.agent.agent_email);
-      setShowSuccessModal(true);
+      // Show code entry UI
+      setShowCodeEntry(true);
     } catch (err) {
-      // Existing account — attempt silent login
       if (err instanceof ApiException && err.status === 409) {
-        // Existing account — show success modal directly
-        setSuccessAgentEmail(workpalAddress || `${activePrefix}@workpal.email`);
-        setShowSuccessModal(true);
+        // Existing account — redirect to login
+        setToastError("An account with this email already exists. Please log in.");
+        setShowToast(true);
       } else {
         // Generic API error — show toast
         setToastError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -301,7 +382,7 @@ export default function Hero() {
     <section id="hero-signup" className="animate-fade-in py-12 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-        {/* ═══ LEFT COLUMN — Messaging ═══ */}
+        {/* LEFT COLUMN — Messaging */}
         <div className="order-1 lg:order-1">
           <Badge variant="subtle">{HERO.badge}</Badge>
 
@@ -333,180 +414,268 @@ export default function Hero() {
           <FlowDiagram />
         </div>
 
-        {/* ═══ RIGHT COLUMN — Signup form card ═══ */}
+        {/* RIGHT COLUMN — Signup form card */}
         <div className="order-2 lg:order-2">
           <div className="rounded-[12px] border border-[var(--color-border-light)] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-6 md:p-8">
-            <form onSubmit={handleSubmit}>
-              {/* Step 1: Your email */}
-              <div className="mb-5">
-                <label
-                  htmlFor="hero-email"
-                  className="flex items-center gap-1.5 text-[13px] font-bold text-text-primary mb-2"
-                >
-                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-[11px] font-bold">1</span>
-                  {HERO.steps.yourEmail.label}
-                </label>
-                <input
-                  id="hero-email"
-                  type="email"
-                  required
-                  placeholder={HERO.steps.yourEmail.placeholder}
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (!isCustomizing) setWorkpalPrefix("");
-                  }}
-                  className="w-full h-12 px-4 rounded-[8px] border border-[var(--color-border-strong)] text-[16px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                />
-                <p className="mt-1.5 text-[12px] text-[var(--color-text-muted)] flex items-center gap-1">
-                  <LockIcon className="shrink-0 opacity-60" />
-                  {HERO.steps.yourEmail.helpText}
+
+            {/* ── Verified success state ── */}
+            {verified ? (
+              <div className="flex flex-col items-center gap-4 text-center py-4">
+                <div className="w-12 h-12 rounded-full bg-[#dcfce7] flex items-center justify-center">
+                  <CheckCircleIcon className="text-cta w-7 h-7" />
+                </div>
+                <h2 className="text-[24px] font-bold text-text-primary">
+                  You&apos;re all set!
+                </h2>
+                <p className="text-[14px] text-[var(--color-text-subtle)] leading-[1.5]">
+                  Your Workpal is live at
                 </p>
+                <p className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#dcfce7] text-[14px] font-bold text-cta">
+                  {verifiedAgentEmail}
+                </p>
+                <p className="text-[14px] text-[var(--color-text-subtle)] leading-[1.5]">
+                  Check your email for a welcome message with instructions.
+                </p>
+                <Button
+                  variant="primary"
+                  className="w-full h-12 text-[16px] mt-2"
+                  onClick={() => router.push(`/set-password?email=${encodeURIComponent(email)}`)}
+                >
+                  Set Your Password
+                  <ArrowRightIcon className="ml-2" />
+                </Button>
               </div>
 
-              {/* Step 2: Your Workpal email */}
-              <div className="mb-5">
-                <label
-                  htmlFor="hero-workpal"
-                  className="flex items-center gap-1.5 text-[13px] font-bold text-text-primary mb-2"
-                >
-                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-[11px] font-bold">2</span>
-                  {HERO.steps.workpalEmail.label}
-                </label>
+            /* ── Code entry state ── */
+            ) : showCodeEntry ? (
+              <div className="flex flex-col items-center gap-4 text-center py-2">
+                <MailIcon className="text-cta" />
+                <h2 className="text-[22px] font-bold text-text-primary">
+                  Check your email
+                </h2>
+                <p className="text-[14px] text-[var(--color-text-subtle)] leading-[1.5]">
+                  We sent a 6-digit verification code to<br />
+                  <span className="font-bold text-text-primary">{email}</span>
+                </p>
 
-                {isCustomizing ? (
-                  <div className="flex">
+                {/* 6-digit code input */}
+                <div className="flex gap-2 mt-2" onPaste={handleCodePaste}>
+                  {codeDigits.map((digit, i) => (
                     <input
-                      id="hero-workpal"
+                      key={i}
+                      ref={(el) => { codeInputRefs.current[i] = el; }}
                       type="text"
-                      value={workpalPrefix}
-                      onChange={(e) =>
-                        setWorkpalPrefix(e.target.value.toLowerCase().replace(/[^a-z0-9._-]/g, ""))
-                      }
-                      className="flex-1 h-12 px-4 rounded-l-[8px] border border-r-0 border-[var(--color-border-strong)] text-[16px] text-text-primary focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                      autoFocus
+                      inputMode="numeric"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleCodeChange(i, e.target.value)}
+                      onKeyDown={(e) => handleCodeKeyDown(i, e)}
+                      className="w-12 h-14 text-center text-[24px] font-bold rounded-[8px] border border-[var(--color-border-strong)] text-text-primary focus:border-cta focus:outline-none focus-visible:ring-2 focus-visible:ring-cta focus-visible:ring-offset-2 transition-colors duration-[120ms]"
+                      autoFocus={i === 0}
                     />
-                    <span className="inline-flex items-center h-12 px-4 rounded-r-[8px] border border-l-0 border-[var(--color-border-strong)] bg-surface-subtle text-[15px] text-[var(--color-text-muted)] font-medium whitespace-nowrap">
-                      {HERO.steps.workpalEmail.suffix}
-                    </span>
+                  ))}
+                </div>
+
+                {codeError && (
+                  <p className="text-[13px] text-danger font-bold">{codeError}</p>
+                )}
+
+                <Button
+                  variant="primary"
+                  className="w-full h-12 text-[16px] mt-2"
+                  disabled={verifyingCode || codeDigits.join("").length !== 6}
+                  onClick={handleVerifyCode}
+                >
+                  {verifyingCode ? "Verifying..." : "Verify Code"}
+                </Button>
+
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="text-[13px] text-[var(--color-text-muted)]">
+                    Didn&apos;t get it?
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleResendCode}
+                    disabled={resending}
+                    className="text-[13px] font-bold text-link hover:text-text-primary transition-colors duration-[120ms] cursor-pointer disabled:opacity-50"
+                  >
+                    {resending ? "Sending..." : "Resend code"}
+                  </button>
+                </div>
+
+                {resendMessage && (
+                  <p className="text-[12px] text-[var(--color-text-muted)]">{resendMessage}</p>
+                )}
+              </div>
+
+            /* ── Default signup form ── */
+            ) : (
+              <>
+                <form onSubmit={handleSubmit}>
+                  {/* Step 1: Your email */}
+                  <div className="mb-5">
+                    <label
+                      htmlFor="hero-email"
+                      className="flex items-center gap-1.5 text-[13px] font-bold text-text-primary mb-2"
+                    >
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-[11px] font-bold">1</span>
+                      {HERO.steps.yourEmail.label}
+                    </label>
+                    <input
+                      id="hero-email"
+                      type="email"
+                      required
+                      placeholder={HERO.steps.yourEmail.placeholder}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (!isCustomizing) setWorkpalPrefix("");
+                      }}
+                      className="w-full h-12 px-4 rounded-[8px] border border-[var(--color-border-strong)] text-[16px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
+                    />
+                    <p className="mt-1.5 text-[12px] text-[var(--color-text-muted)] flex items-center gap-1">
+                      <LockIcon className="shrink-0 opacity-60" />
+                      {HERO.steps.yourEmail.helpText}
+                    </p>
                   </div>
-                ) : (
-                  <div className="flex items-center h-12 px-4 rounded-[8px] border border-[var(--color-border-light)] bg-surface-subtle">
-                    <SparkleIcon className="text-cta mr-2 shrink-0" />
-                    <span className="flex-1 text-[16px] font-medium text-text-primary truncate">
-                      {workpalAddress || (
-                        <span className="text-[var(--color-text-muted)] font-normal">
-                          Enter your email above...
+
+                  {/* Step 2: Your Workpal email */}
+                  <div className="mb-5">
+                    <label
+                      htmlFor="hero-workpal"
+                      className="flex items-center gap-1.5 text-[13px] font-bold text-text-primary mb-2"
+                    >
+                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-[11px] font-bold">2</span>
+                      {HERO.steps.workpalEmail.label}
+                    </label>
+
+                    {isCustomizing ? (
+                      <div className="flex">
+                        <input
+                          id="hero-workpal"
+                          type="text"
+                          value={workpalPrefix}
+                          onChange={(e) =>
+                            setWorkpalPrefix(e.target.value.toLowerCase().replace(/[^a-z0-9._-]/g, ""))
+                          }
+                          className="flex-1 h-12 px-4 rounded-l-[8px] border border-r-0 border-[var(--color-border-strong)] text-[16px] text-text-primary focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
+                          autoFocus
+                        />
+                        <span className="inline-flex items-center h-12 px-4 rounded-r-[8px] border border-l-0 border-[var(--color-border-strong)] bg-surface-subtle text-[15px] text-[var(--color-text-muted)] font-medium whitespace-nowrap">
+                          {HERO.steps.workpalEmail.suffix}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center h-12 px-4 rounded-[8px] border border-[var(--color-border-light)] bg-surface-subtle">
+                        <SparkleIcon className="text-cta mr-2 shrink-0" />
+                        <span className="flex-1 text-[16px] font-medium text-text-primary truncate">
+                          {workpalAddress || (
+                            <span className="text-[var(--color-text-muted)] font-normal">
+                              Enter your email above...
+                            </span>
+                          )}
+                        </span>
+                        {derivedPrefix && (
+                          <button
+                            type="button"
+                            onClick={handleCustomizeClick}
+                            className="shrink-0 ml-2 inline-flex items-center gap-1 text-[12px] font-bold text-link hover:text-text-primary transition-colors duration-[120ms]"
+                          >
+                            <PencilIcon />
+                            {HERO.steps.workpalEmail.editLabel}
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    <div className="mt-1.5 flex items-center gap-1">
+                      <ShieldCheckIcon className="shrink-0 text-cta opacity-70" />
+                      <p className="text-[12px] text-[var(--color-text-muted)]">
+                        {HERO.steps.workpalEmail.helpText}
+                      </p>
+                      {activePrefix && activePrefix.length >= 2 && (
+                        <span className="ml-auto text-[12px] font-bold">
+                          {checkingHandle ? (
+                            <span className="text-[var(--color-text-muted)]">{HERO.handleChecking}</span>
+                          ) : handleAvailable === true ? (
+                            <span className="text-success">{HERO.handleAvailable}</span>
+                          ) : handleAvailable === false ? (
+                            <span className="text-danger">{HERO.handleTaken}</span>
+                          ) : null}
                         </span>
                       )}
-                    </span>
-                    {derivedPrefix && (
-                      <button
-                        type="button"
-                        onClick={handleCustomizeClick}
-                        className="shrink-0 ml-2 inline-flex items-center gap-1 text-[12px] font-bold text-link hover:text-text-primary transition-colors duration-[120ms]"
-                      >
-                        <PencilIcon />
-                        {HERO.steps.workpalEmail.editLabel}
-                      </button>
-                    )}
+                    </div>
                   </div>
-                )}
-                <div className="mt-1.5 flex items-center gap-1">
-                  <ShieldCheckIcon className="shrink-0 text-cta opacity-70" />
-                  <p className="text-[12px] text-[var(--color-text-muted)]">
-                    {HERO.steps.workpalEmail.helpText}
-                  </p>
-                  {activePrefix && activePrefix.length >= 2 && (
-                    <span className="ml-auto text-[12px] font-bold">
-                      {checkingHandle ? (
-                        <span className="text-[var(--color-text-muted)]">{HERO.handleChecking}</span>
-                      ) : handleAvailable === true ? (
-                        <span className="text-success">{HERO.handleAvailable}</span>
-                      ) : handleAvailable === false ? (
-                        <span className="text-danger">{HERO.handleTaken}</span>
-                      ) : null}
-                    </span>
+
+                  {/* Closed-loop guarantee */}
+                  {workpalAddress && (
+                    <div className="mb-5 rounded-[8px] bg-[#f0fdf4] border border-cta/20 px-4 py-3 flex items-start gap-3">
+                      <ShieldCheckIcon className="shrink-0 text-cta mt-0.5" />
+                      <div className="text-[13px] text-text-primary leading-[1.5]">
+                        <span className="font-bold text-cta">{workpalAddress}</span>{" "}
+                        {HERO.closedLoopNote}{" "}
+                        <span className="font-bold">{email || HERO.closedLoopNoteYou}</span>.
+                        <br />
+                        <span className="text-[var(--color-text-muted)] text-[12px]">
+                          It can never email your clients, team, or anyone else.
+                        </span>
+                      </div>
+                    </div>
                   )}
-                </div>
-              </div>
 
-              {/* Closed-loop guarantee */}
-              {workpalAddress && (
-                <div className="mb-5 rounded-[8px] bg-[#f0fdf4] border border-cta/20 px-4 py-3 flex items-start gap-3">
-                  <ShieldCheckIcon className="shrink-0 text-cta mt-0.5" />
-                  <div className="text-[13px] text-text-primary leading-[1.5]">
-                    <span className="font-bold text-cta">{workpalAddress}</span>{" "}
-                    {HERO.closedLoopNote}{" "}
-                    <span className="font-bold">{email || HERO.closedLoopNoteYou}</span>.
-                    <br />
-                    <span className="text-[var(--color-text-muted)] text-[12px]">
-                      It can never email your clients, team, or anyone else.
-                    </span>
+                  {error && (
+                    <p className="mb-4 text-[13px] text-danger font-bold">{error}</p>
+                  )}
+
+                  {/* CTA */}
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    className="w-full h-12 text-[16px]"
+                    disabled={loading}
+                  >
+                    {loading ? "Creating your Workpal..." : (
+                      <>
+                        {HERO.ctaLabel}
+                        <ArrowRightIcon className="ml-2" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+
+                {/* Beta counter */}
+                <div className="mt-4">
+                  <div className="rounded-[6px] bg-[#FFF8E1] border border-[#ECB22E]/30 px-3 py-2">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+                        <path d="M8 1.5L1 14h14L8 1.5z" stroke="#ECB22E" strokeWidth="1.5" strokeLinejoin="round" />
+                        <path d="M8 6v3.5M8 11.5v.5" stroke="#ECB22E" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                      <span className="text-[12px] font-bold text-[#92700C]">
+                        {HERO.urgency}
+                        {betaRemaining !== null && (
+                          <> &mdash; <span className="text-[#B8860B]">{betaRemaining.toLocaleString()} spots remaining</span></>
+                        )}
+                      </span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-[#ECB22E]/15 overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-[#ECB22E]/60 transition-all duration-700 ease-out"
+                        style={{ width: `${betaPercentage ?? 69}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
-              )}
 
-              {error && (
-                <p className="mb-4 text-[13px] text-danger font-bold">{error}</p>
-              )}
-
-              {/* CTA */}
-              <Button
-                type="submit"
-                variant="primary"
-                className="w-full h-12 text-[16px]"
-                disabled={loading}
-              >
-                {loading ? "Creating your Workpal..." : (
-                  <>
-                    {HERO.ctaLabel}
-                    <ArrowRightIcon className="ml-2" />
-                  </>
-                )}
-              </Button>
-            </form>
-
-            {/* Beta counter */}
-            <div className="mt-4">
-              <div className="rounded-[6px] bg-[#FFF8E1] border border-[#ECB22E]/30 px-3 py-2">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-                    <path d="M8 1.5L1 14h14L8 1.5z" stroke="#ECB22E" strokeWidth="1.5" strokeLinejoin="round" />
-                    <path d="M8 6v3.5M8 11.5v.5" stroke="#ECB22E" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                  <span className="text-[12px] font-bold text-[#92700C]">
-                    {HERO.urgency}
-                    {betaRemaining !== null && (
-                      <> &mdash; <span className="text-[#B8860B]">{betaRemaining.toLocaleString()} spots remaining</span></>
-                    )}
-                  </span>
-                </div>
-                <div className="h-1.5 rounded-full bg-[#ECB22E]/15 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-[#ECB22E]/60 transition-all duration-700 ease-out"
-                    style={{ width: `${betaPercentage ?? 69}%` }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <p className="mt-3 text-center text-[12px] text-[var(--color-text-muted)]">
-              {HERO.microcopy}
-            </p>
+                <p className="mt-3 text-center text-[12px] text-[var(--color-text-muted)]">
+                  {HERO.microcopy}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Success modal + error toast */}
-      <SuccessModal
-        open={showSuccessModal}
-        onClose={() => {
-          setShowSuccessModal(false);
-          router.push("/dashboard");
-        }}
-        agentEmail={successAgentEmail}
-      />
+      {/* Error toast */}
       <Toast
         message={toastError}
         variant="error"

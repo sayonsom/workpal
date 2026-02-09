@@ -14,6 +14,7 @@ import {
 import type {
   SignupRequest,
   SignupResponse,
+  VerifyCodeResponse,
   LoginRequest,
   LoginResponse,
   RefreshResponse,
@@ -180,7 +181,7 @@ export async function checkHandle(handle: string): Promise<CheckHandleResponse> 
 }
 
 export async function signup(data: SignupRequest): Promise<SignupResponse> {
-  const result = await apiFetch<SignupResponse>(
+  return apiFetch<SignupResponse>(
     "/signup",
     {
       method: "POST",
@@ -188,8 +189,33 @@ export async function signup(data: SignupRequest): Promise<SignupResponse> {
     },
     false
   );
-  saveTokens(result.tokens.id_token, result.tokens.refresh_token);
-  return result;
+}
+
+export async function verifyCode(
+  email: string,
+  code: string
+): Promise<VerifyCodeResponse> {
+  return apiFetch<VerifyCodeResponse>(
+    "/verify-code",
+    {
+      method: "POST",
+      body: JSON.stringify({ email, code }),
+    },
+    false
+  );
+}
+
+export async function resendVerificationCode(
+  email: string
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(
+    "/resend-verification",
+    {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    },
+    false
+  );
 }
 
 export async function login(data: LoginRequest): Promise<LoginResponse> {
@@ -486,15 +512,18 @@ export async function confirmForgotPassword(
   email: string,
   code: string,
   new_password: string
-): Promise<{ message: string }> {
-  return apiFetch<{ message: string }>(
-    "/confirm-forgot-password",
+): Promise<{ id_token: string; refresh_token: string; user_id?: string }> {
+  const result = await apiFetch<{ id_token: string; refresh_token: string; user_id?: string }>(
+    "/confirm-password",
     {
       method: "POST",
       body: JSON.stringify({ email, code, new_password }),
     },
     false
   );
+  // Save tokens so user is logged in after password set
+  saveTokens(result.id_token, result.refresh_token);
+  return result;
 }
 
 export async function changePassword(
