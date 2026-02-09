@@ -42,42 +42,57 @@ export async function GET(request: NextRequest) {
 }
 
 async function fetchTranscriptInnertube(videoId: string): Promise<string | null> {
-  try {
-    const resp = await fetch("https://www.youtube.com/youtubei/v1/player", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        context: {
-          client: {
-            clientName: "WEB",
-            clientVersion: "2.20240101.00.00",
-            hl: "en",
-            gl: "US",
+  // Try multiple innertube client types — YouTube blocks some but not others
+  const clients = [
+    { clientName: "ANDROID", clientVersion: "19.09.37", apiKey: "AIzaSyA8eiZmM1FaDVjRy-df2KTyQ_vz_yYM39w" },
+    { clientName: "IOS", clientVersion: "19.09.3", apiKey: "AIzaSyB-63vPrdThhKuerbB2N_l7Kwwcxj6yUAc" },
+    { clientName: "WEB", clientVersion: "2.20240101.00.00", apiKey: "" },
+  ];
+
+  for (const client of clients) {
+    try {
+      const url = client.apiKey
+        ? `https://www.youtube.com/youtubei/v1/player?key=${client.apiKey}`
+        : "https://www.youtube.com/youtubei/v1/player";
+
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          context: {
+            client: {
+              clientName: client.clientName,
+              clientVersion: client.clientVersion,
+              hl: "en",
+              gl: "US",
+            },
           },
-        },
-        videoId,
-      }),
-    });
+          videoId,
+        }),
+      });
 
-    if (!resp.ok) return null;
+      if (!resp.ok) continue;
 
-    const data = await resp.json();
-    const tracks =
-      data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-    if (!tracks || tracks.length === 0) return null;
+      const data = await resp.json();
+      const tracks =
+        data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
+      if (!tracks || tracks.length === 0) continue;
 
-    // Prefer English track
-    const enTrack =
-      tracks.find((t: { languageCode: string }) =>
-        t.languageCode.startsWith("en")
-      ) || tracks[0];
-    const baseUrl = enTrack?.baseUrl;
-    if (!baseUrl) return null;
+      // Prefer English track
+      const enTrack =
+        tracks.find((t: { languageCode: string }) =>
+          t.languageCode.startsWith("en")
+        ) || tracks[0];
+      const baseUrl = enTrack?.baseUrl;
+      if (!baseUrl) continue;
 
-    return fetchCaptionText(baseUrl);
-  } catch {
-    return null;
+      const text = await fetchCaptionText(baseUrl);
+      if (text) return text;
+    } catch {
+      continue;
+    }
   }
+  return null;
 }
 
 async function fetchTranscriptFromPage(videoId: string): Promise<string | null> {
