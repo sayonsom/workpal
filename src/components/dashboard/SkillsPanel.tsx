@@ -252,12 +252,47 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
     return matchesSearch && matchesCategory;
   });
 
-  // ── Loading state ──
+  // ── Loading skeleton ──
 
   if (loading) {
     return (
-      <div className="flex justify-center py-12">
-        <div className="w-5 h-5 border-2 border-cta border-t-transparent rounded-full animate-spin" />
+      <div className="space-y-8">
+        {/* Active skills skeleton */}
+        <div>
+          <div className="h-5 w-32 rounded bg-[var(--color-surface-subtle)] animate-pulse mb-4" />
+          <div className="space-y-2">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="rounded-[8px] bg-white border border-[var(--color-border-light)] px-4 py-3 flex items-center gap-3">
+                <div className="w-6 h-6 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+                <div className="flex-1 space-y-1.5">
+                  <div className="h-4 w-40 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+                  <div className="h-3 w-64 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Catalog skeleton */}
+        <div>
+          <div className="h-5 w-28 rounded bg-[var(--color-surface-subtle)] animate-pulse mb-4" />
+          <div className="flex gap-2 mb-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="h-7 w-16 rounded-full bg-[var(--color-surface-subtle)] animate-pulse" />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="rounded-[8px] bg-white border border-[var(--color-border-light)] p-4 space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+                  <div className="h-4 w-28 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+                </div>
+                <div className="h-3 w-full rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+                <div className="h-3 w-3/4 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

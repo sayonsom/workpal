@@ -88,8 +88,15 @@ export default function TaskList({
 }: TaskListProps) {
   if (loading) {
     return (
-      <div className="flex justify-center py-16">
-        <div className="w-5 h-5 border-2 border-cta border-t-transparent rounded-full animate-spin" />
+      <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] overflow-hidden divide-y divide-[var(--color-border-light)]">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="flex items-center gap-3 px-4 py-3">
+            <div className="w-2 h-2 rounded-full bg-[var(--color-surface-subtle)] animate-pulse" />
+            <div className="h-4 w-[160px] sm:w-[200px] rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+            <div className="h-3 flex-1 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+            <div className="h-3 w-[50px] rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+          </div>
+        ))}
       </div>
     );
   }

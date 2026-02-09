@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { SITE } from "@/lib/constants";
+import { SITE, INBOX } from "@/lib/constants";
 
 function MenuIcon() {
   return (
@@ -12,20 +12,31 @@ function MenuIcon() {
   );
 }
 
+function SearchIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 interface InboxShellProps {
   sidebar: React.ReactNode;
   children: React.ReactNode;
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
 }
 
-export default function InboxShell({ sidebar, children }: InboxShellProps) {
+export default function InboxShell({ sidebar, children, searchQuery = "", onSearchChange }: InboxShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="h-screen bg-[#F6F6F6] flex flex-col overflow-hidden">
       {/* Top bar */}
       <header className="sticky top-0 z-40 h-12 bg-white border-b border-[var(--color-border-light)] shrink-0">
-        <div className="h-full flex items-center px-4">
-          <div className="flex items-center gap-3">
+        <div className="h-full flex items-center px-4 gap-4">
+          <div className="flex items-center gap-3 shrink-0">
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -46,6 +57,22 @@ export default function InboxShell({ sidebar, children }: InboxShellProps) {
               </span>
             </a>
           </div>
+
+          {/* Search bar in top navbar */}
+          {onSearchChange && (
+            <div className="relative flex-1 max-w-[480px]">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
+                <SearchIcon />
+              </div>
+              <input
+                type="text"
+                placeholder={INBOX.search.placeholder}
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="w-full h-8 pl-9 pr-3 rounded-full border border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-border-strong)] focus:bg-white focus:outline-none transition-all duration-[180ms]"
+              />
+            </div>
+          )}
         </div>
       </header>
 

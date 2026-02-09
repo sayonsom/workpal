@@ -74,15 +74,6 @@ function CopyIcon() {
   );
 }
 
-function SearchIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 /* ── Types ── */
 
 interface SidebarProps {
@@ -91,8 +82,6 @@ interface SidebarProps {
   inboxCount?: number;
   agentEmail: string;
   onLogout: () => void;
-  searchQuery?: string;
-  onSearchChange?: (value: string) => void;
 }
 
 export default function Sidebar({
@@ -101,8 +90,6 @@ export default function Sidebar({
   inboxCount,
   agentEmail,
   onLogout,
-  searchQuery = "",
-  onSearchChange,
 }: SidebarProps) {
   const [showCompose, setShowCompose] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -139,22 +126,6 @@ export default function Sidebar({
           <span className="text-cta"><PencilIcon /></span>
           {INBOX.sidebar.compose}
         </button>
-
-        {/* Search bar in sidebar */}
-        {onSearchChange && (
-          <div className="relative mb-4">
-            <div className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
-              <SearchIcon />
-            </div>
-            <input
-              type="text"
-              placeholder={INBOX.search.placeholder}
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full h-8 pl-8 pr-3 rounded-full border border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-border-strong)] focus:bg-white focus:outline-none transition-all duration-[180ms]"
-            />
-          </div>
-        )}
 
         {/* Nav items */}
         <nav className="space-y-0.5">
