@@ -123,6 +123,14 @@ export interface Task {
   input_chars: number;
   output_chars: number;
   has_attachments: boolean;
+  // Extended fields (already in backend TaskRecord)
+  input_summary?: string;
+  output_summary?: string;
+  sender_email?: string;
+  attachment_names?: string[];
+  thread_id?: string;
+  parent_task_id?: string;
+  completed_at?: number;
 }
 
 export interface TasksResponse {

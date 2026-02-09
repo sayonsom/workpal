@@ -26,6 +26,7 @@ import type {
   PersonalizeAgentRequest,
   PersonalizeAgentResponse,
   ShareAgentRequest,
+  Task,
   TasksResponse,
   UsageStats,
   Skill,
@@ -299,6 +300,13 @@ export async function getAgentTasks(
   const params = new URLSearchParams({ limit: String(limit) });
   if (cursor) params.set("cursor", cursor);
   return apiFetch<TasksResponse>(`/agents/${agentId}/tasks?${params}`);
+}
+
+export async function getTaskDetail(
+  agentId: string,
+  taskId: string
+): Promise<Task> {
+  return apiFetch<Task>(`/agents/${agentId}/tasks/${taskId}`);
 }
 
 // ── Usage ──

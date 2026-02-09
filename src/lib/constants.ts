@@ -875,3 +875,39 @@ export const TOAST = {
   networkError: "Network error. Check your connection and retry.",
   closeLabel: "Dismiss",
 } as const;
+
+export const INBOX = {
+  sidebar: {
+    compose: "Compose",
+    inbox: "Inbox",
+    sent: "Sent",
+    trash: "Trash",
+    logout: "Log out",
+  },
+  tabs: {
+    work: "Work",
+    skills: "Skills",
+    samples: "Samples",
+  },
+  search: {
+    placeholder: "Search tasks...",
+  },
+  taskList: {
+    emptyHeading: "No tasks yet",
+    emptyText: "Forward an email to your Workpal to get started.",
+    loadMore: "Load more",
+  },
+  taskDetail: {
+    back: "Back to Inbox",
+    yourRequest: "YOUR REQUEST",
+    workpalResponse: "WORKPAL'S RESPONSE",
+    attachments: "ATTACHMENTS",
+    noPreview: "No preview available.",
+  },
+  compose: {
+    heading: "Send a task to your Workpal",
+    subtext: "Forward any email to this address. Your Workpal will read it and reply with completed work.",
+    copyLabel: "Copy email",
+    copiedLabel: "Copied!",
+  },
+} as const;
