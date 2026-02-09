@@ -39,6 +39,24 @@ function TrashIcon() {
   );
 }
 
+function BlogIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 5h6M5 8h6M5 11h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function GearIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function LogOutIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -56,6 +74,15 @@ function CopyIcon() {
   );
 }
 
+function SearchIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 /* ── Types ── */
 
 interface SidebarProps {
@@ -64,6 +91,8 @@ interface SidebarProps {
   inboxCount?: number;
   agentEmail: string;
   onLogout: () => void;
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
 }
 
 export default function Sidebar({
@@ -72,6 +101,8 @@ export default function Sidebar({
   inboxCount,
   agentEmail,
   onLogout,
+  searchQuery = "",
+  onSearchChange,
 }: SidebarProps) {
   const [showCompose, setShowCompose] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -103,11 +134,27 @@ export default function Sidebar({
         {/* Compose button */}
         <button
           onClick={() => setShowCompose(true)}
-          className="w-full h-10 rounded-full bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] text-[14px] font-medium text-text-primary flex items-center justify-center gap-2 hover:shadow-[var(--shadow-md)] hover:bg-[var(--color-surface-subtle)] transition-all duration-[180ms] cursor-pointer mb-5"
+          className="w-full h-10 rounded-full bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] text-[14px] font-medium text-text-primary flex items-center justify-center gap-2 hover:shadow-[var(--shadow-md)] hover:bg-[var(--color-surface-subtle)] transition-all duration-[180ms] cursor-pointer mb-4"
         >
           <span className="text-cta"><PencilIcon /></span>
           {INBOX.sidebar.compose}
         </button>
+
+        {/* Search bar in sidebar */}
+        {onSearchChange && (
+          <div className="relative mb-4">
+            <div className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
+              <SearchIcon />
+            </div>
+            <input
+              type="text"
+              placeholder={INBOX.search.placeholder}
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="w-full h-8 pl-8 pr-3 rounded-full border border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-border-strong)] focus:bg-white focus:outline-none transition-all duration-[180ms]"
+            />
+          </div>
+        )}
 
         {/* Nav items */}
         <nav className="space-y-0.5">
@@ -142,6 +189,26 @@ export default function Sidebar({
 
         {/* Spacer */}
         <div className="flex-1" />
+
+        {/* Blog link */}
+        <a
+          href="https://medium.com/workpal"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-text-primary hover:bg-[var(--color-surface-subtle)] transition-colors duration-[180ms]"
+        >
+          <BlogIcon />
+          Blog
+        </a>
+
+        {/* Settings */}
+        <a
+          href="/settings"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-text-primary hover:bg-[var(--color-surface-subtle)] transition-colors duration-[180ms]"
+        >
+          <GearIcon />
+          Settings
+        </a>
 
         {/* Log out */}
         <button

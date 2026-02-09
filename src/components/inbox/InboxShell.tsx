@@ -4,15 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { SITE } from "@/lib/constants";
 
-function GearIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 function MenuIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -30,10 +21,10 @@ export default function InboxShell({ sidebar, children }: InboxShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F6F6F6] flex flex-col">
+    <div className="h-screen bg-[#F6F6F6] flex flex-col overflow-hidden">
       {/* Top bar */}
       <header className="sticky top-0 z-40 h-12 bg-white border-b border-[var(--color-border-light)] shrink-0">
-        <div className="h-full flex items-center justify-between px-4">
+        <div className="h-full flex items-center px-4">
           <div className="flex items-center gap-3">
             {/* Mobile hamburger */}
             <button
@@ -55,14 +46,6 @@ export default function InboxShell({ sidebar, children }: InboxShellProps) {
               </span>
             </a>
           </div>
-
-          <a
-            href="/settings"
-            className="text-[var(--color-text-subtle)] hover:text-text-primary transition-colors duration-[180ms]"
-            title="Settings"
-          >
-            <GearIcon />
-          </a>
         </div>
       </header>
 
@@ -76,22 +59,23 @@ export default function InboxShell({ sidebar, children }: InboxShellProps) {
           />
         )}
 
-        {/* Sidebar — desktop: always visible; mobile: slide-in */}
+        {/* Sidebar — fixed height, never scrolls with content */}
         <aside
           className={`
             fixed lg:relative z-30 lg:z-auto
             w-[240px] shrink-0 bg-white border-r border-[var(--color-border-light)]
             flex flex-col h-[calc(100vh-48px)]
             transition-transform duration-[240ms] ease-[var(--ease-default)]
+            overflow-y-auto custom-scrollbar
             ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           `}
         >
           {sidebar}
         </aside>
 
-        {/* Main content */}
+        {/* Main content — full width */}
         <main className="flex-1 overflow-y-auto custom-scrollbar">
-          <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-5">
+          <div className="px-4 sm:px-6 py-5">
             {children}
           </div>
         </main>

@@ -6,6 +6,7 @@ import HowItWorks from "@/components/landing/HowItWorks";
 import BeforeAfter from "@/components/landing/BeforeAfter";
 import LiveDemoPreview from "@/components/landing/LiveDemoPreview";
 import Personalization from "@/components/landing/Personalization";
+import SkillsShowcase from "@/components/landing/SkillsShowcase";
 import ForTeams from "@/components/landing/ForTeams";
 import Security from "@/components/landing/Security";
 import FAQSection from "@/components/landing/FAQ";
@@ -24,6 +25,7 @@ export default function Home() {
         <BeforeAfter />
         <LiveDemoPreview />
         <Personalization />
+        <SkillsShowcase />
         <ForTeams />
         <Security />
         <FAQSection />

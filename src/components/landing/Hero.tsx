@@ -494,6 +494,13 @@ export default function Hero() {
             <p className="mt-3 text-center text-[12px] text-[var(--color-text-muted)]">
               {HERO.microcopy}
             </p>
+
+            <p className="mt-3 text-center text-[14px] text-[var(--color-text-subtle)]">
+              Have an account?{" "}
+              <a href="/login" className="font-semibold text-cta hover:text-cta-hover transition-colors">
+                Log in
+              </a>
+            </p>
           </div>
         </div>
       </div>

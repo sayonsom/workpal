@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import AuthGuard from "@/components/auth/AuthGuard";
 import InboxShell from "@/components/inbox/InboxShell";
 import Sidebar from "@/components/inbox/Sidebar";
-import SearchBar from "@/components/inbox/SearchBar";
 import TaskList from "@/components/inbox/TaskList";
 import TaskDetail from "@/components/inbox/TaskDetail";
 import SkillsPanel from "@/components/dashboard/SkillsPanel";
@@ -149,14 +148,13 @@ function InboxContent() {
           inboxCount={tasks.length}
           agentEmail={agentEmail}
           onLogout={handleLogout}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
         />
       }
     >
-      {/* Search bar */}
-      <SearchBar value={searchQuery} onChange={setSearchQuery} />
-
       {/* Tab bar — clean, subtle underline style */}
-      <div className="flex gap-0 border-b border-[var(--color-border-light)] mt-4 mb-5">
+      <div className="flex gap-0 border-b border-[var(--color-border-light)] mb-5">
         {tabs.map((tab) => (
           <button
             key={tab.key}
