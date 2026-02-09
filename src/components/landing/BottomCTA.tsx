@@ -106,9 +106,10 @@ export default function BottomCTA() {
       setCheckingHandle(false);
       return;
     }
-    setCheckingHandle(true);
+    // Clear old result but don't block button yet (debounce hasn't fired)
     setHandleAvailable(null);
     const timer = setTimeout(async () => {
+      setCheckingHandle(true); // block button only when API fires
       try {
         const result = await checkHandle(activePrefix);
         setHandleAvailable(result.available);
@@ -117,7 +118,7 @@ export default function BottomCTA() {
       } finally {
         setCheckingHandle(false);
       }
-    }, 300);
+    }, 150);
     return () => clearTimeout(timer);
   }, [activePrefix]);
 
