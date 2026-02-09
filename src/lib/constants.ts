@@ -843,6 +843,32 @@ export const SUCCESS_MODAL = {
   },
 } as const;
 
+export const SIGNUP_MODAL = {
+  codeStep: {
+    heading: "Check your email",
+    senderInfo: "We sent a 6-digit code from",
+    senderAddress: "Workpal (noreply@workpal.email)",
+    spamWarning:
+      "Don\u2019t see it? Check your Updates, Promotions, or Spam folder.",
+    verifyButton: "Verify Code",
+    verifyingButton: "Verifying...",
+    resendPrompt: "Didn\u2019t get it?",
+    resendButton: "Resend code",
+    resendingButton: "Sending...",
+    resendSuccess: "A new code has been sent to your email.",
+    resendFailed: "Failed to resend. Please try again.",
+  },
+  successStep: {
+    heading: "Your Workpal is ready!",
+    subHeading: "Here\u2019s how to get started.",
+    agentEmailLabel: "Your Workpal email",
+    setPasswordButton: "Set Your Password",
+    setPasswordNote:
+      "You\u2019ll receive a separate password code at your email.",
+    startForwardingButton: "Start Forwarding from Gmail",
+  },
+} as const;
+
 export const TOAST = {
   defaultError: "Something went wrong. Please try again.",
   existingAccount: "Account exists but credentials don\u2019t match. Try logging in.",
