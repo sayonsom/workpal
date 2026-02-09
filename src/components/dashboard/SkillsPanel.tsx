@@ -99,6 +99,8 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
   const [youtubeLoading, setYoutubeLoading] = useState(false);
   const [youtubeResult, setYoutubeResult] = useState<string | null>(null);
   const [youtubeError, setYoutubeError] = useState<string | null>(null);
+  const [showTranscriptPaste, setShowTranscriptPaste] = useState(false);
+  const [manualTranscript, setManualTranscript] = useState("");
 
   // ── Fetch data on mount ──
   const fetchData = useCallback(async () => {
@@ -198,15 +200,18 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
     setYoutubeResult(null);
     setYoutubeError(null);
     try {
-      // Step 1: Try to fetch transcript client-side (via our Vercel API route)
-      // This avoids YouTube blocking AWS Lambda IPs
-      const videoId = extractYouTubeVideoId(youtubeUrl.trim());
-      let transcript: string | null = null;
-      if (videoId) {
-        transcript = await fetchYouTubeTranscript(videoId);
+      // Use manual transcript if user pasted one, otherwise try automated fetch
+      let transcript: string | null = manualTranscript.trim() || null;
+
+      if (!transcript) {
+        // Try to fetch transcript client-side via our Vercel API route
+        const videoId = extractYouTubeVideoId(youtubeUrl.trim());
+        if (videoId) {
+          transcript = await fetchYouTubeTranscript(videoId);
+        }
       }
 
-      // Step 2: Send URL + transcript to backend for classification
+      // Send URL + transcript to backend for classification
       const res = await createSkillFromYouTube(
         agentId,
         youtubeUrl.trim(),
@@ -216,11 +221,17 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
         `✅ "${res.sub_skill.name}" added under ${res.skill_name}. ${res.classification.summary}`
       );
       setYoutubeUrl("");
+      setManualTranscript("");
+      setShowTranscriptPaste(false);
       // Refresh data to show the new skill/sub-skill
       await fetchData();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed to process video";
       setYoutubeError(msg);
+      // If it failed and no manual transcript was provided, suggest pasting one
+      if (!manualTranscript.trim()) {
+        setShowTranscriptPaste(true);
+      }
     } finally {
       setYoutubeLoading(false);
     }
@@ -472,6 +483,43 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
           <p className="mt-2 text-[13px] text-danger bg-danger/5 border border-danger/15 rounded-[6px] p-3">
             {youtubeError}
           </p>
+        )}
+        {/* Transcript paste area — shown on error or user toggle */}
+        {showTranscriptPaste && (
+          <div className="mt-3 space-y-2">
+            <p className="text-[12px] text-[var(--color-text-subtle)]">
+              Paste the video transcript below. On YouTube, click &quot;...more&quot; under the video, then &quot;Show transcript&quot;, select all text, and paste here.
+            </p>
+            <textarea
+              value={manualTranscript}
+              onChange={(e) => setManualTranscript(e.target.value)}
+              placeholder="Paste transcript text here..."
+              rows={4}
+              className="w-full px-3 py-2 rounded-[6px] border border-[var(--color-border-strong)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none resize-y"
+            />
+            {manualTranscript.trim() && (
+              <Button
+                variant="primary"
+                className="!text-[13px] !h-8"
+                onClick={handleYouTubeSkill}
+                disabled={youtubeLoading || !youtubeUrl.trim()}
+              >
+                {youtubeLoading ? (
+                  <span className="flex items-center gap-2"><Spinner /> Processing...</span>
+                ) : (
+                  "Add Skill with Transcript"
+                )}
+              </Button>
+            )}
+          </div>
+        )}
+        {!showTranscriptPaste && youtubeUrl.trim() && (
+          <button
+            onClick={() => setShowTranscriptPaste(true)}
+            className="mt-2 text-[12px] text-[var(--color-text-subtle)] hover:text-text-secondary underline cursor-pointer"
+          >
+            Have the transcript? Paste it manually
+          </button>
         )}
       </div>
 
