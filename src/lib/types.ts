@@ -74,6 +74,8 @@ export interface Agent {
   allowed_senders: string[];
   phone_number: string;
   voice_enabled: boolean;
+  active_skills: string[];
+  sub_skills: SubSkill[];
 }
 
 export interface AgentsListResponse {
@@ -140,8 +142,9 @@ export interface UsageStats {
   plan: string;
 }
 
-// ── Skills ──
+// ── Skills (Legacy — deprecated, use Skills Catalog instead) ──
 
+/** @deprecated Use CatalogSkill + SubSkill instead */
 export interface Skill {
   id: string;
   agent_id: string;
@@ -150,14 +153,60 @@ export interface Skill {
   created_at: string;
 }
 
+/** @deprecated Use ActivateSkillRequest instead */
 export interface CreateSkillRequest {
   name: string;
   description: string;
 }
 
+/** @deprecated */
 export interface UpdateSkillRequest {
   name?: string;
   description?: string;
+}
+
+// ── Skills Catalog (NEW) ──
+
+export interface CatalogSkill {
+  skill_id: string;
+  name: string;
+  category: string;
+  description: string;
+  icon: string;
+  keywords: string[];
+}
+
+export interface SkillsCatalogResponse {
+  skills: CatalogSkill[];
+  categories: string[];
+}
+
+export interface ActivateSkillRequest {
+  skill_id: string;
+}
+
+export interface ActivateSkillResponse {
+  message: string;
+  active_skills: string[];
+}
+
+export interface SubSkill {
+  parent_skill_id: string;
+  name: string;
+  content: string;
+  source: "user" | "youtube";
+  created_at: number;
+}
+
+export interface CreateSubSkillRequest {
+  name: string;
+  content: string;
+}
+
+export interface AgentSkillsResponse {
+  active_skills: CatalogSkill[];
+  sub_skills: SubSkill[];
+  legacy_skills: Record<string, unknown>[];
 }
 
 // ── Samples ──

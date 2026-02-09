@@ -1,0 +1,370 @@
+{
+  "meta": {
+    "document": "Workpal Landing Page Modifications",
+    "strategy": "Align with EA-first positioning, invite-only scarcity, Gift-a-Workpal viral mechanic",
+    "current_url": "https://workpal.email",
+    "date": "2026-02-08"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "current": "Logo + How it Works | Security | FAQ + 'Get my Workpal Email' CTA",
+      "action": "MODIFY",
+      "changes": [
+        {
+          "what": "Change CTA button text",
+          "from": "Get my Workpal Email",
+          "to": "Join the Waitlist",
+          "why": "Shift from open beta to invite-only scarcity. Waitlist creates urgency."
+        },
+        {
+          "what": "Add nav item",
+          "add": "'Gift a Workpal' link between FAQ and CTA",
+          "why": "Surface the viral mechanic in primary navigation. It's now a core feature, not an afterthought."
+        },
+        {
+          "what": "Remove 'Beta' badge from logo",
+          "why": "Beta signals 'not ready.' Invite-only signals 'exclusive.' Different psychology."
+        }
+      ]
+    },
+    {
+      "id": "hero",
+      "current": {
+        "eyebrow": "No prompts. No dashboards. Just email.",
+        "headline": "Your private AI email address.",
+        "subheadline": "Forward work in, get work back. No additional prompts needed. It never contacts anyone but you.",
+        "body": "Workpal figures out what to do from the emails you forward — messy PDFs, long threads, and spreadsheets included.",
+        "bullets": [
+          "No access to your full inbox. Only what you forward.",
+          "Your AI email (@workpal.email) responds only to you."
+        ]
+      },
+      "action": "REWRITE",
+      "new_content": {
+        "eyebrow": "For executive assistants & busy professionals",
+        "headline": "The AI colleague who only talks to you.",
+        "subheadline": "Forward any email. Get the work done. No apps, no prompts, no inbox access.",
+        "body": "Workpal reads context like a smart colleague would — contracts, long threads, messy attachments. It drafts replies in your voice, flags what matters, and learns how you work. The more you use it, the better it gets.",
+        "bullets": [
+          "Zero inbox access. Only processes what you explicitly forward.",
+          "Learns your writing style. After 50 emails, it sounds like you.",
+          "Replies only to you. The outside world never sees it."
+        ]
+      },
+      "why": "Current hero is feature-oriented ('private AI email address'). New hero is persona-oriented ('AI colleague') and immediately signals compounding value ('learns your voice'). The eyebrow narrows the audience to EAs without excluding others."
+    },
+    {
+      "id": "how_it_works_flow",
+      "current": "5-step email flow diagram: Boss emails → You forward → Workpal works → Workpal replies → You send",
+      "action": "KEEP",
+      "notes": "This flow diagram is excellent. Clear, visual, immediately understandable. Don't touch it.",
+      "minor_tweak": "Change 'Boss emails you' to 'Your exec emails you' — aligns with EA persona."
+    },
+    {
+      "id": "signup_form",
+      "current": {
+        "fields": "Email address + auto-generated Workpal address",
+        "cta": "Create my Workpal",
+        "social_proof": "Open for 1,500 Beta Testers",
+        "subtext": "Free to start · No credit card · Cancel anytime"
+      },
+      "action": "REWRITE",
+      "new_content": {
+        "fields": "Same — email + Workpal address generation",
+        "cta": "Join the Waitlist",
+        "social_proof": "500+ professionals already using Workpal",
+        "subtext": "Invite-only · Priority access for executive assistants",
+        "add_element": "Dropdown or checkbox: 'I am an Executive Assistant / Office Manager' — checking this moves them to front of queue"
+      },
+      "why": "Scarcity + persona targeting. 'Open for 1,500' signals desperation. 'Invite-only' signals demand. The EA checkbox both qualifies leads AND signals who the product is for."
+    },
+    {
+      "id": "testimonials",
+      "current": [
+        "Lorraine Athaide — Senior Executive Assistant, RDS Brokerage",
+        "Dorsā Masghati — Creative Senior Designer, TheOthers",
+        "Ray Li — CEO, Sene"
+      ],
+      "action": "REORDER + MODIFY",
+      "changes": [
+        {
+          "what": "Lead with Lorraine (EA testimonial)",
+          "why": "She IS the target persona. Her quote is perfect. Make her testimonial 2x larger than the others."
+        },
+        {
+          "what": "Add 2 more EA/office manager testimonials",
+          "why": "Stack social proof from the target persona. If you don't have them yet, get them from your 500 alpha users within 1 week."
+        },
+        {
+          "what": "Move Ray Li (CEO) testimonial to a separate 'Leadership' row",
+          "why": "CEOs validate the product for enterprise buyers, but shouldn't dilute the EA-first message."
+        },
+        {
+          "what": "Consider removing Dorsā (designer) testimonial",
+          "why": "Designers are not the target persona and confuse the positioning. Replace with a paralegal or healthcare office manager if available."
+        }
+      ]
+    },
+    {
+      "id": "video_demo",
+      "current": "Watch how Workpal works. 90 seconds. One late-night email.",
+      "action": "KEEP + MODIFY",
+      "changes": [
+        {
+          "what": "Re-record with EA scenario",
+          "from": "Generic late-night email scenario",
+          "to": "EA managing 3 executives, forwarding a meeting follow-up, getting a draft in their exec's voice",
+          "why": "The demo should show the PRIMARY persona's workflow, not a generic one."
+        }
+      ]
+    },
+    {
+      "id": "closed_loop_workflow",
+      "current": "3-step closed loop: Forward → Workpal figures out task → You get result privately",
+      "action": "KEEP",
+      "notes": "This section is strong. The 3-step visual walkthrough is clear and trust-building. Don't change the structure.",
+      "minor_tweaks": [
+        "Change step 2 copy: 'It reads the context to determine what's needed' → 'It reads context like a colleague would — tone, urgency, relationship dynamics'",
+        "Add under step 3: 'Every draft teaches Workpal your style. The more you use it, the sharper it gets.'"
+      ]
+    },
+    {
+      "id": "chatgpt_comparison",
+      "current": "Side-by-side: 'The ChatGPT Way' vs 'The Workpal Way'",
+      "action": "DELETE",
+      "why": "This section gives ChatGPT free mindshare on YOUR landing page. Every visitor now thinks 'hmm, maybe I should just use ChatGPT.' Never name your competitor. Position against 'the old way of doing things' instead.",
+      "replacement": {
+        "heading": "What changes after your first week",
+        "format": "Before/After comparison — but framed as the user's life, not tool comparison",
+        "content": {
+          "before": {
+            "label": "Before Workpal",
+            "items": [
+              "Spend 20 min drafting a polite decline",
+              "Read a 47-page contract yourself",
+              "Forget to follow up on 3 threads",
+              "Copy-paste into AI tools, reformat, paste back",
+              "Everyone on the team writes differently"
+            ]
+          },
+          "after": {
+            "label": "After Workpal",
+            "items": [
+              "Forward → polite decline in your voice, 90 seconds",
+              "Forward → 12 key changes flagged, 2 minutes",
+              "Workpal reminds you and drafts the follow-up",
+              "Never leave your inbox. Ever.",
+              "Every Workpal learns its user's style"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "scenario_demos",
+      "current": "3 tabs: Client Brief | Meeting Follow-up | Contract Review",
+      "action": "MODIFY",
+      "changes": [
+        {
+          "what": "Change scenarios to EA-specific tasks",
+          "new_tabs": [
+            {
+              "label": "Exec Reply Draft",
+              "scenario": "Your VP of Sales gets a pricing objection. You forward the thread. Workpal drafts a response in the VP's tone with 3 counter-points."
+            },
+            {
+              "label": "Meeting Follow-up",
+              "scenario": "Board meeting just ended. You forward the agenda + your notes. Workpal drafts follow-up emails to each attendee with their specific action items."
+            },
+            {
+              "label": "Vendor Decline",
+              "scenario": "Third vendor pitch this week. Forward it. Workpal drafts a gracious decline that keeps the door open. In your exec's voice."
+            },
+            {
+              "label": "Contract Summary",
+              "scenario": "Legal sends a 30-page NDA redline. Forward the PDF. Workpal returns the 8 material changes and flags the unusual non-compete clause."
+            }
+          ]
+        }
+      ],
+      "why": "Current scenarios are generic business tasks. New scenarios are specifically what an EA does 50 times a week. The visitor should think 'this is literally my Tuesday.'"
+    },
+    {
+      "id": "personalization",
+      "current": "Teach it to sound like you (optional). LinkedIn | Resume PDF | Email signature | Self-description",
+      "action": "REWRITE",
+      "new_content": {
+        "heading": "It learns your voice. Automatically.",
+        "subheading": "Workpal gets sharper with every email you forward — and every edit you make.",
+        "format": "Replace the 'with/without personalization' split with a progression visual",
+        "progression": [
+          {
+            "stage": "Day 1",
+            "description": "Clean, professional responses. Identifies tasks from context."
+          },
+          {
+            "stage": "Week 1",
+            "description": "Picks up your industry jargon, formality level, and sentence structure."
+          },
+          {
+            "stage": "Month 1",
+            "description": "Matches your exec's voice. Knows which contacts prefer formal vs casual."
+          },
+          {
+            "stage": "Month 3",
+            "description": "Drafts are sent with zero edits 60% of the time. It writes like you on your best day."
+          }
+        ]
+      },
+      "why": "Current framing makes style learning feel optional and manual. New framing makes it automatic and compounding — the core 'investment' phase of the Hook model. This is the #1 reason to stay with Workpal over time."
+    },
+    {
+      "id": "gift_a_workpal",
+      "current": "DOES NOT EXIST",
+      "action": "ADD — NEW SECTION",
+      "position": "After personalization, before team/enterprise section",
+      "content": {
+        "heading": "Gift a Workpal to a colleague",
+        "subheading": "Know someone drowning in email? Set up their AI colleague in 10 seconds.",
+        "body": "One click. They get an email with their new Workpal address. No signup, no app, no prompts. Just forward and go. You'll both save hours.",
+        "cta": "Gift a Workpal",
+        "visual": "Mock email showing the gift notification: 'Lorraine set up an AI colleague for you. Your Workpal address is sarah.j@workpal.email. Forward any email to it.'",
+        "social_proof_line": "327 Workpals gifted this month"
+      },
+      "why": "This is the #1 viral mechanic. It needs prominent placement on the landing page. The gift framing is emotionally stronger than 'invite.' You're giving someone a tool, not asking them to sign up for something."
+    },
+    {
+      "id": "team_adoption",
+      "current": "The only AI tool with a 100% adoption rate + 6 feature cards + enterprise features list",
+      "action": "HEAVY TRIM",
+      "changes": [
+        {
+          "what": "Keep the '100% adoption rate' headline — it's strong",
+          "action": "KEEP"
+        },
+        {
+          "what": "Keep 'No adoption friction' card",
+          "action": "KEEP"
+        },
+        {
+          "what": "Keep 'Non-technical people thrive' card",
+          "action": "KEEP"
+        },
+        {
+          "what": "Remove 'Every Workpal is specialized' card",
+          "action": "DELETE",
+          "why": "This implies complexity. Keep it simple for now."
+        },
+        {
+          "what": "Remove 'Governed by default' card",
+          "action": "DELETE",
+          "why": "Enterprise language. Not relevant to EA persona."
+        },
+        {
+          "what": "Remove 'Knowledge stays when people leave' card",
+          "action": "DELETE",
+          "why": "HR/enterprise concern. Table for later."
+        },
+        {
+          "what": "Remove entire enterprise features list (SOC 2, SSO, private cloud, etc.)",
+          "action": "DELETE",
+          "why": "You have 500 users. Enterprise features are aspirational, not real. They undermine credibility. Bring back when you actually have SOC 2."
+        },
+        {
+          "what": "Remove 'Explore Workpal for Business' CTA",
+          "action": "DELETE",
+          "why": "Kill the /business page entirely for now. One product, one audience, one message."
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "current": "5 security cards + enterprise certifications (SOC 2, GDPR, HIPAA-ready, FedRAMP)",
+      "action": "SIMPLIFY",
+      "changes": [
+        {
+          "what": "Keep the 4 security cards (TLS, zero ambient access, task-scoped memory, you own everything)",
+          "action": "KEEP",
+          "why": "These are real and important. The zero-ambient-access message is the core differentiator."
+        },
+        {
+          "what": "Remove enterprise certification badges (SOC 2, GDPR, HIPAA, FedRAMP)",
+          "action": "DELETE",
+          "why": "If you don't actually have SOC 2 Type II certification right now, don't claim it. This is a legal and trust liability. Replace with: 'Working toward SOC 2 Type II certification. Contact security@workpal.email for our current security posture.'"
+        }
+      ]
+    },
+    {
+      "id": "faq",
+      "current": "5 questions: Will it email clients? | Need prompts? | Writing style? | Data secure? | Misunderstands task?",
+      "action": "MODIFY",
+      "changes": [
+        {
+          "what": "Keep all 5 existing FAQs — they're solid",
+          "action": "KEEP"
+        },
+        {
+          "what": "Add FAQ: 'How much does it cost?'",
+          "answer": "Workpal is free for up to 10 forwards per month. Pro is $12/month for unlimited forwards with style learning and contact memory."
+        },
+        {
+          "what": "Add FAQ: 'I manage multiple executives. Can Workpal match different writing styles?'",
+          "answer": "Yes. Workpal learns each voice separately. When you forward a thread from Exec A, it drafts in Exec A's tone. Forward from Exec B, it shifts to match. The more you use it per exec, the sharper it gets."
+        },
+        {
+          "what": "Add FAQ: 'Can I gift a Workpal to someone?'",
+          "answer": "Yes. One click and they'll receive an email with their own Workpal address. No signup required. They just start forwarding."
+        },
+        {
+          "what": "Modify FAQ: 'How does it know my writing style?'",
+          "from": "It uses professional formatting by default. You can optionally connect your LinkedIn...",
+          "to": "Workpal learns automatically from every email you forward and every edit you make to its drafts. Within a week, it picks up your jargon and formality level. Within a month, most users send drafts with zero edits. You can accelerate this by connecting your LinkedIn or describing your role."
+        }
+      ]
+    },
+    {
+      "id": "bottom_cta",
+      "current": "Ready to create your AI email? + signup form + 'Open for 1,500 Beta Testers'",
+      "action": "REWRITE",
+      "new_content": {
+        "heading": "Ready to meet your AI colleague?",
+        "subheading": "60 seconds. No credit card. It only ever emails you.",
+        "cta": "Join the Waitlist",
+        "social_proof": "500+ professionals already using Workpal · Priority access for executive assistants",
+        "add_element": "Below form: 'Know someone who'd love this? Gift them a Workpal instead →'"
+      }
+    },
+    {
+      "id": "footer",
+      "current": "Logo + Privacy | Security | Terms | Contact + tagline",
+      "action": "MODIFY",
+      "changes": [
+        {
+          "what": "Change tagline",
+          "from": "workpal.email — The AI that only talks to you.",
+          "to": "workpal.email — Forward your work. Get it done.",
+          "why": "'Only talks to you' is a security feature. 'Forward your work, get it done' is a value prop. Lead with value."
+        }
+      ]
+    }
+  ],
+  "global_changes": [
+    {
+      "change": "Remove all 'Beta' labels sitewide",
+      "why": "Shift perception from 'testing' to 'exclusive access'"
+    },
+    {
+      "change": "Add 'For Executive Assistants' as a persistent eyebrow/badge near the logo or hero",
+      "why": "Every visitor should know within 2 seconds who this is for"
+    },
+    {
+      "change": "Replace all instances of 'No prompts needed' with 'Reads context like a colleague would'",
+      "why": "'No prompts' sounds like a limitation. 'Reads context' sounds like intelligence."
+    },
+    {
+      "change": "Add a sticky bottom bar on mobile: 'Gift a Workpal to a colleague →'",
+      "why": "The viral mechanic should be omnipresent, not buried"
+    }
+  ]
+}

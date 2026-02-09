@@ -30,6 +30,13 @@ import type {
   Skill,
   CreateSkillRequest,
   UpdateSkillRequest,
+  CatalogSkill,
+  SkillsCatalogResponse,
+  ActivateSkillRequest,
+  ActivateSkillResponse,
+  SubSkill,
+  CreateSubSkillRequest,
+  AgentSkillsResponse,
   Sample,
   CreateSampleRequest,
   UpdateSampleRequest,
@@ -309,6 +316,66 @@ export async function deleteSkill(
   return apiFetch<void>(`/agents/${agentId}/skills/${skillId}`, {
     method: "DELETE",
   });
+}
+
+// ── Skills Catalog (NEW) ──
+
+/** Fetch all available skills from the pre-built catalog. No auth required. */
+export async function getSkillsCatalog(): Promise<SkillsCatalogResponse> {
+  return apiFetch<SkillsCatalogResponse>("/skills/catalog", { method: "GET" }, false);
+}
+
+/** Toggle a catalog skill ON for this agent. */
+export async function activateSkill(
+  agentId: string,
+  data: ActivateSkillRequest
+): Promise<ActivateSkillResponse> {
+  return apiFetch<ActivateSkillResponse>(`/agents/${agentId}/skills/activate`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+/** Toggle a catalog skill OFF. Also removes child sub-skills. */
+export async function deactivateSkill(
+  agentId: string,
+  data: ActivateSkillRequest
+): Promise<ActivateSkillResponse> {
+  return apiFetch<ActivateSkillResponse>(`/agents/${agentId}/skills/deactivate`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+/** Get agent's active skills with sub-skills and legacy data. */
+export async function getActiveSkills(
+  agentId: string
+): Promise<AgentSkillsResponse> {
+  return apiFetch<AgentSkillsResponse>(`/agents/${agentId}/skills/active`);
+}
+
+/** Add a sub-skill customization under an active skill. */
+export async function createSubSkill(
+  agentId: string,
+  skillId: string,
+  data: CreateSubSkillRequest
+): Promise<{ message: string; sub_skill: SubSkill }> {
+  return apiFetch<{ message: string; sub_skill: SubSkill }>(
+    `/agents/${agentId}/skills/${skillId}/sub-skills`,
+    { method: "POST", body: JSON.stringify(data) }
+  );
+}
+
+/** Delete a sub-skill customization. */
+export async function deleteSubSkill(
+  agentId: string,
+  skillId: string,
+  subSkillName: string
+): Promise<void> {
+  return apiFetch<void>(
+    `/agents/${agentId}/skills/${skillId}/sub-skills/${encodeURIComponent(subSkillName)}`,
+    { method: "DELETE" }
+  );
 }
 
 // ── Samples ──

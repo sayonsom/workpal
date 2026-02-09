@@ -1,0 +1,325 @@
+{
+  "project": "workpal.email Landing Page Redesign",
+  "date": "2026-02-07",
+  "notes": "Changes organized by section. 'action' field indicates whether to UPDATE existing, ADD new, REMOVE, or KEEP as-is. All copy is final unless marked [placeholder].",
+
+  "sections": [
+    {
+      "id": "navbar",
+      "action": "UPDATE",
+      "changes": [
+        { "element": "logo", "action": "KEEP" },
+        {
+          "element": "nav_links",
+          "action": "UPDATE",
+          "old": ["How it Works", "Why Not ChatGPT?", "FAQ", "For Business", "Blog"],
+          "new": ["How it Works", "Security", "FAQ"]
+        },
+        {
+          "element": "cta_button",
+          "action": "UPDATE",
+          "old_text": "Get Your Workpal",
+          "new_text": "Get my Workpal Email"
+        }
+      ]
+    },
+
+    {
+      "id": "hero",
+      "action": "UPDATE",
+      "changes": [
+        {
+          "element": "eyebrow_badge",
+          "action": "UPDATE",
+          "old_text": "No prompts. No dashboards. Just email.",
+          "new_text": "No prompts. No dashboards. 100% Private."
+        },
+        {
+          "element": "headline",
+          "action": "UPDATE",
+          "old_text": "Forward an email. Get the work done.",
+          "new_text": "Your private AI email address. Forward work to it. It replies only to you.",
+          "styling_note": "'only to you' should be visually emphasized -- italic, accent color, or similar treatment"
+        },
+        {
+          "element": "subheadline",
+          "action": "UPDATE",
+          "new_text": "Get a unique you@workpal.email address. Forward it messy threads, briefs, or PDFs. It replies with the work done — summaries, drafts, action plans. You remain the only person who hits \"Send.\""
+        },
+        {
+          "element": "input_linkedin_url",
+          "action": "REMOVE",
+          "reason": "LinkedIn moved to optional personalization section below. Reduces signup friction."
+        },
+        {
+          "element": "input_email",
+          "action": "KEEP",
+          "placeholder": "Enter your work email..."
+        },
+        {
+          "element": "cta_button",
+          "action": "UPDATE",
+          "old_text": "Create my Workpal",
+          "new_text": "Create my Workpal Address"
+        },
+        {
+          "element": "trust_microcopy",
+          "action": "UPDATE",
+          "old_text": "Free to start. No credit card required.",
+          "new_text": "Free to start. No credit card. Workpal can never email your clients or team.",
+          "styling_note": "Add a small shield/lock icon before the text"
+        },
+        {
+          "element": "early_access_badge",
+          "action": "REMOVE",
+          "reason": "Generic urgency tactic, doesn't build trust"
+        }
+      ],
+      "hero_visual_right_side": {
+        "action": "UPDATE",
+        "notes": "Keep the 3-step email flow visual. Update the following:",
+        "changes": [
+          {
+            "step": 3,
+            "action": "UPDATE",
+            "old_routing": "you@workpal.email → you@consultant.com",
+            "new_routing": "you@workpal.email → you@company.com",
+            "add_elements": [
+              {
+                "type": "badge",
+                "text": "Closed Loop",
+                "icon": "shield",
+                "position": "above the email subject in step 3"
+              },
+              {
+                "type": "caption",
+                "text": "You review. You decide what to send.",
+                "styling": "small green pill/badge below the email preview"
+              }
+            ]
+          },
+          {
+            "step_3_card_styling": "Give step 3 card a green-tinted border or subtle green background to visually distinguish it as the 'safe result' step"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "how_it_works",
+      "action": "UPDATE",
+      "section_title": {
+        "old": "[whatever current title is]",
+        "new": "The \"Closed Loop\" Workflow"
+      },
+      "section_subtitle": "Workpal never contacts anyone but you. You're always the firewall between AI output and the real world.",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Forward to your Workpal",
+          "body": "Don't break your flow. Just forward any email, thread, or attachment to your private workpal.email address. No tabs, no copy-pasting."
+        },
+        {
+          "step": 2,
+          "title": "Workpal figures out the task",
+          "body": "It reads the context to determine what's needed — a polite decline, a deal summary, data extraction, or a draft reply. No prompting required."
+        },
+        {
+          "step": 3,
+          "title": "You get the result (privately)",
+          "body": "Workpal emails you back. You review it, tweak if needed, then forward it yourself. You are always in control of what leaves your inbox."
+        }
+      ]
+    },
+
+    {
+      "id": "comparison",
+      "action": "ADD",
+      "position": "after how_it_works",
+      "section_label": "Why Workpal?",
+      "section_title": "Stop copy-pasting into ChatGPT.",
+      "section_subtitle": "Stay in your inbox.",
+      "layout": "two-column comparison table or side-by-side lists",
+      "left_column": {
+        "header": "The ChatGPT Way",
+        "styling": "muted/negative tone — light warm background, subdued text",
+        "rows": [
+          { "icon": "✕", "text": "Switch tabs, login, find the right chat" },
+          { "icon": "✕", "text": "Copy-paste sensitive email threads" },
+          { "icon": "✕", "text": "Write long, detailed prompts" },
+          { "icon": "✕", "text": "Copy result back into email" },
+          { "icon": "⚠", "text": "Risk pasting wrong info to wrong person" }
+        ]
+      },
+      "right_column": {
+        "header": "The Workpal Way",
+        "styling": "positive tone — light green background, green text",
+        "rows": [
+          { "icon": "✓", "text": "Just hit \"Forward\"" },
+          { "icon": "✓", "text": "Context stays in your email" },
+          { "icon": "✓", "text": "Zero prompting — it reads the thread" },
+          { "icon": "✓", "text": "Result arrives in your inbox" },
+          { "icon": "◆", "text": "Closed loop: replies only to you" }
+        ]
+      },
+      "design_note": "This replaces the old 'Why Not ChatGPT?' nav link. The comparison now lives on-page instead of being a separate page."
+    },
+
+    {
+      "id": "live_demo_preview",
+      "action": "ADD",
+      "position": "after comparison",
+      "rationale": "Biggest gap on the current page — no proof of output quality. This lets skeptics see what they'd actually get without signing up.",
+      "section_label": "See it in action",
+      "section_title": "Real emails in. Real work out.",
+      "section_subtitle": "Click a scenario to see what Workpal produces — no prompt needed.",
+      "layout": "Tabbed card. 3 tabs at top, content swaps below.",
+      "tabs": [
+        {
+          "tab_label": "Client Brief",
+          "forwarded_email": {
+            "from": "partner@lawfirm.com",
+            "subject": "Meridian acquisition — can you summarize where we stand?",
+            "body": "Hey, the board meets Thursday. Can you pull together a one-page summary of the Meridian deal — final pricing, revised timeline after their Q2 pushback, and the three concessions we agreed to?"
+          },
+          "workpal_reply": {
+            "from_line": "you@workpal.email → you@company.com",
+            "subject": "Re: Meridian acquisition — summary",
+            "body": "**Meridian Acquisition — Executive Summary**\n\n**Final Pricing:** $42M all-cash, revised down from $45M following due diligence adjustments on the IP portfolio valuation.\n\n**Revised Timeline:** Close expected Aug 15 (pushed 6 weeks from original June 30 target due to their Q2 earnings review).\n\n**Key Concessions:**\n1. 18-month earn-out on the SaaS revenue stream\n2. Retained two senior engineers through 2026\n3. Waived the non-compete clause for their APAC division\n\n_Ready to copy into your reply, or edit as needed._"
+          }
+        },
+        {
+          "tab_label": "Meeting Follow-up",
+          "forwarded_email": {
+            "from": "cto@startup.io",
+            "subject": "Re: Re: Re: Roadmap sync — next steps",
+            "body": "Good call today. Lots discussed. Can someone pull together the action items? I think we agreed on the API deadline, the hiring plan change, and something about the SOC2 audit but I can't remember the details."
+          },
+          "workpal_reply": {
+            "from_line": "you@workpal.email → you@company.com",
+            "subject": "Re: Roadmap sync — action items",
+            "body": "**Roadmap Sync — Action Items**\n\n**1. API v2 Deadline:** Moved to Sept 1. Backend team to deliver staging build by Aug 15 for partner testing.\n\n**2. Hiring Plan:** Pausing the third frontend hire. Reallocating budget to a senior DevOps role (JD to be drafted by EOW).\n\n**3. SOC2 Audit:** Kicking off Aug 1 with Vanta. Sarah owns the evidence collection. Target completion: Oct 15.\n\n_Formatted as a follow-up email draft, ready to send to the team._"
+          }
+        },
+        {
+          "tab_label": "Contract Review",
+          "forwarded_email": {
+            "from": "legal@vendor.com",
+            "subject": "SaaS Agreement v3 — attached for review",
+            "body": "Hi, attached is the updated SaaS agreement incorporating your redlines. Please review the liability cap changes in Section 8 and the new data residency clause in Section 12. Need sign-off by Friday."
+          },
+          "workpal_reply": {
+            "from_line": "you@workpal.email → you@company.com",
+            "subject": "Re: SaaS Agreement v3 — key changes flagged",
+            "body": "**Contract Review — Key Changes Flagged**\n\n**Section 8 (Liability Cap):** Cap reduced from 12 months to 6 months of fees. This is below your standard threshold — recommend pushing back.\n\n**Section 12 (Data Residency):** New clause restricts data to US-only hosting. Conflicts with your EU client base if you need GDPR-compliant storage in Frankfurt.\n\n**Other Changes:** Minor formatting in Sections 3 and 5. No substantive edits detected elsewhere.\n\n_Summary ready. Review and decide before forwarding your response to legal._"
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "personalization",
+      "action": "ADD",
+      "position": "after live_demo_preview",
+      "rationale": "LinkedIn input removed from hero. This section reintroduces it as optional, alongside other personalization methods.",
+      "section_label": "Personalization",
+      "section_title": "Teach it to sound like you",
+      "section_title_suffix": "(optional)",
+      "section_title_suffix_styling": "muted/tertiary color, smaller font weight",
+      "section_subtitle": "Workpal is smart out of the box. But it gets sharper when it knows your background, role, and tone.",
+      "layout": "Two cards side by side",
+      "cards": [
+        {
+          "tag": "Works immediately",
+          "tag_style": "neutral/gray pill",
+          "title": "Without personalization",
+          "body": "Generates clean, professional responses. Identifies tasks from context. Handles summaries, drafts, and extraction with standard business tone."
+        },
+        {
+          "tag": "Optional — add anytime",
+          "tag_style": "green/accent pill",
+          "title": "With your background",
+          "body": "Mimics your seniority, industry jargon, and writing style. Knows the difference between how a VP of Sales writes vs. an engineering lead.",
+          "personalization_methods": ["LinkedIn", "Resume PDF", "Email signature", "Self-description"],
+          "methods_styling": "small green pills/chips",
+          "card_border": "accent colored border to draw attention"
+        }
+      ]
+    },
+
+    {
+      "id": "for_business",
+      "action": "KEEP",
+      "notes": "No changes to this section."
+    },
+
+    {
+      "id": "faq",
+      "action": "UPDATE",
+      "layout": "Accordion, one item open at a time",
+      "items": [
+        {
+          "question": "Will Workpal email my clients or boss?",
+          "answer": "Never. Workpal is a closed loop. It is hard-coded to reply only to your registered email address. It cannot initiate or send emails to anyone else. You always decide what gets forwarded out."
+        },
+        {
+          "question": "Do I need to write prompts?",
+          "answer": "No. Workpal reads the email thread you forward to determine the task. Forward a contract — it summarizes it. Forward a client question — it drafts a reply. If it's unsure, it emails you a clarifying question."
+        },
+        {
+          "question": "How does it know my writing style?",
+          "answer": "It uses professional formatting by default. You can optionally connect your LinkedIn, upload a resume, or describe your role so Workpal matches your seniority, industry vocabulary, and tone."
+        },
+        {
+          "question": "Is my data secure?",
+          "answer": "Yes. All emails are encrypted with enterprise-grade TLS in transit. Your data is used solely to generate your response and is never used to train public AI models."
+        },
+        {
+          "question": "What if Workpal misunderstands the task?",
+          "answer": "That's the beauty of the closed loop. The result comes back to you, not your client. Review it, edit it, or reply to Workpal with a quick correction and it'll redo it. Zero risk of an AI draft reaching the wrong person.",
+          "note": "NEW — not in original spec. Addresses the skeptic's #1 fear and turns closed loop into a safety net."
+        }
+      ]
+    },
+
+    {
+      "id": "bottom_cta_band",
+      "action": "ADD",
+      "position": "after faq, before footer",
+      "rationale": "Repeat CTA for users who scrolled the whole page. Dark background to contrast with the rest of the page.",
+      "layout": "Full-width dark card with centered content",
+      "headline": "Get your Workpal email address.",
+      "subtitle": "Start forwarding work in 60 seconds. Free, no credit card, and it never emails anyone but you.",
+      "input_placeholder": "Enter your work email...",
+      "cta_text": "Create my Workpal",
+      "trust_line": "Workpal can never contact your clients, team, or anyone else."
+    },
+
+    {
+      "id": "footer",
+      "action": "UPDATE",
+      "changes": [
+        {
+          "element": "tagline",
+          "new_text": "workpal.email — The AI that only talks to you."
+        },
+        {
+          "element": "links",
+          "new": ["Privacy", "Security", "Terms", "Contact"]
+        },
+        {
+          "element": "copyright",
+          "new_text": "© 2026 Workpal."
+        }
+      ]
+    }
+  ],
+
+  "global_notes": [
+    "The word 'closed loop' should appear at least 3 times on the page — hero visual, how-it-works subtitle, and FAQ.",
+    "Every CTA form should be email-only input. No LinkedIn URL field anywhere above the fold.",
+    "The demo preview section is the highest-priority new addition — it's the only place visitors see actual output quality before signing up.",
+    "Shield/lock iconography should be used consistently wherever safety/privacy is mentioned.",
+    "Keep existing clean/minimal design system. No new fonts or color overhauls needed."
+  ]
+}
