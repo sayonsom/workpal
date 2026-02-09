@@ -10,6 +10,7 @@ import {
   deactivateSkill,
   createSubSkill,
   deleteSubSkill,
+  createSkillFromYouTube,
 } from "@/lib/api";
 import type { CatalogSkill, SubSkill } from "@/lib/types";
 
@@ -92,6 +93,10 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
   const [subSkillName, setSubSkillName] = useState("");
   const [subSkillContent, setSubSkillContent] = useState("");
   const [savingSubSkill, setSavingSubSkill] = useState(false);
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [youtubeLoading, setYoutubeLoading] = useState(false);
+  const [youtubeResult, setYoutubeResult] = useState<string | null>(null);
+  const [youtubeError, setYoutubeError] = useState<string | null>(null);
 
   // ── Fetch data on mount ──
   const fetchData = useCallback(async () => {
@@ -182,6 +187,27 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
       // ignore
     } finally {
       setDeletingSubSkill(null);
+    }
+  }
+
+  async function handleYouTubeSkill() {
+    if (!youtubeUrl.trim()) return;
+    setYoutubeLoading(true);
+    setYoutubeResult(null);
+    setYoutubeError(null);
+    try {
+      const res = await createSkillFromYouTube(agentId, youtubeUrl.trim());
+      setYoutubeResult(
+        `✅ "${res.sub_skill.name}" added under ${res.skill_name}. ${res.classification.summary}`
+      );
+      setYoutubeUrl("");
+      // Refresh data to show the new skill/sub-skill
+      await fetchData();
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to process video";
+      setYoutubeError(msg);
+    } finally {
+      setYoutubeLoading(false);
     }
   }
 
@@ -387,6 +413,50 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
               );
             })}
           </div>
+        )}
+      </div>
+
+      {/* ═══════ SECTION: Learn from YouTube ═══════ */}
+      <div className="mb-8">
+        <h3 className="text-[16px] font-bold text-text-primary mb-3">
+          Learn from YouTube
+        </h3>
+        <p className="text-[13px] text-[var(--color-text-subtle)] mb-3">
+          Paste a tutorial video URL. Your Workpal will extract the knowledge and add it as a skill.
+        </p>
+        <div className="flex gap-2">
+          <input
+            type="url"
+            placeholder="https://youtube.com/watch?v=..."
+            value={youtubeUrl}
+            onChange={(e) => setYoutubeUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !youtubeLoading) handleYouTubeSkill();
+            }}
+            className="flex-1 h-9 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[14px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none"
+          />
+          <Button
+            variant="primary"
+            className="!text-[13px] !h-9 shrink-0"
+            onClick={handleYouTubeSkill}
+            disabled={youtubeLoading || !youtubeUrl.trim()}
+          >
+            {youtubeLoading ? (
+              <span className="flex items-center gap-2"><Spinner /> Processing...</span>
+            ) : (
+              "Add Skill"
+            )}
+          </Button>
+        </div>
+        {youtubeResult && (
+          <p className="mt-2 text-[13px] text-cta bg-cta/5 border border-cta/15 rounded-[6px] p-3">
+            {youtubeResult}
+          </p>
+        )}
+        {youtubeError && (
+          <p className="mt-2 text-[13px] text-danger bg-danger/5 border border-danger/15 rounded-[6px] p-3">
+            {youtubeError}
+          </p>
         )}
       </div>
 

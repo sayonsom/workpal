@@ -412,6 +412,24 @@ export async function deleteSubSkill(
   );
 }
 
+/** Create a sub-skill from a YouTube video. */
+export async function createSkillFromYouTube(
+  agentId: string,
+  url: string
+): Promise<{
+  message: string;
+  sub_skill: SubSkill;
+  skill_id: string;
+  skill_name: string;
+  classification: { is_educational: boolean; summary: string; confidence: number };
+  already_existed: boolean;
+}> {
+  return apiFetch(
+    `/agents/${agentId}/skills/youtube`,
+    { method: "POST", body: JSON.stringify({ url }) }
+  );
+}
+
 // ── Samples ──
 
 export async function getSamples(agentId: string): Promise<Sample[]> {
