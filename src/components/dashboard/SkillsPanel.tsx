@@ -11,6 +11,8 @@ import {
   createSubSkill,
   deleteSubSkill,
   createSkillFromYouTube,
+  fetchYouTubeTranscript,
+  extractYouTubeVideoId,
 } from "@/lib/api";
 import type { CatalogSkill, SubSkill } from "@/lib/types";
 
@@ -196,7 +198,20 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
     setYoutubeResult(null);
     setYoutubeError(null);
     try {
-      const res = await createSkillFromYouTube(agentId, youtubeUrl.trim());
+      // Step 1: Try to fetch transcript client-side (via our Vercel API route)
+      // This avoids YouTube blocking AWS Lambda IPs
+      const videoId = extractYouTubeVideoId(youtubeUrl.trim());
+      let transcript: string | null = null;
+      if (videoId) {
+        transcript = await fetchYouTubeTranscript(videoId);
+      }
+
+      // Step 2: Send URL + transcript to backend for classification
+      const res = await createSkillFromYouTube(
+        agentId,
+        youtubeUrl.trim(),
+        transcript || undefined
+      );
       setYoutubeResult(
         `✅ "${res.sub_skill.name}" added under ${res.skill_name}. ${res.classification.summary}`
       );

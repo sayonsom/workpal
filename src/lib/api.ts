@@ -412,10 +412,42 @@ export async function deleteSubSkill(
   );
 }
 
+/**
+ * Fetch YouTube transcript via our own Vercel-hosted API route.
+ * This avoids YouTube's cloud IP blocking since Vercel edge IPs are
+ * different from AWS Lambda IPs.
+ */
+export async function fetchYouTubeTranscript(videoId: string): Promise<string | null> {
+  try {
+    const resp = await fetch(`/api/youtube-transcript?videoId=${videoId}`);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    return data.transcript || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Extract YouTube video ID from a URL. */
+export function extractYouTubeVideoId(url: string): string | null {
+  const patterns = [
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+    /(?:https?:\/\/)?youtu\.be\/([a-zA-Z0-9_-]{11})/,
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
+
 /** Create a sub-skill from a YouTube video. */
 export async function createSkillFromYouTube(
   agentId: string,
-  url: string
+  url: string,
+  transcript?: string
 ): Promise<{
   message: string;
   sub_skill: SubSkill;
@@ -426,7 +458,7 @@ export async function createSkillFromYouTube(
 }> {
   return apiFetch(
     `/agents/${agentId}/skills/youtube`,
-    { method: "POST", body: JSON.stringify({ url }) }
+    { method: "POST", body: JSON.stringify({ url, transcript: transcript || null }) }
   );
 }
 
