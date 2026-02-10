@@ -32,8 +32,8 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="h-screen bg-[#FDFDFD] flex flex-col overflow-hidden">
-      {/* Top bar — logo area matches sidebar grey, rest is light */}
+    <div className="h-screen bg-[#F5F5F5] flex flex-col overflow-hidden">
+      {/* Top bar */}
       <header className="sticky top-0 z-40 h-[64px] bg-[#F5F5F5] shrink-0">
         <div className="h-full flex items-center">
           {/* Logo area — same width as sidebar */}
@@ -59,9 +59,9 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
             </a>
           </div>
 
-          {/* Search bar — aligned with main content */}
+          {/* Search bar — left-aligned with main content start */}
           {onSearchChange && (
-            <div className="flex-1 flex items-center px-4 sm:px-6">
+            <div className="flex-1 flex items-center pr-4">
               <div className="relative w-full max-w-[720px]">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
                   <SearchIcon />
@@ -103,8 +103,8 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
           {sidebar}
         </aside>
 
-        {/* Main content — light background */}
-        <main className="flex-1 overflow-y-auto custom-scrollbar bg-[#FDFDFD]">
+        {/* Main content — white with rounded top-left corner */}
+        <main className="flex-1 overflow-y-auto custom-scrollbar bg-white rounded-tl-2xl">
           <div className="px-4 sm:px-6 py-5">
             {children}
           </div>
