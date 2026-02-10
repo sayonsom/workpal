@@ -131,29 +131,29 @@ function InboxContent() {
       <InboxShell
         sidebar={
           <div className="flex flex-col h-full px-3 py-4">
-            <div className="h-10 rounded-full bg-[var(--color-surface-subtle)] animate-pulse mb-4" />
+            <div className="h-[42px] rounded-2xl bg-white animate-pulse mb-4" />
             <div className="space-y-1">
-              <div className="h-9 rounded-full bg-[var(--color-surface-subtle)] animate-pulse" />
-              <div className="h-9 rounded-full bg-[var(--color-surface-subtle)] animate-pulse w-3/4" />
-              <div className="h-9 rounded-full bg-[var(--color-surface-subtle)] animate-pulse w-3/4" />
+              <div className="h-9 rounded-full bg-[#EBEBEB] animate-pulse" />
+              <div className="h-9 rounded-full bg-[#EBEBEB] animate-pulse w-3/4" />
+              <div className="h-9 rounded-full bg-[#EBEBEB] animate-pulse w-3/4" />
             </div>
           </div>
         }
       >
         {/* Tab skeleton */}
         <div className="flex gap-0 border-b border-[var(--color-border-light)] mb-5">
-          <div className="h-4 w-12 rounded bg-[var(--color-surface-subtle)] animate-pulse mx-4 my-2.5" />
-          <div className="h-4 w-10 rounded bg-[var(--color-surface-subtle)] animate-pulse mx-4 my-2.5" />
-          <div className="h-4 w-14 rounded bg-[var(--color-surface-subtle)] animate-pulse mx-4 my-2.5" />
+          <div className="h-4 w-12 rounded bg-[#EBEBEB] animate-pulse mx-4 my-2.5" />
+          <div className="h-4 w-10 rounded bg-[#EBEBEB] animate-pulse mx-4 my-2.5" />
+          <div className="h-4 w-14 rounded bg-[#EBEBEB] animate-pulse mx-4 my-2.5" />
         </div>
         {/* Task row skeletons */}
         <div className="rounded-[8px] bg-white border border-[var(--color-border-light)] overflow-hidden divide-y divide-[var(--color-border-light)]">
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="flex items-center gap-3 px-4 py-3">
-              <div className="w-2 h-2 rounded-full bg-[var(--color-surface-subtle)] animate-pulse" />
-              <div className="h-4 w-[180px] rounded bg-[var(--color-surface-subtle)] animate-pulse" />
-              <div className="h-3 flex-1 rounded bg-[var(--color-surface-subtle)] animate-pulse" />
-              <div className="h-3 w-[50px] rounded bg-[var(--color-surface-subtle)] animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-[#EBEBEB] animate-pulse" />
+              <div className="h-4 w-[180px] rounded bg-[#EBEBEB] animate-pulse" />
+              <div className="h-3 flex-1 rounded bg-[#EBEBEB] animate-pulse" />
+              <div className="h-3 w-[50px] rounded bg-[#EBEBEB] animate-pulse" />
             </div>
           ))}
         </div>

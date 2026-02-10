@@ -118,10 +118,10 @@ export default function Sidebar({
   return (
     <>
       <div className="flex flex-col h-full px-3 py-4">
-        {/* Compose button */}
+        {/* Compose button — elevated on grey bg like Gmail */}
         <button
           onClick={() => setShowCompose(true)}
-          className="w-full h-10 rounded-full bg-white border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] text-[14px] font-medium text-text-primary flex items-center justify-center gap-2 hover:shadow-[var(--shadow-md)] hover:bg-[var(--color-surface-subtle)] transition-all duration-[180ms] cursor-pointer mb-4"
+          className="w-full h-[42px] rounded-2xl bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.06)] text-[14px] font-medium text-text-primary flex items-center justify-center gap-2 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] hover:bg-[#F8F8F8] transition-all duration-[180ms] cursor-pointer mb-4"
         >
           <span className="text-cta"><PencilIcon /></span>
           {INBOX.sidebar.compose}
@@ -136,10 +136,10 @@ export default function Sidebar({
               disabled={item.disabled}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-full text-[14px] transition-colors duration-[180ms] cursor-pointer ${
                 activeItem === item.key && !item.disabled
-                  ? "bg-cta/10 text-cta font-semibold"
+                  ? "bg-cta/15 text-cta font-semibold"
                   : item.disabled
                   ? "text-[var(--color-text-muted)] opacity-50 cursor-default"
-                  : "text-[var(--color-text-subtle)] hover:bg-[var(--color-surface-subtle)] hover:text-text-primary font-medium"
+                  : "text-[var(--color-text-subtle)] hover:bg-black/[0.04] hover:text-text-primary font-medium"
               }`}
             >
               {item.icon}
@@ -166,7 +166,7 @@ export default function Sidebar({
           href="https://medium.com/workpal"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-text-primary hover:bg-[var(--color-surface-subtle)] transition-colors duration-[180ms]"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-text-primary hover:bg-black/[0.04] transition-colors duration-[180ms]"
         >
           <BlogIcon />
           Blog
@@ -175,7 +175,7 @@ export default function Sidebar({
         {/* Settings */}
         <a
           href="/settings"
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-text-primary hover:bg-[var(--color-surface-subtle)] transition-colors duration-[180ms]"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-full text-[13px] text-[var(--color-text-muted)] hover:text-text-primary hover:bg-black/[0.04] transition-colors duration-[180ms]"
         >
           <GearIcon />
           Settings

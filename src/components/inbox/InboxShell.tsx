@@ -32,11 +32,12 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="h-screen bg-[#F6F6F6] flex flex-col overflow-hidden">
-      {/* Top bar */}
-      <header className="sticky top-0 z-40 h-12 bg-white border-b border-[var(--color-border-light)] shrink-0">
-        <div className="h-full flex items-center px-4 gap-4">
-          <div className="flex items-center gap-3 shrink-0">
+    <div className="h-screen bg-[#FDFDFD] flex flex-col overflow-hidden">
+      {/* Top bar — logo area matches sidebar grey, rest is light */}
+      <header className="sticky top-0 z-40 h-[64px] bg-[#F5F5F5] shrink-0">
+        <div className="h-full flex items-center">
+          {/* Logo area — same width as sidebar */}
+          <div className="shrink-0 w-[240px] flex items-center gap-3 px-4">
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -58,19 +59,21 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
             </a>
           </div>
 
-          {/* Search bar in top navbar */}
+          {/* Search bar — aligned with main content */}
           {onSearchChange && (
-            <div className="relative flex-1 max-w-[480px]">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
-                <SearchIcon />
+            <div className="flex-1 flex items-center px-4 sm:px-6">
+              <div className="relative w-full max-w-[720px]">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
+                  <SearchIcon />
+                </div>
+                <input
+                  type="text"
+                  placeholder={INBOX.search.placeholder}
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  className="w-full h-[46px] pl-11 pr-4 rounded-full bg-[#E9EEF6] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:bg-white focus:shadow-[var(--shadow-md)] focus:outline-none transition-all duration-[200ms]"
+                />
               </div>
-              <input
-                type="text"
-                placeholder={INBOX.search.placeholder}
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full h-8 pl-9 pr-3 rounded-full border border-[var(--color-border-light)] bg-[var(--color-surface-subtle)] text-[13px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-border-strong)] focus:bg-white focus:outline-none transition-all duration-[180ms]"
-              />
             </div>
           )}
         </div>
@@ -86,12 +89,12 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
           />
         )}
 
-        {/* Sidebar — fixed height, never scrolls with content */}
+        {/* Sidebar — grey background like Gmail */}
         <aside
           className={`
             fixed lg:relative z-30 lg:z-auto
-            w-[240px] shrink-0 bg-white border-r border-[var(--color-border-light)]
-            flex flex-col h-[calc(100vh-48px)]
+            w-[240px] shrink-0 bg-[#F5F5F5]
+            flex flex-col h-[calc(100vh-64px)]
             transition-transform duration-[240ms] ease-[var(--ease-default)]
             overflow-y-auto custom-scrollbar
             ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
@@ -100,8 +103,8 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
           {sidebar}
         </aside>
 
-        {/* Main content — full width */}
-        <main className="flex-1 overflow-y-auto custom-scrollbar">
+        {/* Main content — light background */}
+        <main className="flex-1 overflow-y-auto custom-scrollbar bg-[#FDFDFD]">
           <div className="px-4 sm:px-6 py-5">
             {children}
           </div>
