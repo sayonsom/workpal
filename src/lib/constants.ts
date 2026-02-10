@@ -887,7 +887,7 @@ export const INBOX = {
   tabs: {
     work: "Work",
     skills: "Skills",
-    samples: "Samples",
+    samples: "Personalize",
   },
   search: {
     placeholder: "Search tasks...",
