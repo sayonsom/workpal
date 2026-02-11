@@ -69,9 +69,21 @@ function BackIcon() {
   );
 }
 
+function UsersIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="6" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M1.5 14c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="11.5" cy="5.5" r="1.8" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M11.5 9c1.8 0 3.2 1.3 3.5 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const NAV_ITEMS = [
   { href: "/admin", label: "Review Queue", icon: QueueIcon, exact: true },
   { href: "/admin/dashboard", label: "Dashboard", icon: DashboardIcon, exact: true },
+  { href: "/admin/users", label: "Users", icon: UsersIcon, exact: false },
   { href: "/admin/audit", label: "Audit Log", icon: AuditIcon, exact: true },
 ];
 

@@ -51,6 +51,7 @@ import type {
   RejectRequest,
   AdminDashboard,
   AdminUsersResponse,
+  AdminUserDetail,
   AdminTask,
   AdminTasksResponse,
   AuditResponse,
@@ -676,6 +677,13 @@ export async function getAdminUsers(
   const params = new URLSearchParams({ limit: String(limit) });
   if (cursor) params.set("cursor", cursor);
   return apiFetch<AdminUsersResponse>(`/admin/users?${params}`);
+}
+
+/** Get admin user detail (full task history, reviews with traces, stats). */
+export async function getAdminUserDetail(
+  userId: string
+): Promise<AdminUserDetail> {
+  return apiFetch<AdminUserDetail>(`/admin/users/${userId}`);
 }
 
 /** Get admin task list (filterable). */

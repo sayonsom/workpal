@@ -310,8 +310,10 @@ export interface AdminUser {
   tasks_used: number;
   tasks_limit: number;
   plan: string;
-  agent_count?: number;
-  last_activity?: number;
+  agent_count: number;
+  last_task_at: number;
+  joined_at: number;
+  forwards_per_day: number;
 }
 
 export interface AdminUsersResponse {
@@ -360,6 +362,69 @@ export interface AuditEntry {
 export interface AuditResponse {
   entries: AuditEntry[];
   cursor: string | null;
+}
+
+// ── Admin User Detail ──
+
+export interface AdminAgent {
+  agent_id: string;
+  agent_email: string;
+  display_name: string;
+  status: string;
+  tasks_completed: number;
+  created_at: number;
+}
+
+export interface AdminUserReview {
+  review_id: string;
+  task_id: string;
+  agent_id: string;
+  status: string;
+  subject: string;
+  created_at: number;
+  reviewed_at: number;
+  complexity: string;
+  pipeline_trace: string;
+  attachment_metadata: AttachmentMeta[];
+  full_input: string;
+  full_output: string;
+  edited_output: string;
+  sender_email: string;
+  agent_email: string;
+}
+
+export interface AdminUserStats {
+  total_tasks: number;
+  total_with_attachments: number;
+  total_input_chars: number;
+  total_output_chars: number;
+  forwards_per_day: number;
+}
+
+export interface AdminUserDetail {
+  user_id: string;
+  email: string;
+  joined_at: number;
+  agent_count: number;
+  usage?: {
+    user_id: string;
+    tasks_used: number;
+    tasks_limit: number;
+    plan: string;
+    period_start?: number;
+  };
+  agents: AdminAgent[];
+  tasks: AdminTask[];
+  reviews: AdminUserReview[];
+  stats: AdminUserStats;
+}
+
+export interface PipelineTrace {
+  stage_times: Record<string, number>;
+  intake_result?: Record<string, unknown>;
+  plan_result?: Record<string, unknown>;
+  review_result?: Record<string, unknown>;
+  provenance_result?: Record<string, unknown>;
 }
 
 // ── Generic ──
