@@ -669,6 +669,40 @@ export async function rejectReview(
   });
 }
 
+/** Get a presigned S3 URL to download/view an attachment. */
+export async function getAttachmentDownloadUrl(
+  reviewId: string,
+  index: number
+): Promise<{ url: string; filename: string; content_type: string }> {
+  return apiFetch<{ url: string; filename: string; content_type: string }>(
+    `/admin/reviews/${reviewId}/attachments/${index}/download`
+  );
+}
+
+/** Replace an attachment with a new file. Uses FormData (not JSON). */
+export async function replaceAttachment(
+  reviewId: string,
+  index: number,
+  file: File
+): Promise<{ status: string; new_filename: string }> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const token = getAccessToken();
+  const res = await fetch(
+    `${API_BASE}/admin/reviews/${reviewId}/attachments/${index}/replace`,
+    {
+      method: "POST",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: formData,
+    }
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: "Upload failed" }));
+    throw new Error(err.detail || `Upload failed (${res.status})`);
+  }
+  return res.json();
+}
+
 /** Get admin user list. */
 export async function getAdminUsers(
   limit: number = 50,

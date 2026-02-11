@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import AdminGuard from "@/components/admin/AdminGuard";
 import AdminShell from "@/components/admin/AdminShell";
@@ -9,6 +9,8 @@ import {
   approveReview,
   rejectReview,
   getAdminDashboard,
+  getAttachmentDownloadUrl,
+  replaceAttachment,
 } from "@/lib/api";
 import type { ReviewRecord } from "@/lib/types";
 
@@ -88,6 +90,101 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
       {children}
+    </div>
+  );
+}
+
+function AttachmentRow({
+  att,
+  index,
+  reviewId,
+  isPending,
+  onReplaced,
+}: {
+  att: { filename: string; content_type: string; s3_key: string };
+  index: number;
+  reviewId: string;
+  isPending: boolean;
+  onReplaced: () => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [downloading, setDownloading] = useState(false);
+  const [replacing, setReplacing] = useState(false);
+  const [toast, setToast] = useState("");
+
+  async function handleDownload() {
+    setDownloading(true);
+    try {
+      const res = await getAttachmentDownloadUrl(reviewId, index);
+      window.open(res.url, "_blank");
+    } catch (err) {
+      setToast("Download failed");
+      setTimeout(() => setToast(""), 3000);
+    } finally {
+      setDownloading(false);
+    }
+  }
+
+  async function handleReplace(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setReplacing(true);
+    try {
+      await replaceAttachment(reviewId, index, file);
+      setToast("Replaced!");
+      setTimeout(() => setToast(""), 3000);
+      onReplaced();
+    } catch (err) {
+      setToast("Replace failed");
+      setTimeout(() => setToast(""), 3000);
+    } finally {
+      setReplacing(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  return (
+    <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-[var(--color-border-light)] bg-surface-subtle text-[13px]">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-[var(--color-text-muted)] shrink-0">
+        <path d="M4 2h5l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9 2v4h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <span className="text-text-primary font-medium truncate flex-1">{att.filename}</span>
+      <span className="text-[var(--color-text-muted)] text-[11px] shrink-0">{att.content_type.split("/").pop()}</span>
+
+      <button
+        onClick={handleDownload}
+        disabled={downloading}
+        className="ml-2 px-2 py-1 rounded text-[11px] font-semibold text-cta hover:text-cta-hover hover:bg-cta/5 transition-colors cursor-pointer disabled:opacity-50"
+        title="Download / Preview"
+      >
+        {downloading ? "..." : "Download"}
+      </button>
+
+      {isPending && (
+        <>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={replacing}
+            className="px-2 py-1 rounded text-[11px] font-semibold text-warning hover:bg-warning/5 transition-colors cursor-pointer disabled:opacity-50"
+            title="Upload replacement file"
+          >
+            {replacing ? "Uploading..." : "Replace"}
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            className="hidden"
+            onChange={handleReplace}
+          />
+        </>
+      )}
+
+      {toast && (
+        <span className={`text-[11px] font-semibold ${toast.includes("fail") ? "text-danger" : "text-success"}`}>
+          {toast}
+        </span>
+      )}
     </div>
   );
 }
@@ -322,19 +419,16 @@ function ReviewDetailContent() {
         {review.attachment_metadata && review.attachment_metadata.length > 0 && (
           <div className="mb-6">
             <SectionLabel>Attachments</SectionLabel>
-            <div className="flex flex-wrap gap-2">
+            <div className="space-y-2">
               {review.attachment_metadata.map((att, i) => (
-                <div
+                <AttachmentRow
                   key={i}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[var(--color-border-light)] bg-surface-subtle text-[13px]"
-                >
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-[var(--color-text-muted)]">
-                    <path d="M8 2v8M4 6l4-4 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                  <span className="text-text-primary">{att.filename}</span>
-                  <span className="text-[var(--color-text-muted)]">{att.content_type}</span>
-                </div>
+                  att={att}
+                  index={i}
+                  reviewId={review.review_id}
+                  isPending={review.status === "pending"}
+                  onReplaced={fetchReview}
+                />
               ))}
             </div>
           </div>
