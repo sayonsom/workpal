@@ -610,7 +610,16 @@ export async function checkAdminAccess(): Promise<boolean> {
   try {
     await apiFetch<AdminDashboard>("/admin/dashboard");
     return true;
-  } catch {
+  } catch (err) {
+    // Only treat 403 as "not admin". Other errors (500, network) should
+    // be retried or surfaced, but for now we treat 401 (expired session)
+    // and 403 (not admin) as definitive denials.
+    if (err instanceof ApiException && (err.status === 403 || err.status === 401)) {
+      return false;
+    }
+    // For other errors (404 = route not deployed, 500 = server error),
+    // log and return false so user isn't stuck.
+    console.error("[AdminGuard] checkAdminAccess failed:", err);
     return false;
   }
 }
