@@ -45,6 +45,15 @@ import type {
   RegisterPhoneRequest,
   PhoneStatusResponse,
   ApiError,
+  ReviewRecord,
+  ReviewsResponse,
+  ApproveRequest,
+  RejectRequest,
+  AdminDashboard,
+  AdminUsersResponse,
+  AdminTask,
+  AdminTasksResponse,
+  AuditResponse,
 } from "./types";
 
 const API_BASE = "https://lr90vna1b9.execute-api.us-west-2.amazonaws.com/prod";
@@ -592,4 +601,112 @@ export async function changePassword(
     method: "POST",
     body: JSON.stringify({ old_password, new_password }),
   });
+}
+
+// ── Admin endpoints ──
+
+/** Check if current user is an admin (returns 200 or 403). */
+export async function checkAdminAccess(): Promise<boolean> {
+  try {
+    await apiFetch<AdminDashboard>("/admin/dashboard");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Get admin dashboard summary. */
+export async function getAdminDashboard(): Promise<AdminDashboard> {
+  return apiFetch<AdminDashboard>("/admin/dashboard");
+}
+
+/** Get pending reviews (oldest first). */
+export async function getAdminReviews(
+  status?: string,
+  limit: number = 20,
+  cursor?: string
+): Promise<ReviewsResponse> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (status) params.set("status", status);
+  if (cursor) params.set("cursor", cursor);
+  return apiFetch<ReviewsResponse>(`/admin/reviews?${params}`);
+}
+
+/** Get a single review by ID. */
+export async function getAdminReview(reviewId: string): Promise<ReviewRecord> {
+  return apiFetch<ReviewRecord>(`/admin/reviews/${reviewId}`);
+}
+
+/** Approve a review (optionally with edited output). */
+export async function approveReview(
+  reviewId: string,
+  data?: ApproveRequest
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(`/admin/reviews/${reviewId}/approve`, {
+    method: "POST",
+    body: JSON.stringify(data ?? {}),
+  });
+}
+
+/** Reject a review (optionally with a reason). */
+export async function rejectReview(
+  reviewId: string,
+  data?: RejectRequest
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(`/admin/reviews/${reviewId}/reject`, {
+    method: "POST",
+    body: JSON.stringify(data ?? {}),
+  });
+}
+
+/** Get admin user list. */
+export async function getAdminUsers(
+  limit: number = 50,
+  cursor?: string
+): Promise<AdminUsersResponse> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (cursor) params.set("cursor", cursor);
+  return apiFetch<AdminUsersResponse>(`/admin/users?${params}`);
+}
+
+/** Get admin task list (filterable). */
+export async function getAdminTasks(
+  agentId?: string,
+  userId?: string,
+  limit: number = 20,
+  cursor?: string
+): Promise<AdminTasksResponse> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (agentId) params.set("agent_id", agentId);
+  if (userId) params.set("user_id", userId);
+  if (cursor) params.set("cursor", cursor);
+  return apiFetch<AdminTasksResponse>(`/admin/tasks?${params}`);
+}
+
+/** Get a single task with full input/output (admin view). */
+export async function getAdminTask(
+  agentId: string,
+  taskId: string
+): Promise<AdminTask> {
+  return apiFetch<AdminTask>(`/admin/tasks/${agentId}/${taskId}`);
+}
+
+/** Get pipeline trace for a task. */
+export async function getAdminTaskTrace(
+  agentId: string,
+  taskId: string
+): Promise<Record<string, unknown>> {
+  return apiFetch<Record<string, unknown>>(`/admin/tasks/${agentId}/${taskId}/trace`);
+}
+
+/** Get audit log. */
+export async function getAdminAudit(
+  action?: string,
+  limit: number = 50,
+  cursor?: string
+): Promise<AuditResponse> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (action) params.set("action", action);
+  if (cursor) params.set("cursor", cursor);
+  return apiFetch<AuditResponse>(`/admin/audit?${params}`);
 }

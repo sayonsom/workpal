@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /** Routes that require authentication */
-const PROTECTED = ["/inbox", "/settings"];
+const PROTECTED = ["/inbox", "/settings", "/admin"];
 
 /** Routes that authenticated users should skip (redirect to inbox) */
 const AUTH_PAGES = ["/login"];
@@ -41,5 +41,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/inbox/:path*", "/settings/:path*", "/login", "/"],
+  matcher: ["/inbox/:path*", "/settings/:path*", "/admin/:path*", "/login", "/"],
 };

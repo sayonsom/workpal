@@ -250,6 +250,118 @@ export interface PhoneStatusResponse {
   twilio_number: string;
 }
 
+// ── Admin / Review Gate ──
+
+export interface ReviewRecord {
+  review_id: string;
+  task_id: string;
+  agent_id: string;
+  project_id: string;
+  user_id: string;
+  status: "pending" | "approved" | "rejected";
+  created_at: number;
+  reviewed_at: number;
+  reviewed_by: string;
+  full_input: string;
+  full_output: string;
+  edited_output: string;
+  reject_reason: string;
+  parsed_email_json: string;
+  agent_email: string;
+  custom_message_id: string;
+  pipeline_trace: string;
+  attachment_s3_keys: string[];
+  attachment_metadata: AttachmentMeta[];
+  sender_email: string;
+  subject: string;
+  complexity: string;
+}
+
+export interface AttachmentMeta {
+  filename: string;
+  content_type: string;
+  s3_key: string;
+}
+
+export interface ReviewsResponse {
+  reviews: ReviewRecord[];
+  cursor: string | null;
+}
+
+export interface ApproveRequest {
+  edited_output?: string;
+}
+
+export interface RejectRequest {
+  reason?: string;
+}
+
+export interface AdminDashboard {
+  pending_reviews: number;
+  total_reviews: number;
+  total_agents: number;
+  total_users: number;
+  recent_reviews: ReviewRecord[];
+}
+
+export interface AdminUser {
+  user_id: string;
+  email: string;
+  tasks_used: number;
+  tasks_limit: number;
+  plan: string;
+  agent_count?: number;
+  last_activity?: number;
+}
+
+export interface AdminUsersResponse {
+  users: AdminUser[];
+  cursor: string | null;
+}
+
+export interface AdminTask {
+  task_id: string;
+  agent_id: string;
+  user_id: string;
+  sender_email: string;
+  subject: string;
+  status: string;
+  created_at: number;
+  completed_at: number;
+  input_chars: number;
+  output_chars: number;
+  has_attachments: boolean;
+  attachment_names: string[];
+  input_summary: string;
+  output_summary: string;
+  thread_id: string;
+  parent_task_id: string;
+  reply_message_id: string;
+  full_input: string;
+  full_output: string;
+}
+
+export interface AdminTasksResponse {
+  tasks: AdminTask[];
+  cursor: string | null;
+}
+
+export interface AuditEntry {
+  audit_id: string;
+  timestamp: number;
+  admin_id: string;
+  action: string;
+  resource_type: string;
+  resource_id: string;
+  details: string;
+  ip_address: string;
+}
+
+export interface AuditResponse {
+  entries: AuditEntry[];
+  cursor: string | null;
+}
+
 // ── Generic ──
 
 export interface ApiError {
