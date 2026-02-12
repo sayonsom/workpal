@@ -844,10 +844,18 @@ export const SUCCESS_MODAL = {
 } as const;
 
 export const SIGNUP_MODAL = {
-  successStep: {
+  inviteStep: {
     heading: "Your Workpal is ready!",
-    subHeading: "Start forwarding emails like these:",
-    agentEmailLabel: "Your Workpal email",
+    subHeading: "Forward emails to your personal AI assistant:",
+    referralHeading: "Get 1 month of Premium free",
+    referralBody:
+      "Share your invite link with friends. When they sign up, you both get 1 month of Premium \u2014 unlimited forwards, custom document styles, and domain skills.",
+    copyLabel: "Copy Link",
+    copiedLabel: "Copied!",
+    nextButton: "Next \u2014 See What You Can Do",
+  },
+  examplesStep: {
+    heading: "Start forwarding emails like these:",
     setPasswordButton: "Set Your Password",
     setPasswordNote:
       "You\u2019ll receive a separate password code at your email.",
@@ -884,12 +892,6 @@ export const SIGNUP_MODAL = {
         description: "Forward raw data \u2014 get it organized and analyzed",
       },
     ],
-    referralBanner: {
-      heading: "Get 1 month of Premium free",
-      body: "Share your invite link with friends. When they sign up, you both get 1 month of Premium (unlimited forwards, custom document styles, domain skills).",
-      copyLabel: "Copy",
-      copiedLabel: "Copied!",
-    },
   },
 } as const;
 
