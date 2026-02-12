@@ -31,17 +31,6 @@ export interface ReferralInfo {
   premium_until: number;
 }
 
-export interface VerifyCodeRequest {
-  email: string;
-  code: string;
-}
-
-export interface VerifyCodeResponse {
-  verified: boolean;
-  agent_email: string;
-  message: string;
-}
-
 export interface LoginRequest {
   email: string;
   password: string;

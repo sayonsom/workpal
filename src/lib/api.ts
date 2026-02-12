@@ -14,7 +14,6 @@ import {
 import type {
   SignupRequest,
   SignupResponse,
-  VerifyCodeResponse,
   LoginRequest,
   LoginResponse,
   RefreshResponse,
@@ -203,32 +202,6 @@ export async function signup(data: SignupRequest): Promise<SignupResponse> {
   );
 }
 
-export async function verifyCode(
-  email: string,
-  code: string
-): Promise<VerifyCodeResponse> {
-  return apiFetch<VerifyCodeResponse>(
-    "/verify-code",
-    {
-      method: "POST",
-      body: JSON.stringify({ email, code }),
-    },
-    false
-  );
-}
-
-export async function resendVerificationCode(
-  email: string
-): Promise<{ message: string }> {
-  return apiFetch<{ message: string }>(
-    "/resend-verification",
-    {
-      method: "POST",
-      body: JSON.stringify({ email }),
-    },
-    false
-  );
-}
 
 export async function login(data: LoginRequest): Promise<LoginResponse> {
   const result = await apiFetch<LoginResponse>(

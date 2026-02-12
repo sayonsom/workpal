@@ -844,20 +844,6 @@ export const SUCCESS_MODAL = {
 } as const;
 
 export const SIGNUP_MODAL = {
-  codeStep: {
-    heading: "Check your email",
-    senderInfo: "We sent a 6-digit code from",
-    senderAddress: "Workpal (noreply@workpal.email)",
-    spamWarning:
-      "Don\u2019t see it? Check your Updates, Promotions, or Spam folder.",
-    verifyButton: "Verify Code",
-    verifyingButton: "Verifying...",
-    resendPrompt: "Didn\u2019t get it?",
-    resendButton: "Resend code",
-    resendingButton: "Sending...",
-    resendSuccess: "A new code has been sent to your email.",
-    resendFailed: "Failed to resend. Please try again.",
-  },
   successStep: {
     heading: "Your Workpal is ready!",
     subHeading: "Start forwarding emails like these:",
