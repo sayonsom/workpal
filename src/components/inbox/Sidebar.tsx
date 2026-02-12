@@ -143,27 +143,6 @@ export default function Sidebar({
   return (
     <>
       <div className="flex flex-col h-full px-3 py-4">
-        {/* Premium badge */}
-        {isPremium && (
-          <div className="mb-3 px-2">
-            <div className="flex items-center gap-1.5 animate-premium-badge">
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#dcfce7] text-[11px] font-bold text-cta tracking-wide uppercase">
-                Premium
-              </span>
-            </div>
-            {referralCode && (
-              <button
-                type="button"
-                onClick={handleCopyReferral}
-                className="mt-1.5 flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] hover:text-cta transition-colors duration-[180ms] cursor-pointer"
-              >
-                <GiftIcon />
-                {referralCopied ? "Link copied!" : "Invite friends \u2014 earn more months"}
-              </button>
-            )}
-          </div>
-        )}
-
         {/* Compose button — elevated on grey bg like Gmail */}
         <button
           onClick={() => setShowCompose(true)}
@@ -206,6 +185,27 @@ export default function Sidebar({
 
         {/* Spacer */}
         <div className="flex-1" />
+
+        {/* Pro badge + referral */}
+        {isPremium && (
+          <div className="mb-2 px-2">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#dcfce7] text-[11px] font-bold text-cta tracking-wide uppercase">
+                Pro
+              </span>
+            </div>
+            {referralCode && (
+              <button
+                type="button"
+                onClick={handleCopyReferral}
+                className="mt-1.5 flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] hover:text-cta transition-colors duration-[180ms] cursor-pointer"
+              >
+                <GiftIcon />
+                {referralCopied ? "Link copied!" : "Invite friends \u2014 earn more months"}
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Blog link */}
         <a

@@ -10,6 +10,7 @@ import TaskDetail from "@/components/inbox/TaskDetail";
 import FirstTimeGuide from "@/components/inbox/FirstTimeGuide";
 import SkillsPanel from "@/components/dashboard/SkillsPanel";
 import SamplesPanel from "@/components/dashboard/SamplesPanel";
+import PersonalizePanel from "@/components/dashboard/PersonalizePanel";
 import { getAgents, getAgentTasks, getReferralInfo } from "@/lib/api";
 import { clearTokens } from "@/lib/auth";
 import { INBOX } from "@/lib/constants";
@@ -257,7 +258,11 @@ function InboxContent() {
       )}
 
       {activeTab === "samples" && agentId && (
-        <SamplesPanel agentId={agentId} />
+        <>
+          <PersonalizePanel agentId={agentId} />
+          <hr className="my-8 border-[var(--color-border-light)]" />
+          <SamplesPanel agentId={agentId} />
+        </>
       )}
     </InboxShell>
   );
