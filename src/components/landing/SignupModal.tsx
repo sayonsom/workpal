@@ -35,14 +35,6 @@ function ArrowRightIcon() {
   );
 }
 
-function StepCheckIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M4 8.5l3 3L12 5" stroke="#2BAC76" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function WarningIcon({ className = "" }: { className?: string }) {
   return (
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className={className}>
@@ -52,16 +44,69 @@ function WarningIcon({ className = "" }: { className?: string }) {
   );
 }
 
+/* ── Example icons (small 16x16) ── */
+
+function ExampleIcon({ type }: { type: string }) {
+  const cls = "text-cta";
+  switch (type) {
+    case "document":
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={cls}>
+          <path d="M4 1h5l4 4v10H4V1z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+          <path d="M9 1v4h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6 8h4M6 10.5h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        </svg>
+      );
+    case "person":
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={cls}>
+          <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M2 14c0-3.3 2.7-5 6-5s6 1.7 6 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        </svg>
+      );
+    case "research":
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={cls}>
+          <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        </svg>
+      );
+    case "slides":
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={cls}>
+          <rect x="1.5" y="2" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M8 11v3M5 14h6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        </svg>
+      );
+    case "mail":
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={cls}>
+          <rect x="1.5" y="3" width="13" height="10" rx="2" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M1.5 5l6.5 4 6.5-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "table":
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={cls}>
+          <rect x="1.5" y="2" width="13" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+          <path d="M1.5 6h13M1.5 10h13M6 6v8M10 6v8" stroke="currentColor" strokeWidth="1.3" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
 /* ── Types ── */
 
 type Step = "code" | "success";
-type SuccessTab = "tutorial" | "desktop" | "phone";
 
 interface SignupModalProps {
   open: boolean;
   onClose: () => void;
   email: string;
   agentEmail: string;
+  referralCode?: string;
 }
 
 /* ── Component ── */
@@ -71,6 +116,7 @@ export default function SignupModal({
   onClose,
   email,
   agentEmail,
+  referralCode = "",
 }: SignupModalProps) {
   const router = useRouter();
 
@@ -85,8 +131,8 @@ export default function SignupModal({
   const [resendMessage, setResendMessage] = useState("");
   const codeInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Success tab state
-  const [activeTab, setActiveTab] = useState<SuccessTab>("desktop");
+  // Referral copy state
+  const [copied, setCopied] = useState(false);
 
   /* ── Code input handlers ── */
 
@@ -156,13 +202,13 @@ export default function SignupModal({
     router.push(`/set-password?email=${encodeURIComponent(email)}`);
   }
 
-  /* ── Tab config ── */
-
-  const tabs: { key: SuccessTab; label: string }[] = [
-    { key: "tutorial", label: SUCCESS_MODAL.tabs.tutorial.label },
-    { key: "desktop", label: SUCCESS_MODAL.tabs.desktop.label },
-    { key: "phone", label: SUCCESS_MODAL.tabs.phone.label },
-  ];
+  function handleCopyReferral() {
+    const link = `https://workpal.email?ref=${referralCode}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
 
   return (
     <Modal open={open} onClose={onClose} ariaLabel="Verify your Workpal account">
@@ -253,71 +299,71 @@ export default function SignupModal({
         {step === "success" && (
           <div>
             {/* Header */}
-            <div className="text-center mb-6">
+            <div className="text-center mb-5">
               <div className="flex justify-center mb-3">
                 <CheckCircleIcon />
               </div>
               <h2 className="text-[24px] font-bold text-text-primary">
                 {SIGNUP_MODAL.successStep.heading}
               </h2>
-              <p className="mt-1 text-[14px] text-[var(--color-text-subtle)]">
-                {SIGNUP_MODAL.successStep.subHeading}
-              </p>
               <p className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#dcfce7] text-[14px] font-bold text-cta">
                 {agentEmail}
               </p>
+              <p className="mt-2 text-[14px] text-[var(--color-text-subtle)]">
+                {SIGNUP_MODAL.successStep.subHeading}
+              </p>
             </div>
 
-            {/* Tab bar */}
-            <div className="flex gap-0 border-b border-[var(--color-border-light)] mb-4">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`flex-1 px-3 py-2.5 text-[13px] font-bold border-b-2 transition-colors duration-[180ms] cursor-pointer text-center ${
-                    activeTab === tab.key
-                      ? "border-cta text-cta"
-                      : "border-transparent text-[var(--color-text-subtle)] hover:text-text-primary"
-                  }`}
+            {/* Email examples grid */}
+            <div className="grid grid-cols-2 gap-2.5 mb-5">
+              {SIGNUP_MODAL.successStep.examples.map((ex, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-2.5 p-2.5 rounded-[8px] border border-[var(--color-border-light)] bg-surface-subtle hover:border-cta/30 transition-colors duration-[120ms]"
                 >
-                  {tab.label}
-                </button>
+                  <div className="shrink-0 w-7 h-7 rounded-full bg-[#dcfce7] flex items-center justify-center mt-0.5">
+                    <ExampleIcon type={ex.icon} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-bold text-text-primary leading-tight">
+                      {ex.title}
+                    </p>
+                    <p className="text-[11px] text-[var(--color-text-subtle)] leading-[1.4] mt-0.5">
+                      {ex.description}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
 
-            {/* Tab content */}
-            <div className="min-h-[140px] mb-6">
-              {activeTab === "tutorial" && (
-                <div className="flex items-center justify-center rounded-[8px] border-2 border-dashed border-[var(--color-border-light)] bg-surface-subtle aspect-video">
-                  <p className="text-[14px] text-[var(--color-text-muted)]">
-                    {SUCCESS_MODAL.tabs.tutorial.placeholder}
-                  </p>
+            {/* Referral banner */}
+            {referralCode && (
+              <div className="mb-4 p-3 rounded-[8px] bg-[#F0F9FF] border border-[#2980B9]/20">
+                <p className="text-[13px] font-bold text-text-primary">
+                  {SIGNUP_MODAL.successStep.referralBanner.heading}
+                </p>
+                <p className="text-[12px] text-[var(--color-text-subtle)] mt-1 leading-[1.5]">
+                  {SIGNUP_MODAL.successStep.referralBanner.body}
+                </p>
+                <div className="flex items-center gap-2 mt-2">
+                  <code className="flex-1 px-2 py-1.5 text-[12px] bg-white rounded border border-[var(--color-border-light)] truncate text-text-primary">
+                    workpal.email?ref={referralCode}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={handleCopyReferral}
+                    className="shrink-0 px-3 py-1.5 text-[12px] font-bold rounded-[6px] bg-cta text-white hover:bg-[#006B4F] transition-colors duration-[120ms] cursor-pointer"
+                  >
+                    {copied
+                      ? SIGNUP_MODAL.successStep.referralBanner.copiedLabel
+                      : SIGNUP_MODAL.successStep.referralBanner.copyLabel}
+                  </button>
                 </div>
-              )}
-              {activeTab === "desktop" && (
-                <ul className="space-y-3">
-                  {SUCCESS_MODAL.tabs.desktop.steps.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <span className="shrink-0 mt-0.5"><StepCheckIcon /></span>
-                      <span className="text-[14px] text-text-primary leading-[1.4]">{s}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {activeTab === "phone" && (
-                <ul className="space-y-3">
-                  {SUCCESS_MODAL.tabs.phone.steps.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <span className="shrink-0 mt-0.5"><StepCheckIcon /></span>
-                      <span className="text-[14px] text-text-primary leading-[1.4]">{s}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Actions */}
-            <div className="border-t border-[var(--color-border-light)] pt-5 space-y-3">
+            <div className="border-t border-[var(--color-border-light)] pt-4 space-y-3">
               <Button
                 variant="primary"
                 className="w-full h-11 text-[14px]"

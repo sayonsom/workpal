@@ -335,7 +335,7 @@ export const FAQ = {
     {
       question: "How much does it cost?",
       answer:
-        "Workpal is free for up to 10 forwards per month. Pro is $12/month for unlimited forwards with style learning and contact memory.",
+        "Workpal is free for up to 20 forwards per month. Invite friends to unlock Premium \u2014 unlimited forwards, custom document design, and domain-specific skills. Both you and your friend get 1 month of Premium free.",
     },
     {
       question: "Can Workpal match different writing styles for different people?",
@@ -860,12 +860,50 @@ export const SIGNUP_MODAL = {
   },
   successStep: {
     heading: "Your Workpal is ready!",
-    subHeading: "Here\u2019s how to get started.",
+    subHeading: "Start forwarding emails like these:",
     agentEmailLabel: "Your Workpal email",
     setPasswordButton: "Set Your Password",
     setPasswordNote:
       "You\u2019ll receive a separate password code at your email.",
     startForwardingButton: "Start Forwarding from Gmail",
+    examples: [
+      {
+        icon: "document",
+        title: "Contract Review",
+        description: "Forward a contract \u2014 get key risks flagged in minutes",
+      },
+      {
+        icon: "person",
+        title: "Resume / CV Update",
+        description: "Forward your resume with changes \u2014 get a polished version back",
+      },
+      {
+        icon: "research",
+        title: "Research Paper Review",
+        description: "Forward a paper \u2014 get a structured summary with key findings",
+      },
+      {
+        icon: "slides",
+        title: "Presentation Draft",
+        description: "Describe what you need \u2014 get a complete slide deck attached",
+      },
+      {
+        icon: "mail",
+        title: "Newsletter Draft",
+        description: "Forward content ideas \u2014 get a polished newsletter draft",
+      },
+      {
+        icon: "table",
+        title: "Excel / Data Work",
+        description: "Forward raw data \u2014 get it organized and analyzed",
+      },
+    ],
+    referralBanner: {
+      heading: "Get 1 month of Premium free",
+      body: "Share your invite link with friends. When they sign up, you both get 1 month of Premium (unlimited forwards, custom document styles, domain skills).",
+      copyLabel: "Copy",
+      copiedLabel: "Copied!",
+    },
   },
 } as const;
 

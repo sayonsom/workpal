@@ -55,6 +55,7 @@ import type {
   AdminTask,
   AdminTasksResponse,
   AuditResponse,
+  ReferralInfo,
 } from "./types";
 
 const API_BASE = "https://lr90vna1b9.execute-api.us-west-2.amazonaws.com/prod";
@@ -323,6 +324,12 @@ export async function getTaskDetail(
 
 export async function getUsage(): Promise<UsageStats> {
   return apiFetch<UsageStats>("/usage");
+}
+
+// ── Referral ──
+
+export async function getReferralInfo(): Promise<ReferralInfo> {
+  return apiFetch<ReferralInfo>("/referral");
 }
 
 // ── Skills ──

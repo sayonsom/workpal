@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import { HERO } from "@/lib/constants";
@@ -185,7 +186,11 @@ function emailToUsername(email: string): string {
 }
 
 /* ── Hero Section ── */
-export default function Hero() {
+function HeroContent() {
+  // Referral code from URL (?ref=XXXX)
+  const searchParams = useSearchParams();
+  const refCode = searchParams.get("ref") || "";
+
   // Form state
   const [email, setEmail] = useState("");
   const [workpalPrefix, setWorkpalPrefix] = useState("");
@@ -196,6 +201,7 @@ export default function Hero() {
   // Signup modal state
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [signupAgentEmail, setSignupAgentEmail] = useState("");
+  const [signupReferralCode, setSignupReferralCode] = useState("");
 
   // Error toast
   const [toastError, setToastError] = useState("");
@@ -269,7 +275,12 @@ export default function Hero() {
     setLoading(true);
     setShowToast(false);
     try {
-      const result = await signup({ email, password: "", workpal_handle: activePrefix });
+      const result = await signup({
+        email,
+        password: "",
+        workpal_handle: activePrefix,
+        referral_code: refCode || undefined,
+      });
       // Update beta counter (non-critical)
       try {
         const counterRes = await fetch("/api/beta-count", { method: "POST" });
@@ -280,6 +291,7 @@ export default function Hero() {
       } catch { /* non-critical */ }
       // Open verification modal
       setSignupAgentEmail(result.agent_email);
+      setSignupReferralCode(result.referral_code || "");
       setShowSignupModal(true);
     } catch (err) {
       if (err instanceof ApiException && err.status === 409) {
@@ -511,6 +523,7 @@ export default function Hero() {
         onClose={() => setShowSignupModal(false)}
         email={email}
         agentEmail={signupAgentEmail}
+        referralCode={signupReferralCode}
       />
 
       {/* Error toast */}
@@ -521,5 +534,13 @@ export default function Hero() {
         onClose={() => setShowToast(false)}
       />
     </section>
+  );
+}
+
+export default function Hero() {
+  return (
+    <Suspense>
+      <HeroContent />
+    </Suspense>
   );
 }

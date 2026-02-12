@@ -11,6 +11,7 @@ export interface SignupRequest {
   workpal_handle?: string;
   profile_text?: string;
   name?: string;
+  referral_code?: string;
 }
 
 export interface SignupResponse {
@@ -19,6 +20,15 @@ export interface SignupResponse {
   display_name: string;
   message: string;
   pending_verification: boolean;
+  referral_code?: string;
+}
+
+export interface ReferralInfo {
+  referral_code: string;
+  referral_link: string;
+  referral_count: number;
+  is_premium: boolean;
+  premium_until: number;
 }
 
 export interface VerifyCodeRequest {
