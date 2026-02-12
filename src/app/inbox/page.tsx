@@ -7,9 +7,10 @@ import InboxShell from "@/components/inbox/InboxShell";
 import Sidebar from "@/components/inbox/Sidebar";
 import TaskList from "@/components/inbox/TaskList";
 import TaskDetail from "@/components/inbox/TaskDetail";
+import FirstTimeGuide from "@/components/inbox/FirstTimeGuide";
 import SkillsPanel from "@/components/dashboard/SkillsPanel";
 import SamplesPanel from "@/components/dashboard/SamplesPanel";
-import { getAgents, getAgentTasks } from "@/lib/api";
+import { getAgents, getAgentTasks, getReferralInfo } from "@/lib/api";
 import { clearTokens } from "@/lib/auth";
 import { INBOX } from "@/lib/constants";
 import type { Agent, Task } from "@/lib/types";
@@ -26,11 +27,26 @@ function InboxContent() {
   const [nextCursor, setNextCursor] = useState<string | undefined>();
   const [hasMore, setHasMore] = useState(false);
 
+  // ── Premium / Referral state ──
+  const [isPremium, setIsPremium] = useState(false);
+  const [referralCode, setReferralCode] = useState("");
+
   // ── UI state ──
   const [activeTab, setActiveTab] = useState<Tab>("work");
   const [activeSidebarItem, setActiveSidebarItem] = useState<"inbox" | "sent" | "trash">("inbox");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // ── Onboarding guide state ──
+  const [onboardingDismissed, setOnboardingDismissed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("workpal_onboarding_complete") === "true";
+  });
+
+  function handleDismissOnboarding() {
+    setOnboardingDismissed(true);
+    localStorage.setItem("workpal_onboarding_complete", "true");
+  }
 
   // ── Loading state ──
   const [loadingAgents, setLoadingAgents] = useState(true);
@@ -55,6 +71,13 @@ function InboxContent() {
 
   useEffect(() => {
     fetchAgents();
+    // Fetch referral/premium info (non-blocking)
+    getReferralInfo()
+      .then((info) => {
+        setIsPremium(info.is_premium);
+        setReferralCode(info.referral_code);
+      })
+      .catch(() => { /* non-critical */ });
   }, [fetchAgents]);
 
   // ── Fetch tasks when agent changes ──
@@ -173,10 +196,13 @@ function InboxContent() {
           inboxCount={tasks.length}
           agentEmail={agentEmail}
           onLogout={handleLogout}
+          isPremium={isPremium}
+          referralCode={referralCode}
         />
       }
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
+      isPremium={isPremium}
     >
       {/* Tab bar — clean, subtle underline style */}
       <div className="flex gap-0 border-b border-[var(--color-border-light)] mb-5">
@@ -205,6 +231,14 @@ function InboxContent() {
       {activeTab === "work" && (
         selectedTask ? (
           <TaskDetail task={selectedTask} onBack={handleBackToList} />
+        ) : !loadingTasks && tasks.length === 0 && !onboardingDismissed ? (
+          <FirstTimeGuide
+            agentEmail={agentEmail}
+            onSwitchTab={(tab) => {
+              setActiveTab(tab === "skills" ? "skills" : "samples");
+            }}
+            onDismiss={handleDismissOnboarding}
+          />
         ) : (
           <TaskList
             tasks={filteredTasks}

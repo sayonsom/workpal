@@ -26,9 +26,10 @@ interface InboxShellProps {
   children: React.ReactNode;
   searchQuery?: string;
   onSearchChange?: (value: string) => void;
+  isPremium?: boolean;
 }
 
-export default function InboxShell({ sidebar, children, searchQuery = "", onSearchChange }: InboxShellProps) {
+export default function InboxShell({ sidebar, children, searchQuery = "", onSearchChange, isPremium = false }: InboxShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -56,6 +57,11 @@ export default function InboxShell({ sidebar, children, searchQuery = "", onSear
               <span className="text-[17px] font-bold text-text-primary hidden sm:inline">
                 {SITE.nameLower}
               </span>
+              {isPremium && (
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded-[4px] bg-cta text-white text-[9px] font-bold tracking-wider uppercase leading-none">
+                  PRO
+                </span>
+              )}
             </a>
           </div>
 

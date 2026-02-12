@@ -19,7 +19,7 @@ export const NAV = {
 
 export const HERO = {
   badge: "Your private AI email address",
-  headline: "The AI colleague who only talks to you.",
+  headline: "No Prompt Productivity.",
   headlineSub: "Forward any email. Get the work done. No apps, no prompts, no inbox access.",
   subtext:
     "Workpal reads context like a smart colleague would \u2014 contracts, long threads, messy attachments. It drafts replies in your voice, flags what matters, and learns how you work. The more you use it, the better it gets.",
@@ -844,21 +844,37 @@ export const SUCCESS_MODAL = {
 } as const;
 
 export const SIGNUP_MODAL = {
-  inviteStep: {
-    heading: "Your Workpal is ready!",
+  celebrateStep: {
+    heading: "You\u2019ve got 3 months of Premium Workpal!",
     subHeading: "Forward emails to your personal AI assistant:",
-    referralHeading: "Get 1 month of Premium free",
+    premiumFeatures: [
+      "Unlimited forwards per month",
+      "Deep-work tasks (contracts, documents, analysis)",
+      "Context building \u2014 learns your voice over time",
+    ],
+    referralHeading: "Invite friends, both get 1 month",
     referralBody:
-      "Share your invite link with friends. When they sign up, you both get 1 month of Premium \u2014 unlimited forwards, custom document styles, and domain skills.",
+      "Share your invite link. When they sign up, you both get 1 extra month of Premium.",
     copyLabel: "Copy Link",
     copiedLabel: "Copied!",
-    nextButton: "Next \u2014 See What You Can Do",
+    contactsReminder: "Add this address to your contacts so replies don\u2019t land in spam.",
+    continueButton: "Continue",
   },
-  examplesStep: {
+  passwordStep: {
+    heading: "Secure your account",
+    subHeading: "Set a password so you can log in later.",
+    sendingCode: "Sending verification code...",
+    codeSent: "A 6-digit code was sent to your email.",
+    codePlaceholder: "6-digit code",
+    passwordPlaceholder: "Min 8 characters",
+    confirmPlaceholder: "Re-enter password",
+    submitButton: "Set Password",
+    skipNote: "Skip for now",
+    resendCode: "Resend code",
+  },
+  customizeStep: {
     heading: "Start forwarding emails like these:",
-    setPasswordButton: "Set Your Password",
-    setPasswordNote:
-      "You\u2019ll receive a separate password code at your email.",
+    customizeButton: "Customize Your Workpal",
     startForwardingButton: "Start Forwarding from Gmail",
     examples: [
       {

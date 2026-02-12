@@ -556,6 +556,26 @@ export default function SkillsPanel({ agentId }: SkillsPanelProps) {
         )}
       </section>
 
+      {/* ═══════ Popular this week banner ═══════ */}
+      <section className="mb-6">
+        <div className="rounded-[10px] bg-[#FFFBEB] border border-[#ECB22E]/20 px-4 py-3">
+          <p className="text-[12px] font-bold text-[#92700C] uppercase tracking-wide mb-1.5">
+            Popular this week
+          </p>
+          <div className="space-y-1.5">
+            {[
+              { name: "Professional Writing", count: 43 },
+              { name: "Contract Review", count: 37 },
+              { name: "Data Analysis", count: 28 },
+            ].map((item) => (
+              <p key={item.name} className="text-[13px] text-[#92700C]">
+                <span className="font-semibold">{item.count} people</span> added <span className="font-semibold">{item.name}</span> in the last 2 days
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════ SECTION 2: Skills Catalog ═══════ */}
       <section>
         <h3 className="text-[15px] font-bold text-text-primary mb-4">

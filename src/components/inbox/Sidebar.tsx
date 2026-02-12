@@ -76,12 +76,25 @@ function CopyIcon() {
 
 /* ── Types ── */
 
+function GiftIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1" y="7" width="14" height="7.5" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M1 7h14V5.5A1.5 1.5 0 0013.5 4h-11A1.5 1.5 0 001 5.5V7z" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M8 4v10.5" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M8 4C8 4 6.2 2.5 5 2.5S3 3.5 3 4h5zM8 4c0 0 1.8-1.5 3-1.5S13 3.5 13 4H8z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 interface SidebarProps {
   activeItem: "inbox" | "sent" | "trash";
   onItemChange: (item: "inbox" | "sent" | "trash") => void;
   inboxCount?: number;
   agentEmail: string;
   onLogout: () => void;
+  isPremium?: boolean;
+  referralCode?: string;
 }
 
 export default function Sidebar({
@@ -90,9 +103,21 @@ export default function Sidebar({
   inboxCount,
   agentEmail,
   onLogout,
+  isPremium = false,
+  referralCode = "",
 }: SidebarProps) {
   const [showCompose, setShowCompose] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [referralCopied, setReferralCopied] = useState(false);
+
+  function handleCopyReferral() {
+    if (!referralCode) return;
+    const link = `https://workpal.email?ref=${referralCode}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setReferralCopied(true);
+      setTimeout(() => setReferralCopied(false), 2000);
+    });
+  }
 
   async function handleCopy() {
     try {
@@ -118,6 +143,27 @@ export default function Sidebar({
   return (
     <>
       <div className="flex flex-col h-full px-3 py-4">
+        {/* Premium badge */}
+        {isPremium && (
+          <div className="mb-3 px-2">
+            <div className="flex items-center gap-1.5 animate-premium-badge">
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#dcfce7] text-[11px] font-bold text-cta tracking-wide uppercase">
+                Premium
+              </span>
+            </div>
+            {referralCode && (
+              <button
+                type="button"
+                onClick={handleCopyReferral}
+                className="mt-1.5 flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] hover:text-cta transition-colors duration-[180ms] cursor-pointer"
+              >
+                <GiftIcon />
+                {referralCopied ? "Link copied!" : "Invite friends \u2014 earn more months"}
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Compose button — elevated on grey bg like Gmail */}
         <button
           onClick={() => setShowCompose(true)}

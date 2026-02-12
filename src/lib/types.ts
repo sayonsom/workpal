@@ -21,6 +21,8 @@ export interface SignupResponse {
   message: string;
   pending_verification: boolean;
   referral_code?: string;
+  is_premium?: boolean;
+  premium_until?: number;
 }
 
 export interface ReferralInfo {

@@ -202,6 +202,8 @@ function HeroContent() {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [signupAgentEmail, setSignupAgentEmail] = useState("");
   const [signupReferralCode, setSignupReferralCode] = useState("");
+  const [signupIsPremium, setSignupIsPremium] = useState(false);
+  const [signupPremiumUntil, setSignupPremiumUntil] = useState(0);
 
   // Error toast
   const [toastError, setToastError] = useState("");
@@ -289,9 +291,11 @@ function HeroContent() {
           setBetaRemaining(data.remaining);
         }
       } catch { /* non-critical */ }
-      // Open verification modal
+      // Open signup success modal
       setSignupAgentEmail(result.agent_email);
       setSignupReferralCode(result.referral_code || "");
+      setSignupIsPremium(result.is_premium ?? false);
+      setSignupPremiumUntil(result.premium_until ?? 0);
       setShowSignupModal(true);
     } catch (err) {
       if (err instanceof ApiException && err.status === 409) {
@@ -524,6 +528,8 @@ function HeroContent() {
         email={email}
         agentEmail={signupAgentEmail}
         referralCode={signupReferralCode}
+        isPremium={signupIsPremium}
+        premiumUntil={signupPremiumUntil}
       />
 
       {/* Error toast */}

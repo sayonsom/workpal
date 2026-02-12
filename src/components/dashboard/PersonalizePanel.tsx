@@ -66,6 +66,18 @@ export default function PersonalizePanel({ agentId }: PersonalizePanelProps) {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
+        {/* LinkedIn info box */}
+        <div className="rounded-[8px] bg-[#F0F9FF] border border-[#2980B9]/20 px-4 py-3 flex items-start gap-2.5">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5 text-[#2980B9]">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M8 7v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <circle cx="8" cy="5" r="0.75" fill="currentColor" />
+          </svg>
+          <p className="text-[13px] text-[#1a5276] leading-[1.5]">
+            Adding your LinkedIn helps your Workpal understand your expertise and write in your professional voice. It takes about 10 seconds.
+          </p>
+        </div>
+
         {/* Profile text */}
         <div>
           <label
@@ -110,7 +122,12 @@ export default function PersonalizePanel({ agentId }: PersonalizePanelProps) {
         )}
 
         <Button type="submit" variant="primary" disabled={loading}>
-          {loading ? "Personalizing..." : "Personalize Agent"}
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              {linkedinUrl.trim() ? "Enriching from LinkedIn..." : "Personalizing..."}
+            </span>
+          ) : "Personalize Agent"}
         </Button>
       </form>
 
