@@ -580,6 +580,22 @@ export async function confirmForgotPassword(
   return result;
 }
 
+export async function setPassword(
+  email: string,
+  new_password: string
+): Promise<{ id_token: string; refresh_token: string; user_id?: string }> {
+  const result = await apiFetch<{ id_token: string; refresh_token: string; user_id?: string }>(
+    "/set-password",
+    {
+      method: "POST",
+      body: JSON.stringify({ email, new_password }),
+    },
+    false
+  );
+  saveTokens(result.id_token, result.refresh_token);
+  return result;
+}
+
 export async function changePassword(
   old_password: string,
   new_password: string

@@ -5,7 +5,9 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { SITE } from "@/lib/constants";
-import { confirmForgotPassword, forgotPassword } from "@/lib/api";
+import { setPassword } from "@/lib/api";
+
+/* ── Icons ── */
 
 function CheckIcon() {
   return (
@@ -16,53 +18,44 @@ function CheckIcon() {
   );
 }
 
+function EyeIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function EyeOffIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M6.5 3.2A7.5 7.5 0 0115 8c-.5 1-1.4 2.4-2.8 3.5M9.9 9.9A2 2 0 016.1 6.1M1 8s2.5-5 7-5M1 1l14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* ── Form ── */
+
 function SetPasswordForm() {
   const searchParams = useSearchParams();
-  const codeParam = searchParams.get("code") || "";
   const emailParam = searchParams.get("email") || "";
 
-  // Step 1: If no code in URL, show "request code" flow
-  const [step, setStep] = useState<"request" | "set" | "success">(
-    codeParam ? "set" : "request"
-  );
+  const [step, setStep] = useState<"set" | "success">("set");
   const [email, setEmail] = useState(emailParam);
-  const [code, setCode] = useState(codeParam);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [requestMessage, setRequestMessage] = useState("");
-
-  async function handleRequestCode(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    if (!email.trim()) {
-      setError("Please enter your email address.");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await forgotPassword(email.trim());
-      setRequestMessage("A password reset code has been sent to your email.");
-      setStep("set");
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Failed to send reset code. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function handleSetPassword(e: React.FormEvent) {
     e.preventDefault();
     setError("");
 
-    if (!code.trim()) {
-      setError("Please enter the verification code from your email.");
+    if (!email.trim()) {
+      setError("Please enter your email address.");
       return;
     }
     if (newPassword.length < 8) {
@@ -76,19 +69,22 @@ function SetPasswordForm() {
 
     setLoading(true);
     try {
-      await confirmForgotPassword(email.trim(), code.trim(), newPassword);
-      // Tokens are saved automatically by confirmForgotPassword
+      await setPassword(email.trim(), newPassword);
+      // Tokens are saved automatically by setPassword
       setStep("success");
     } catch (err) {
       setError(
         err instanceof Error
           ? err.message
-          : "Reset code is invalid or expired. Please request a new one."
+          : "Failed to set password. Please try again."
       );
     } finally {
       setLoading(false);
     }
   }
+
+  const inputClassName =
+    "w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-surface-subtle px-4">
@@ -131,92 +127,42 @@ function SetPasswordForm() {
             </div>
           )}
 
-          {/* Request code step (first-time access without a code) */}
-          {step === "request" && (
-            <>
-              <h1 className="text-[24px] font-bold text-text-primary text-center">
-                Set Your Password
-              </h1>
-              <p className="mt-2 text-[14px] text-[var(--color-text-subtle)] text-center">
-                {email
-                  ? "Click below to receive a password reset code."
-                  : "Enter your email to receive a password reset code."}
-              </p>
-
-              <form onSubmit={handleRequestCode} className="mt-6 space-y-4">
-                {!emailParam && (
-                  <div>
-                    <label
-                      htmlFor="request-email"
-                      className="block text-[13px] font-bold text-text-primary mb-1"
-                    >
-                      Email
-                    </label>
-                    <input
-                      id="request-email"
-                      type="email"
-                      placeholder="Your email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                    />
-                  </div>
-                )}
-
-                {emailParam && (
-                  <p className="text-[14px] text-text-primary text-center">
-                    Sending code to <span className="font-bold">{email}</span>
-                  </p>
-                )}
-
-                {error && (
-                  <p className="text-[13px] text-danger font-bold">{error}</p>
-                )}
-
-                <Button
-                  type="submit"
-                  variant="primary"
-                  className="w-full"
-                  disabled={loading}
-                >
-                  {loading ? "Sending..." : "Send Reset Code"}
-                </Button>
-              </form>
-            </>
-          )}
-
-          {/* Set password step */}
+          {/* Set password form */}
           {step === "set" && (
             <>
               <h1 className="text-[24px] font-bold text-text-primary text-center">
                 Set Your Password
               </h1>
               <p className="mt-2 text-[14px] text-[var(--color-text-subtle)] text-center">
-                {requestMessage || "Enter your reset code and new password."}
+                Choose a password to access your Workpal dashboard.
               </p>
 
               <form onSubmit={handleSetPassword} className="mt-6 space-y-4">
-                {!codeParam && (
-                  <div>
-                    <label
-                      htmlFor="reset-code"
-                      className="block text-[13px] font-bold text-text-primary mb-1"
-                    >
-                      Verification Code
-                    </label>
+                {/* Email — read-only if pre-filled from URL, editable otherwise */}
+                <div>
+                  <label
+                    htmlFor="set-email"
+                    className="block text-[13px] font-bold text-text-primary mb-1"
+                  >
+                    Email
+                  </label>
+                  {emailParam ? (
+                    <p className="h-11 flex items-center px-3 rounded-[6px] bg-[var(--color-surface-subtle)] border border-[var(--color-border-light)] text-[15px] text-text-primary">
+                      {email}
+                    </p>
+                  ) : (
                     <input
-                      id="reset-code"
-                      type="text"
-                      inputMode="numeric"
-                      placeholder="6-digit code from your email"
-                      value={code}
-                      onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                      className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                      autoFocus
+                      id="set-email"
+                      type="email"
+                      placeholder="Your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={inputClassName}
                     />
-                  </div>
-                )}
+                  )}
+                </div>
 
+                {/* New Password */}
                 <div>
                   <label
                     htmlFor="new-password"
@@ -224,20 +170,33 @@ function SetPasswordForm() {
                   >
                     New Password
                   </label>
-                  <input
-                    id="new-password"
-                    type="password"
-                    placeholder="Min 8 characters"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    autoComplete="new-password"
-                    className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                  />
+                  <div className="relative">
+                    <input
+                      id="new-password"
+                      type={showNewPassword ? "text" : "password"}
+                      placeholder="Min 8 characters"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      autoComplete="new-password"
+                      className={`${inputClassName} pr-10`}
+                      autoFocus={!!emailParam}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-text-primary transition-colors cursor-pointer"
+                      tabIndex={-1}
+                      aria-label={showNewPassword ? "Hide password" : "Show password"}
+                    >
+                      {showNewPassword ? <EyeOffIcon /> : <EyeIcon />}
+                    </button>
+                  </div>
                   <p className="mt-1 text-[12px] text-[var(--color-text-muted)]">
                     Min 8 characters
                   </p>
                 </div>
 
+                {/* Confirm Password */}
                 <div>
                   <label
                     htmlFor="confirm-password"
@@ -245,15 +204,26 @@ function SetPasswordForm() {
                   >
                     Confirm Password
                   </label>
-                  <input
-                    id="confirm-password"
-                    type="password"
-                    placeholder="Re-enter password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    autoComplete="new-password"
-                    className="w-full h-11 px-3 rounded-[6px] border border-[var(--color-border-strong)] text-[15px] text-text-primary placeholder:text-[var(--color-text-muted)] focus:border-info focus:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 transition-colors duration-[120ms]"
-                  />
+                  <div className="relative">
+                    <input
+                      id="confirm-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Re-enter password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      autoComplete="new-password"
+                      className={`${inputClassName} pr-10`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-text-primary transition-colors cursor-pointer"
+                      tabIndex={-1}
+                      aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                    >
+                      {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+                    </button>
+                  </div>
                 </div>
 
                 {error && (
@@ -269,6 +239,14 @@ function SetPasswordForm() {
                   {loading ? "Setting password..." : "Set Password"}
                 </Button>
               </form>
+
+              {/* Link to login */}
+              <p className="mt-4 text-center text-[13px] text-[var(--color-text-subtle)]">
+                Already have a password?{" "}
+                <a href="/login" className="text-link font-bold hover:underline">
+                  Log in
+                </a>
+              </p>
             </>
           )}
         </div>
