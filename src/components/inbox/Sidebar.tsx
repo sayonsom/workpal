@@ -57,6 +57,18 @@ function GearIcon() {
   );
 }
 
+function CalendarIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M2 7h12M5 1.5v3M11 1.5v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="5.5" cy="10" r="0.75" fill="currentColor" />
+      <circle cx="8" cy="10" r="0.75" fill="currentColor" />
+      <circle cx="10.5" cy="10" r="0.75" fill="currentColor" />
+    </svg>
+  );
+}
+
 function LogOutIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -87,10 +99,13 @@ function GiftIcon() {
   );
 }
 
+type SidebarItem = "inbox" | "upcoming" | "sent" | "trash";
+
 interface SidebarProps {
-  activeItem: "inbox" | "sent" | "trash";
-  onItemChange: (item: "inbox" | "sent" | "trash") => void;
+  activeItem: SidebarItem;
+  onItemChange: (item: SidebarItem) => void;
   inboxCount?: number;
+  upcomingCount?: number;
   agentEmail: string;
   onLogout: () => void;
   isPremium?: boolean;
@@ -101,6 +116,7 @@ export default function Sidebar({
   activeItem,
   onItemChange,
   inboxCount,
+  upcomingCount,
   agentEmail,
   onLogout,
   isPremium = false,
@@ -130,12 +146,14 @@ export default function Sidebar({
   }
 
   const navItems: {
-    key: "inbox" | "sent" | "trash";
+    key: SidebarItem;
     label: string;
     icon: React.ReactNode;
     disabled?: boolean;
+    count?: number;
   }[] = [
-    { key: "inbox", label: INBOX.sidebar.inbox, icon: <InboxIcon /> },
+    { key: "inbox", label: INBOX.sidebar.inbox, icon: <InboxIcon />, count: inboxCount },
+    { key: "upcoming", label: INBOX.sidebar.upcoming, icon: <CalendarIcon />, count: upcomingCount },
     { key: "sent", label: INBOX.sidebar.sent, icon: <SendIcon />, disabled: true },
     { key: "trash", label: INBOX.sidebar.trash, icon: <TrashIcon />, disabled: true },
   ];
@@ -169,9 +187,9 @@ export default function Sidebar({
             >
               {item.icon}
               <span className="flex-1 text-left">{item.label}</span>
-              {item.key === "inbox" && inboxCount !== undefined && inboxCount > 0 && (
+              {item.count !== undefined && item.count > 0 && (
                 <span className="text-[12px] font-semibold tabular-nums">
-                  {inboxCount}
+                  {item.count}
                 </span>
               )}
               {item.disabled && (

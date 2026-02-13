@@ -132,6 +132,8 @@ export interface Task {
   thread_id?: string;
   parent_task_id?: string;
   completed_at?: number;
+  task_type?: string;       // "meeting_prep" or undefined
+  meeting_date?: number;    // Unix timestamp of meeting start
 }
 
 export interface TasksResponse {

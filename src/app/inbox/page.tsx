@@ -7,11 +7,12 @@ import InboxShell from "@/components/inbox/InboxShell";
 import Sidebar from "@/components/inbox/Sidebar";
 import TaskList from "@/components/inbox/TaskList";
 import TaskDetail from "@/components/inbox/TaskDetail";
+import UpcomingList from "@/components/inbox/UpcomingList";
 import FirstTimeGuide from "@/components/inbox/FirstTimeGuide";
 import SkillsPanel from "@/components/dashboard/SkillsPanel";
 import SamplesPanel from "@/components/dashboard/SamplesPanel";
 import PersonalizePanel from "@/components/dashboard/PersonalizePanel";
-import { getAgents, getAgentTasks, getReferralInfo } from "@/lib/api";
+import { getAgents, getAgentTasks, getUpcomingTasks, getReferralInfo } from "@/lib/api";
 import { clearTokens } from "@/lib/auth";
 import { INBOX } from "@/lib/constants";
 import type { Agent, Task } from "@/lib/types";
@@ -34,7 +35,7 @@ function InboxContent() {
 
   // ── UI state ──
   const [activeTab, setActiveTab] = useState<Tab>("work");
-  const [activeSidebarItem, setActiveSidebarItem] = useState<"inbox" | "sent" | "trash">("inbox");
+  const [activeSidebarItem, setActiveSidebarItem] = useState<"inbox" | "upcoming" | "sent" | "trash">("inbox");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -48,6 +49,10 @@ function InboxContent() {
     setOnboardingDismissed(true);
     localStorage.setItem("workpal_onboarding_complete", "true");
   }
+
+  // ── Upcoming tasks state ──
+  const [upcomingTasks, setUpcomingTasks] = useState<Task[]>([]);
+  const [loadingUpcoming, setLoadingUpcoming] = useState(false);
 
   // ── Loading state ──
   const [loadingAgents, setLoadingAgents] = useState(true);
@@ -100,6 +105,26 @@ function InboxContent() {
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);
+
+  // ── Fetch upcoming tasks when sidebar switches or agent changes ──
+  const fetchUpcoming = useCallback(async () => {
+    if (!selectedAgent) return;
+    setLoadingUpcoming(true);
+    try {
+      const res = await getUpcomingTasks(selectedAgent.agent_id);
+      setUpcomingTasks(res.tasks);
+    } catch {
+      // ignore
+    } finally {
+      setLoadingUpcoming(false);
+    }
+  }, [selectedAgent]);
+
+  useEffect(() => {
+    if (activeSidebarItem === "upcoming") {
+      fetchUpcoming();
+    }
+  }, [activeSidebarItem, fetchUpcoming]);
 
   // ── Load more tasks ──
   async function handleLoadMore() {
@@ -193,8 +218,9 @@ function InboxContent() {
       sidebar={
         <Sidebar
           activeItem={activeSidebarItem}
-          onItemChange={setActiveSidebarItem}
+          onItemChange={(item) => { setActiveSidebarItem(item); setSelectedTask(null); }}
           inboxCount={tasks.length}
+          upcomingCount={upcomingTasks.length}
           agentEmail={agentEmail}
           onLogout={handleLogout}
           isPremium={isPremium}
@@ -205,63 +231,82 @@ function InboxContent() {
       onSearchChange={setSearchQuery}
       isPremium={isPremium}
     >
-      {/* Tab bar — clean, subtle underline style */}
-      <div className="flex gap-0 border-b border-[var(--color-border-light)] mb-5">
-        {tabs.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => {
-              setActiveTab(tab.key);
-              setSelectedTask(null);
-            }}
-            className={`relative px-4 py-2 text-[13px] font-semibold transition-colors duration-[180ms] cursor-pointer ${
-              activeTab === tab.key
-                ? "text-text-primary"
-                : "text-[var(--color-text-muted)] hover:text-[var(--color-text-subtle)]"
-            }`}
-          >
-            {tab.label}
-            {activeTab === tab.key && (
-              <span className="absolute bottom-0 left-1 right-1 h-[2px] bg-text-primary rounded-full" />
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Tab content */}
-      {activeTab === "work" && (
+      {/* ── Upcoming view ── */}
+      {activeSidebarItem === "upcoming" && (
         selectedTask ? (
           <TaskDetail task={selectedTask} onBack={handleBackToList} />
-        ) : !loadingTasks && tasks.length === 0 && !onboardingDismissed ? (
-          <FirstTimeGuide
-            agentEmail={agentEmail}
-            onSwitchTab={(tab) => {
-              setActiveTab(tab === "skills" ? "skills" : "samples");
-            }}
-            onDismiss={handleDismissOnboarding}
-          />
         ) : (
-          <TaskList
-            tasks={filteredTasks}
-            loading={loadingTasks}
-            hasMore={hasMore}
-            loadingMore={loadingMore}
-            onLoadMore={handleLoadMore}
+          <UpcomingList
+            tasks={upcomingTasks}
+            loading={loadingUpcoming}
             onSelectTask={handleSelectTask}
             agentEmail={agentEmail}
           />
         )
       )}
 
-      {activeTab === "skills" && agentId && (
-        <SkillsPanel agentId={agentId} />
-      )}
-
-      {activeTab === "samples" && agentId && (
+      {/* ── Inbox view (default) ── */}
+      {activeSidebarItem === "inbox" && (
         <>
-          <PersonalizePanel agentId={agentId} />
-          <hr className="my-8 border-[var(--color-border-light)]" />
-          <SamplesPanel agentId={agentId} />
+          {/* Tab bar — clean, subtle underline style */}
+          <div className="flex gap-0 border-b border-[var(--color-border-light)] mb-5">
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => {
+                  setActiveTab(tab.key);
+                  setSelectedTask(null);
+                }}
+                className={`relative px-4 py-2 text-[13px] font-semibold transition-colors duration-[180ms] cursor-pointer ${
+                  activeTab === tab.key
+                    ? "text-text-primary"
+                    : "text-[var(--color-text-muted)] hover:text-[var(--color-text-subtle)]"
+                }`}
+              >
+                {tab.label}
+                {activeTab === tab.key && (
+                  <span className="absolute bottom-0 left-1 right-1 h-[2px] bg-text-primary rounded-full" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab content */}
+          {activeTab === "work" && (
+            selectedTask ? (
+              <TaskDetail task={selectedTask} onBack={handleBackToList} />
+            ) : !loadingTasks && tasks.length === 0 && !onboardingDismissed ? (
+              <FirstTimeGuide
+                agentEmail={agentEmail}
+                onSwitchTab={(tab) => {
+                  setActiveTab(tab === "skills" ? "skills" : "samples");
+                }}
+                onDismiss={handleDismissOnboarding}
+              />
+            ) : (
+              <TaskList
+                tasks={filteredTasks}
+                loading={loadingTasks}
+                hasMore={hasMore}
+                loadingMore={loadingMore}
+                onLoadMore={handleLoadMore}
+                onSelectTask={handleSelectTask}
+                agentEmail={agentEmail}
+              />
+            )
+          )}
+
+          {activeTab === "skills" && agentId && (
+            <SkillsPanel agentId={agentId} />
+          )}
+
+          {activeTab === "samples" && agentId && (
+            <>
+              <PersonalizePanel agentId={agentId} />
+              <hr className="my-8 border-[var(--color-border-light)]" />
+              <SamplesPanel agentId={agentId} />
+            </>
+          )}
         </>
       )}
     </InboxShell>

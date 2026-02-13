@@ -922,6 +922,7 @@ export const INBOX = {
   sidebar: {
     compose: "Compose",
     inbox: "Inbox",
+    upcoming: "Upcoming",
     sent: "Sent",
     trash: "Trash",
     logout: "Log out",
@@ -945,6 +946,17 @@ export const INBOX = {
     workpalResponse: "WORKPAL'S RESPONSE",
     attachments: "ATTACHMENTS",
     noPreview: "No preview available.",
+  },
+  upcoming: {
+    emptyHeading: "No upcoming meetings",
+    emptyText: "Forward a calendar invite to your Workpal to get meeting prep insights.",
+    today: "Today",
+    tomorrow: "Tomorrow",
+    thisWeek: "This Week",
+    later: "Later",
+    briefReady: "Brief ready",
+    preparing: "Preparing...",
+    failed: "Failed",
   },
   compose: {
     heading: "Send a task to your Workpal",

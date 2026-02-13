@@ -293,6 +293,12 @@ export async function getTaskDetail(
   return apiFetch<Task>(`/agents/${agentId}/tasks/${taskId}`);
 }
 
+export async function getUpcomingTasks(
+  agentId: string
+): Promise<{ tasks: Task[] }> {
+  return apiFetch<{ tasks: Task[] }>(`/agents/${agentId}/tasks/upcoming`);
+}
+
 // ── Usage ──
 
 export async function getUsage(): Promise<UsageStats> {
